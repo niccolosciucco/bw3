@@ -1,16 +1,19 @@
-import "bootstrap/dist/css/bootstrap.min.css"
 import { Col, Container, Row } from "react-bootstrap"
 import ProfileHeader from "./ProfileHeader"
+import LinkedInProfileSidebar from "./SidebarProfile"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function Profile() {
   return (
     <>
       <Container>
         <Row>
-          <Col md={8}>
+          <Col md={9}>
             <ProfileHeader />
           </Col>
-          <Col md={4}></Col>
+          <Col md={3}>
+            <LinkedInProfileSidebar />
+          </Col>
         </Row>
       </Container>
     </>
