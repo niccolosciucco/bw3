@@ -1,8 +1,8 @@
-import { Col, Container, Row } from "react-bootstrap"
-import ProfileHeader from "./ProfileHeader"
-import LinkedInProfileSidebar from "./SidebarProfile"
-import "bootstrap/dist/css/bootstrap.min.css"
-// import Footer from "../Footer/Footer"
+import { Col, Container, Row } from "react-bootstrap";
+import ProfileHeader from "./ProfileHeader";
+import LinkedInProfileSidebar from "./SidebarProfile";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function Profile() {
   return (
     <>
@@ -10,7 +10,6 @@ function Profile() {
         <Row>
           <Col md={9}>
             <ProfileHeader />
-            {/* <Footer /> */}
           </Col>
           <Col md={3}>
             <LinkedInProfileSidebar />
@@ -18,7 +17,7 @@ function Profile() {
         </Row>
       </Container>
     </>
-  )
+  );
 }
 
-export default Profile
+export default Profile;
