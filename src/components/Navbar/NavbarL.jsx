@@ -23,10 +23,9 @@ import { BsGrid3X3GapFill } from "react-icons/bs";
 
 const NavbarL = () => {
   return (
-    <Navbar className="bg-body-white">
-      <Container className="d-flex justify-content-start align-items-center px-lg-5  ">
+    <Navbar className="bg-white border-bottom py-1">
+      <Container className="w-100">
         {/*IMMAGINE MOBILE */}
-
         <Image
           className="d-block d-lg-none me-2"
           src="https://placecats.com/50/50"
