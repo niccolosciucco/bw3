@@ -7,19 +7,19 @@ import {
   Dropdown,
   Image,
   Button,
-} from "react-bootstrap"
+} from "react-bootstrap";
 import {
   FaLinkedin,
   FaBriefcase,
   FaSquare,
   FaSortAmountDownAlt,
-} from "react-icons/fa"
-import { IoSearchSharp } from "react-icons/io5"
-import { AiFillHome } from "react-icons/ai"
-import { BsPeopleFill } from "react-icons/bs"
-import { AiFillMessage } from "react-icons/ai"
-import { IoNotifications } from "react-icons/io5"
-import { BsGrid3X3GapFill } from "react-icons/bs"
+} from "react-icons/fa";
+import { IoSearchSharp } from "react-icons/io5";
+import { AiFillHome } from "react-icons/ai";
+import { BsPeopleFill } from "react-icons/bs";
+import { AiFillMessage } from "react-icons/ai";
+import { IoNotifications } from "react-icons/io5";
+import { BsGrid3X3GapFill } from "react-icons/bs";
 
 const NavbarL = () => {
   return (
@@ -180,7 +180,7 @@ const NavbarL = () => {
         </div>
       </Container>
     </Navbar>
-  )
-}
+  );
+};
 
-export default NavbarL
+export default NavbarL;
