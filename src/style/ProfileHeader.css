@@ -1,0 +1,74 @@
+.profile-card {
+  max-width: 600px;
+  border-radius: 12px;
+  border: 0.5px solid #e0e0e0;
+  overflow: hidden;
+}
+
+.profile-cover {
+  height: 120px;
+  background: linear-gradient(135deg, #a0b8c8 0%, #c5d5df 60%, #d0e0ea 100%);
+}
+
+.profile-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: #b0c4d4;
+  margin-top: -44px;
+  overflow: hidden;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.univ-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: #fff;
+  border: 0.5px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: #0a66c2;
+}
+
+.panel {
+  background: #f3f2ef;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.linkedin-follower {
+  color: #0a66c2;
+}
+
+.linkedin-btn-post {
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+  background: transparent;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 16px;
+}
+
+.linkedin-btn-post:hover {
+  background-color: #e8f0fe;
+  color: #0a66c2;
+  border-color: #0a66c2;
+}
+
+.mostra-tutto {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.mostra-tutto:hover {
+  color: rgba(0, 0, 0, 0.9);
+}

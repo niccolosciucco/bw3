@@ -4,6 +4,7 @@ import store from "./store";
 import { BrowserRouter, Routes, Route } from "react-router";
 import LandingPage from "./components/Landing/LandingPage"
 import LoginPage from "./components/Login/LoginPage"
+import Profile from "./components/Profile/Profile";
 
 
 
@@ -12,8 +13,9 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </Provider>
