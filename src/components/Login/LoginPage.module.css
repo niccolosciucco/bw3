@@ -1,0 +1,35 @@
+.pageWrapper {
+  min-height: 100vh;
+  background-color: #f3f2ef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.logo {
+  padding: 16px 24px;
+  width: 100%;
+  align-self: flex-start;
+}
+
+.formBox {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.formBox input {
+  border-radius: 4px !important;
+}
+.footerLogin {
+  margin-top: auto;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: #666;
+}

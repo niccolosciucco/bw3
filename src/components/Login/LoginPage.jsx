@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { loginStart, loginSuccess, loginFailure, clearError } from "../../store/slices/authSlice"
 import { Container, Form, Button, Alert, Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router"
+import styles from "./LoginPage.module.css"
+import { FaLinkedin, FaApple, FaGoogle } from "react-icons/fa"
 
 const LoginPage = () => {
     const dispatch = useDispatch()
@@ -46,7 +48,15 @@ const LoginPage = () => {
     }
 
     return (
-        <Container style={{ maxWidth: "400px", marginTop: "50px" }}>
+        <div className={styles.pageWrapper}>
+
+            {/* Logo in alto a sinistra */}
+            <div className={styles.logo}>
+                <FaLinkedin className="text-primary" size={38} />
+            </div>
+
+            <Container style={{ maxWidth: "400px", margin: "0 auto" }}>
+                <div className={styles.formBox}>
             <h2 className="mb-4">Accedi al tuo account</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
@@ -93,8 +103,42 @@ const LoginPage = () => {
                         "Accedi"
                     )}
                 </Button>
+                        {/* Checkbox */}
+                        <Form.Check
+                            type="checkbox"
+                            label="Mantieni attiva la sessione"
+                            className="my-3"
+                        />
+
+                        <hr />
+                        <p className="text-center text-muted">oppure</p>
+
+                        {/* Bottoni social */}
+                        <Button variant="outline-secondary" className="w-100 mb-2 rounded-pill">
+                            <FaGoogle className="me-2" /> Accedi con Google
+                        </Button>
+
+                        <Button variant="outline-secondary" className="w-100 rounded-pill">
+                            <FaApple className="me-2" /> Accedi con Apple
+                        </Button>
             </Form>
+                    <hr />
+                    <p className="text-center">
+                        Hai dimenticato la <a href="#">password?</a>
+                    </p>
+                    <p className="text-center">
+                        Non hai un account? <a href="#">Iscriviti ora</a>
+                    </p>
+                </div>
         </Container>
+            <footer className={styles.footerLogin}>
+                <span>LinkedIn Corporation © 2026</span>
+                <span>Contratto di licenza</span>
+                <span>Informativa sulla privacy</span>
+                <span>Linee guida della community</span>
+                <span>Informativa sui cookie</span>
+            </footer>
+        </div>
     )
 }
 
