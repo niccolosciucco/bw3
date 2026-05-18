@@ -161,6 +161,82 @@ export default function ProfileHeader() {
           </button>
         </div>
       </div>
+      <div className="card profile-card mx-auto mt-3">
+        <div className="card-body">
+          <h6 className="fw-semibold mb-1">Analisi</h6>
+          <p className="text-secondary small mb-3">Visibile solo a te</p>
+
+          <div className="row g-3">
+            <div className="col-4">
+              <div className="analytics-panel text-center">
+                <p className="fw-semibold mb-1">
+                  0 visualizzazioni del profilo
+                </p>
+                <p className="text-secondary small">
+                  Aggiorna il tuo profilo per attrarre visitatori
+                </p>
+              </div>
+            </div>
+
+            <div className="col-4">
+              <div className="analytics-panel text-center">
+                <p className="fw-semibold mb-1">0 impressioni dei post</p>
+                <p className="text-secondary small mb-1">
+                  Crea un post per aumentare l’interesse
+                </p>
+                <p className="text-secondary small">Ultimi 7 giorni</p>
+              </div>
+            </div>
+
+            <div className="col-4">
+              <div className="analytics-panel text-center">
+                <p className="fw-semibold mb-1">0 comparse nelle ricerche</p>
+                <p className="text-secondary small">
+                  Aggiorna il tuo profilo per comparire di più nei risultati di
+                  ricerca
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-2">
+            <span className="text-primary small">Mostra tutto →</span>
+          </div>
+        </div>
+      </div>
+      <div className="card profile-card mx-auto mt-3">
+        <div className="card-body pb-0">
+          <div className="d-flex align-items-start justify-content-between">
+            <div>
+              <h6 className="fw-semibold mb-1">Attività</h6>
+              <span className="linkedin-follower fw-semibold small">
+                0 follower
+              </span>
+              <p className="fw-semibold mb-0 mt-2" style={{ fontSize: "14px" }}>
+                Non hai ancora pubblicato nulla
+              </p>
+              <p className="text-secondary mb-0" style={{ fontSize: "14px" }}>
+                I post che condividi appariranno qui
+              </p>
+            </div>
+            <div className="d-flex align-items-center gap-2 flex-shrink-0">
+              <button className="btn linkedin-btn-post">Crea un post</button>
+              <button className="btn btn-link p-1 text-secondary">
+                <i className="bi bi-pencil fs-6"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr className="mt-3 mb-0" />
+        <div className="card-footer bg-white border-0 text-center py-2">
+          <a
+            href="#"
+            className="mostra-tutto fw-semibold text-decoration-none small"
+          >
+            Mostra tutto →
+          </a>
+        </div>
+      </div>
     </>
   )
 }
