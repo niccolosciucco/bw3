@@ -45,3 +45,30 @@
   border-radius: 8px;
   padding: 10px 12px;
 }
+.linkedin-follower {
+  color: #0a66c2;
+}
+
+.linkedin-btn-post {
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+  background: transparent;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 16px;
+}
+
+.linkedin-btn-post:hover {
+  background-color: #e8f0fe;
+  color: #0a66c2;
+  border-color: #0a66c2;
+}
+
+.mostra-tutto {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.mostra-tutto:hover {
+  color: rgba(0, 0, 0, 0.9);
+}

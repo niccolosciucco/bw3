@@ -1,10 +1,10 @@
-import { Col, Container, Row } from "react-bootstrap";
-import SingleTextFooter from "./SingleTextFooter";
-import SingleIconAndTextFooter from "./SingleIconAndTextFooter";
-import { AiFillQuestionCircle, AiFillSetting } from "react-icons/ai";
-import DropDownFooter from "./DropDownFooter";
-import PrivacyAndTermsDropDown from "./PrivacyAndTermsDropDown";
-import { FaShieldAlt } from "react-icons/fa";
+import { Col, Container, Row } from "react-bootstrap"
+import SingleTextFooter from "./SingleTextFooter"
+import SingleIconAndTextFooter from "./SingleIconAndTextFooter"
+// import { AiFillQuestionCircle, AiFillSetting } from "react-icons/ai";
+import DropDownFooter from "./DropDownFooter"
+import PrivacyAndTermsDropDown from "./PrivacyAndTermsDropDown"
+// import { FaShieldAlt } from "react-icons/fa";
 
 const Footer = function () {
   return (
@@ -63,7 +63,7 @@ const Footer = function () {
         </Row>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
