@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { loginStart, loginSuccess, loginFailure, clearError } from "../../store/slices/authSlice"
 import { Container, Form, Button, Alert, Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router"
+import styles from "./LoginPage.module.css"
 
 const LoginPage = () => {
     const dispatch = useDispatch()
