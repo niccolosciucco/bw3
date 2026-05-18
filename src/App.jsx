@@ -1,12 +1,12 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import Profile from "./components/Profile"
+import "bootstrap/dist/css/bootstrap.min.css";
+import Profile from "./components/Profile";
 
 function App() {
   return (
     <>
       <Profile />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
