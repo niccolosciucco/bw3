@@ -8,10 +8,10 @@ function Profile() {
     <>
       <Container>
         <Row>
-          <Col md={8}>
+          <Col md={9}>
             <ProfileHeader />
           </Col>
-          <Col md={4}>
+          <Col md={3}>
             <LinkedInProfileSidebar />
           </Col>
         </Row>
