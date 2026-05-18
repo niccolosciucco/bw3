@@ -1,20 +1,22 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
+import store from "./store";
+import { BrowserRouter, Routes, Route } from "react-router";
+import LandingPage from "./components/Landing/LandingPage";
+import LoginPage from "./components/Login/LoginPage";
 import Profile from "./components/Profile/Profile";
-import Footer from "./components/Footer/Footer";
-import Messages from "./components/Messages/Messages";
-import NavbarL from "./components/Navbar/NavbarL";
-import { BrowserRouter } from "react-router";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <BrowserRouter>
-        <NavbarL />
-        <Profile />
-        <Messages />
-        <Footer />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
       </BrowserRouter>
-    </>
+    </Provider>
   );
 }
 
