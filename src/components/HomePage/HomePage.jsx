@@ -5,15 +5,17 @@ import MainContent from "../HomePage/MainContent";
 
 const HomePage = function () {
   return (
-    <>
+    <div
+      className="d-flex flex-column min-vh-100"
+      style={{ backgroundColor: "rgba(244, 242, 238)" }}
+    >
       <NavbarL />
-
-      <MainContent />
-
+      <main className="flex-grow-1">
+        <MainContent />
+      </main>
       <Messages />
-
       <Footer />
-    </>
+    </div>
   );
 };
 export default HomePage;
