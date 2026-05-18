@@ -1,12 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import Profile from "./components/Profile/Profile"
 
 function App() {
-  return (
-    <>
-      <Profile />
-    </>
-  )
+  return <></>
 }
 
 export default App
