@@ -6,6 +6,7 @@ import LandingPage from "./components/Landing/LandingPage"
 import LoginPage from "./components/Login/LoginPage"
 import Profile from "./components/Profile/Profile"
 import HomePage from "./components/HomePage/HomePage"
+import JobsPage from "./components/Jobs/JobsPage"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "./store/slices/profileSlice"
@@ -35,6 +36,7 @@ function AppContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/jobs" element={<JobsPage />} />
       </Routes>
     </BrowserRouter>
   )
