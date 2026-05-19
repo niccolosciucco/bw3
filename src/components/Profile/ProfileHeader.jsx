@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import "../../style/ProfileHeader.css";
+import { useEffect, useState } from "react"
+import "../../style/ProfileHeader.css"
 
 export default function ProfileHeader() {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState(null)
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -15,18 +15,18 @@ export default function ProfileHeader() {
                 "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
             },
           },
-        );
-        const data = await res.json();
-        const user = data.find((p) => p.username === "guido_la_vespa");
-        setProfile(user);
+        )
+        const data = await res.json()
+        const user = data.find((p) => p.username === "guido_la_vespa")
+        setProfile(user)
       } catch (error) {
-        console.error("Errore nel fetch profilo:", error);
+        console.error("Errore nel fetch profilo:", error)
       }
-    };
-    fetchProfile();
-  }, []);
+    }
+    fetchProfile()
+  }, [])
 
-  if (!profile) return <p>Caricamento profilo...</p>;
+  if (!profile) return <p>Caricamento profilo...</p>
 
   return (
     <>
@@ -238,5 +238,5 @@ export default function ProfileHeader() {
         </div>
       </div>
     </>
-  );
+  )
 }
