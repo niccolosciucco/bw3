@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { Card, Button, ListGroup } from "react-bootstrap";
-import { FaChevronUp, FaChevronDown, FaEllipsisH } from "react-icons/fa";
-import { BsPencilSquare } from "react-icons/bs";
+import { Card, Button, ListGroup } from "react-bootstrap"
+import { FaChevronUp, FaChevronDown, FaEllipsisH } from "react-icons/fa"
+import { BsPencilSquare } from "react-icons/bs"
+import { useSelector, useDispatch } from "react-redux"
+import { toggleMessages } from "../../store/slices/messagesSlice"
 
 function Messages() {
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch()
+  const isOpen = useSelector((state) => state.messages.isMessagesOpen)
   const chats = [
     {
       id: 1,
@@ -57,7 +59,7 @@ function Messages() {
                 Are you open-minded?`,
       avatar: "https://placecats.com/60/60",
     },
-  ];
+  ]
 
   return (
     <div
@@ -76,7 +78,7 @@ function Messages() {
     >
       <Card border="light">
         <Card.Header
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => dispatch(toggleMessages())}
           className="d-flex justify-content-between align-items-center bg-white border-bottom-0"
           style={{ cursor: "pointer", padding: "10px 12px" }}
         >
@@ -108,7 +110,7 @@ function Messages() {
             <Button
               variant="link"
               className="p-1 text-dark d-flex align-items-center"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => dispatch(toggleMessages())}
             >
               {isOpen ? <FaChevronDown size={14} /> : <FaChevronUp size={14} />}
             </Button>
@@ -161,7 +163,7 @@ function Messages() {
         )}
       </Card>
     </div>
-  );
+  )
 }
 
-export default Messages;
+export default Messages

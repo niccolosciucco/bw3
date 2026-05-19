@@ -20,8 +20,14 @@ import { BsPeopleFill } from "react-icons/bs"
 import { AiFillMessage } from "react-icons/ai"
 import { IoNotifications } from "react-icons/io5"
 import { BsGrid3X3GapFill } from "react-icons/bs"
+import "./NavbarL.css"
+
+import { Link } from "react-router"
+import { useDispatch } from "react-redux"
+import { toggleMessages } from "../../store/slices/messagesSlice"
 
 const NavbarL = () => {
+  const dispatch = useDispatch()
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
@@ -53,11 +59,11 @@ const NavbarL = () => {
 
         {/*ICONE MOBILE */}
         <div className="d-flex justify-content-between d-md-none gap-2">
-          <Button className="bg-transparent border-0 p-0">
-            <AiFillMessage size={22} style={{ color: "#666666" }} />
+          <Button className="bg-transparent border-0 p-0 btn-navbar">
+            <AiFillMessage size={22} />
           </Button>
-          <Button className="bg-transparent border-0 p-0">
-            <FaSortAmountDownAlt size={22} style={{ color: "#666666" }} />
+          <Button className="bg-transparent border-0 p-0 btn-navbar">
+            <FaSortAmountDownAlt size={22} />
           </Button>
         </div>
 
@@ -66,48 +72,41 @@ const NavbarL = () => {
           className="d-none d-md-flex align-items-center justify-content-between ms-md-2"
           style={{ width: "650px" }}
         >
-          <Nav.Link className="text-center">
-            <AiFillHome size={22} style={{ color: "#666666" }} />
-            <p
-              className="mb-0"
-              style={{ color: "#666666", fontSize: "0.75rem" }}
-            >
+          {/*HOME*/}
+          <Link
+            to={"/home"}
+            className="text-decoration-none text-center btn-navbar"
+          >
+            <AiFillHome size={22} />
+            <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Home
             </p>
-          </Nav.Link>
-          <Nav.Link className="text-center">
-            <BsPeopleFill size={22} style={{ color: "#666666" }} />
-            <p
-              className="mb-0"
-              style={{ color: "#666666", fontSize: "0.75rem" }}
-            >
+          </Link>
+
+          <Nav.Link className="text-center btn-navbar ">
+            <BsPeopleFill size={22} />
+            <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               La mia rete
             </p>
           </Nav.Link>
-          <Nav.Link className="text-center">
-            <FaBriefcase size={22} style={{ color: "#666666" }} />
-            <p
-              className="mb-0"
-              style={{ color: "#666666", fontSize: "0.75rem" }}
-            >
+          <Nav.Link className="text-center btn-navbar">
+            <FaBriefcase size={22} />
+            <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Lavoro
             </p>
           </Nav.Link>
-          <Nav.Link className="text-center">
-            <AiFillMessage size={22} style={{ color: "#666666" }} />
-            <p
-              className="mb-0"
-              style={{ color: "#666666", fontSize: "0.75rem" }}
-            >
+          <Nav.Link
+            className="text-center btn-navbar"
+            onClick={() => dispatch(toggleMessages())}
+          >
+            <AiFillMessage size={22} />
+            <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Messaggistica
             </p>
           </Nav.Link>
-          <Nav.Link className="text-center">
-            <IoNotifications size={22} style={{ color: "#666666" }} />
-            <p
-              className="mb-0"
-              style={{ color: "#666666", fontSize: "0.75rem" }}
-            >
+          <Nav.Link className="text-center btn-navbar">
+            <IoNotifications size={22} />
+            <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Notifiche
             </p>
           </Nav.Link>
@@ -235,12 +234,9 @@ const NavbarL = () => {
 
           {/*PARTE FINALE DI DX*/}
           <div className="vr me-2 d-none d-lg-block mx-2"></div>
-          <div className="d-none d-lg-flex align-items-center flex-column">
-            <BsGrid3X3GapFill size={22} style={{ color: "#666666" }} />
-            <p
-              className="mb-0"
-              style={{ color: "#666666", fontSize: "0.75rem" }}
-            >
+          <div className="d-none d-lg-flex align-items-center flex-column btn-navbar">
+            <BsGrid3X3GapFill size={22} />
+            <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Per le aziende
             </p>
           </div>
@@ -249,8 +245,8 @@ const NavbarL = () => {
               <FaSquare size={22} style={{ color: "#E7A33E" }} />
             </Button>
             <p
-              className="mb-0 text-center"
-              style={{ color: "#666666", fontSize: "0.75rem" }}
+              className="mb-0 text-center btn-navbar"
+              style={{ fontSize: "0.75rem" }}
             >
               Prova di nuovo <br />
               Premium
