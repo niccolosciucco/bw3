@@ -1,9 +1,9 @@
-import { Card, Image, Nav, ListGroup } from "react-bootstrap"
-import { FaSquare } from "react-icons/fa"
-import { IoBookmark } from "react-icons/io5"
-import { MdGroups } from "react-icons/md"
-import { BiNews } from "react-icons/bi"
-import { MdEventNote } from "react-icons/md"
+import { Card, Image, Nav, ListGroup } from "react-bootstrap";
+import { FaSquare } from "react-icons/fa";
+import { IoBookmark } from "react-icons/io5";
+import { MdGroups } from "react-icons/md";
+import { BiNews } from "react-icons/bi";
+import { MdEventNote } from "react-icons/md";
 
 const ColonnaSX = () => {
   return (
@@ -99,7 +99,7 @@ const ColonnaSX = () => {
         </ListGroup>
       </Card>
     </>
-  )
-}
+  );
+};
 
-export default ColonnaSX
+export default ColonnaSX;
