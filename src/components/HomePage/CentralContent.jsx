@@ -3,14 +3,14 @@ import {
   BsImageFill,
   BsNewspaper,
   BsPlayBtnFill,
-} from "react-icons/bs"
-import TextAreaCreatePost from "./TextAreaCreatePost"
-import PostActionButton from "../HomePage/PostActionButton"
-import Posts from "./Posts"
-import { useNavigate } from "react-router"
+} from "react-icons/bs";
+import TextAreaCreatePost from "./TextAreaCreatePost";
+import PostActionButton from "../HomePage/PostActionButton";
+import Posts from "./Posts";
+import { useNavigate } from "react-router";
 
 const CentralContent = function () {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <div
@@ -30,8 +30,9 @@ const CentralContent = function () {
               cursor: "pointer",
             }}
           />
-
-          <TextAreaCreatePost />
+          <TextAreaCreatePost
+            onPostSuccess={() => window.location.reload()}
+          />{" "}
         </div>
 
         <div className="d-flex align-items-center justify-content-between pt-1">
@@ -71,7 +72,7 @@ const CentralContent = function () {
 
       <Posts />
     </>
-  )
-}
+  );
+};
 
-export default CentralContent
+export default CentralContent;
