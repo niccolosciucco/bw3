@@ -10,15 +10,15 @@ function Profile() {
   return (
     <>
       <NavbarL />
-      <Container style={{ paddingLeft: "100px", paddingRight: "100px" }}>
+      <Container className="px-md-5">
         <Row className="g-3 mt-3">
-          <Col md={9}>
+          <Col xs={12} lg={9}>
             <ProfileHeader />
-            <Footer />
           </Col>
-          <Col md={3}>
+          <Col xs={12} lg={3}>
             <LinkedInProfileSidebar />
           </Col>
+          <Footer />
         </Row>
       </Container>
       <Messages />
