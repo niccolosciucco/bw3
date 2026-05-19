@@ -2,3 +2,19 @@
     background-color: #f3f2ef;
     padding: 16px 24px;
 }
+.categoriesFooter {
+  background-color: #f3f2ef;
+  padding: 140px 0;
+}
+.pageWrapper {
+  background-color: white;
+}
+
+.heroSection {
+  background-color: white;
+  padding: 48px 0;
+}
+.categoriesSection {
+  background-color: #f3f2ef;
+  padding: 24px 0;
+}

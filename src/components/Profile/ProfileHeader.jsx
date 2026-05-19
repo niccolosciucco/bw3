@@ -1,31 +1,43 @@
 import { useEffect, useState } from "react"
 import ExperienceSection from "./ExperiencesProfile.jsx"
 import "../../style/ProfileHeader.css"
-import PanelCarousel from "../Profile/leftside.jsx/carousel"
+import PanelCarousel from "./leftside.jsx/carousel"
+import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
+
 export default function ProfileHeader() {
   const [profile, setProfile] = useState(null)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+
+  const fetchProfile = async () => {
+    try {
+      const res = await fetch(
+        "https://striveschool-api.herokuapp.com/api/profile/me",
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
+          },
+        },
+      )
+      if (res.ok) {
+        const myProfile = await res.json()
+        setProfile(myProfile)
+      } else {
+        console.error("Errore nel recupero profilo personale")
+      }
+    } catch (error) {
+      console.error("Errore nel fetch profilo:", error)
+    }
+  }
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await fetch(
-          "https://striveschool-api.herokuapp.com/api/profile/",
-          {
-            headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
-            },
-          },
-        )
-        const data = await res.json()
-        const user = data.find((p) => p.username === "guido_la_vespa")
-        setProfile(user)
-      } catch (error) {
-        console.error("Errore nel fetch profilo:", error)
-      }
-    }
+    // eslint-disable-next-line
     fetchProfile()
   }, [])
+
+  const handleProfileUpdate = async () => {
+    await fetchProfile()
+  }
 
   if (!profile) return <p>Caricamento profilo...</p>
 
@@ -60,7 +72,10 @@ export default function ProfileHeader() {
               alt={`${profile.name} ${profile.surname}`}
               className="img-fluid rounded-circle"
             />
-            <button className="btn btn-light btn-sm rounded-circle position-absolute bottom-0 end-0 translate-middle mt-5">
+            <button
+              className="btn btn-light btn-sm rounded-circle position-absolute bottom-0 end-0 translate-middle mt-5"
+              onClick={() => setIsEditModalOpen(true)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -181,30 +196,6 @@ export default function ProfileHeader() {
             </button>
           </div>
 
-          {/* <div className="row g-2">
-            <div className="col-6">
-              <div className="panel position-relative">
-                <p className="fw-semibold mb-1">Disponibile a lavorare</p>
-                <p className="text-secondary small mb-1">
-                  {profile.area} + altre · In sede · Ibrido · Da remoto
-                </p>
-                <span className="text-primary small">Mostra dettagli</span>
-              </div>
-            </div>
-
-            <div className="col-6">
-              <div className="panel position-relative">
-                <button className="btn btn-link p-0 text-secondary border-0 fs-6 position-absolute top-0 end-0">
-                  ✕
-                </button>
-                <p className="small mb-1">
-                  <strong>Fai sapere che stai facendo selezione</strong> e
-                  attrai candidati qualificati.
-                </p>
-                <span className="text-primary small">Inizia</span>
-              </div>
-            </div>
-          </div> */}
           <div className="row g-2">
             <PanelCarousel profile={profile} />
           </div>
@@ -411,6 +402,13 @@ export default function ProfileHeader() {
           </a>
         </div>
       </div>
+
+      <EditProfileModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        profile={profile}
+        onUpdate={handleProfileUpdate}
+      />
       <div className="mt-3">
         <ExperienceSection />
       </div>

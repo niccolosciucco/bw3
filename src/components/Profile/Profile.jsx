@@ -11,7 +11,7 @@ function Profile() {
     <>
       <NavbarL />
       <Container style={{ paddingLeft: "100px", paddingRight: "100px" }}>
-        <Row className="g-0 mt-3">
+        <Row className="g-3 mt-3">
           <Col md={9}>
             <ProfileHeader />
             <Footer />
