@@ -10,7 +10,7 @@ function Profile() {
   return (
     <>
       <NavbarL />
-      <Container className="px-5">
+      <Container style={{ paddingLeft: "100px", paddingRight: "100px" }}>
         <Row className="g-0 mt-3">
           <Col md={9}>
             <ProfileHeader />
