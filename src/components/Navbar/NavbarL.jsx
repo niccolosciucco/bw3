@@ -37,7 +37,7 @@ const NavbarL = () => {
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
-        {/*IMMAGINE MOBILE */}
+        {/*IMMAGINE NAVBAR MOBILE */}
         <Image
           onClick={() => navigate("/profile")}
           className="d-block me-2 d-lg-none"
@@ -52,8 +52,8 @@ const NavbarL = () => {
           alt="Profilo"
         />
 
-        {/*LOGO + BARRA DI RICERCA */}
         <div className="d-flex align-items-center">
+          {/*LOGO NAVBAR DESKTOP*/}
           <Navbar.Brand
             onClick={() => navigate("/home")}
             className="me-2 d-none d-lg-block"
@@ -61,6 +61,7 @@ const NavbarL = () => {
           >
             <FaLinkedin className="text-primary" size={38} />
           </Navbar.Brand>
+          {/*BARRA DI RICERCA */}
           <Form>
             <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">
               <IoSearchSharp size={18} />
@@ -75,15 +76,19 @@ const NavbarL = () => {
 
         {/*ICONE MOBILE */}
         <div className="d-flex justify-content-between d-md-none gap-2">
-          <Button className="bg-transparent border-0 p-0 btn-navbar">
-            <AiFillMessage size={22} />
-          </Button>
+          <Link
+            to={"/home"}
+            className="text-decoration-none text-center"
+            style={{ color: isHomepage ? "#191919" : " #666666" }}
+          >
+            <AiFillHome size={22} />
+          </Link>
           <Button className="bg-transparent border-0 p-0 btn-navbar">
             <FaSortAmountDownAlt size={22} />
           </Button>
         </div>
 
-        {/*ICONE*/}
+        {/*ICONE DESKTOP*/}
         <div
           className="d-none d-md-flex align-items-center justify-content-between ms-md-2"
           style={{ width: "650px" }}
@@ -100,18 +105,23 @@ const NavbarL = () => {
             </p>
           </Link>
 
+          {/*LA MIA RETE*/}
           <Nav.Link className="text-center btn-navbar">
             <BsPeopleFill size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               La mia rete
             </p>
           </Nav.Link>
+
+          {/*LAVORO*/}
           <Nav.Link className="text-center btn-navbar">
             <FaBriefcase size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Lavoro
             </p>
           </Nav.Link>
+
+          {/*MESSAGGISTICA*/}
           <Nav.Link
             className="text-center btn-navbar"
             onClick={() => dispatch(toggleMessages())}
@@ -125,6 +135,8 @@ const NavbarL = () => {
               Messaggistica
             </p>
           </Nav.Link>
+
+          {/*NOTIFICHE*/}
           <Nav.Link className="text-center btn-navbar">
             <IoNotifications size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
@@ -132,7 +144,7 @@ const NavbarL = () => {
             </p>
           </Nav.Link>
 
-          {/*PROFILO */}
+          {/*DROPDOWN - TU */}
           <div className="d-flex flex-column align-items-center">
             <Dropdown>
               <Dropdown.Toggle
@@ -165,7 +177,7 @@ const NavbarL = () => {
                   </p>
                 </div>
               </Dropdown.Toggle>
-              {/*DROPDOWN */}
+              {/*DROPDOWN MENU */}
               <Dropdown.Menu
                 align="end"
                 className="py-1 pt-3 px-3"

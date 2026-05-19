@@ -10,9 +10,9 @@ function Profile() {
   return (
     <>
       <NavbarL />
-      <Container className="px-md-5">
-        <Row className="g-3 mt-3">
-          <Col xs={12} lg={9}>
+      <Container className="">
+        <Row className=" mt-3">
+          <Col xs={12} lg={9} className="mb-4">
             <ProfileHeader />
           </Col>
           <Col xs={12} lg={3}>
