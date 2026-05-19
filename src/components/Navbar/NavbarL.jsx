@@ -39,10 +39,16 @@ const NavbarL = () => {
       <Container className="w-100">
         {/*IMMAGINE MOBILE */}
         <Image
+          onClick={() => navigate("/profile")}
           className="d-block me-2 d-lg-none"
           src="https://placecats.com/50/50"
           roundedCircle
-          style={{ width: "30px", height: "30px", objectFit: "cover" }}
+          style={{
+            width: "30px",
+            height: "30px",
+            objectFit: "cover",
+            cursor: "pointer",
+          }}
           alt="Profilo"
         />
 
