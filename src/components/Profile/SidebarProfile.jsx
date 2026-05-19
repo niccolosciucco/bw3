@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw";
-const API_URL = "https://striveschool-api.herokuapp.com/api/profile/";
-const HEADERS = { Authorization: `Bearer ${TOKEN}` };
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw"
+const API_URL = "https://striveschool-api.herokuapp.com/api/profile/"
+const HEADERS = { Authorization: `Bearer ${TOKEN}` }
 
 export default function LinkedInProfileSidebar() {
-  const [profile, setProfile] = useState(null);
-  const [viewed, setViewed] = useState([]);
+  const [profile, setProfile] = useState(null)
+  const [viewed, setViewed] = useState([])
 
   useEffect(() => {
     fetch(API_URL + "me", { headers: HEADERS })
       .then((res) => res.json())
       .then((me) => {
-        setProfile(me);
+        setProfile(me)
         fetch(API_URL, { headers: HEADERS })
           .then((res) => res.json())
           .then((all) =>
             setViewed(all.filter((p) => p._id !== me._id).slice(0, 5)),
-          );
-      });
-  }, []);
+          )
+      })
+  }, [])
 
   return (
     <>
@@ -112,5 +112,5 @@ export default function LinkedInProfileSidebar() {
         </section>
       </div>
     </>
-  );
+  )
 }
