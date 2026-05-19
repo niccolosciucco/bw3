@@ -1,5 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap"
 import ColonnaSX from "./ColonnaSX"
+import { Col, Container, Row } from "react-bootstrap"
+import CentralContent from "./CentralContent"
 
 const HomePage = function () {
   return (
@@ -11,7 +13,7 @@ const HomePage = function () {
             {/* colonna a sinistra */}
           </Col>
           <Col xs={12} lg={6}>
-            {/* colonna centrale */}
+            <CentralContent />
           </Col>
           <Col xs={12} lg={3}>
             {/* colonna a desta */}
