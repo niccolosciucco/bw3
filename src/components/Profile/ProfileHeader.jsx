@@ -45,7 +45,7 @@ export default function ProfileHeader() {
           </button>
         </div>
 
-        <div className="px-3 position-relative">
+        <div className="px-3 position-relative mt-3">
           <div className="profile-avatar d-flex align-items-center justify-content-center">
             <img
               src={profile.image}
@@ -57,8 +57,8 @@ export default function ProfileHeader() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-                width="14"
-                height="14"
+                width="18"
+                height="18"
               >
                 <path d="M21.13 2.86a3 3 0 0 0-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 0 0 0-4.16zM6.77 18.57l-1.35-1.34L16.64 6 18 7.35z"></path>
               </svg>
