@@ -124,24 +124,36 @@ const NavbarL = () => {
 
           {/*PROFILO */}
           <div className="d-flex flex-column align-items-center">
-            <Image
-              className="d-none d-lg-block"
-              src="https://placecats.com/50/50"
-              roundedCircle
-              style={{ width: "24px", height: "24px", objectFit: "cover" }}
-              alt="Profilo"
-            />
             <Dropdown>
               <Dropdown.Toggle
-                className="d-none d-lg-flex align-items-center bg-transparent text-black border-0 p-0"
+                className="d-none d-lg-inline-flex align-items-center bg-transparent text-black border-0 p-0"
                 id="dropdown-basic"
+                style={{ gap: "4px" }}
               >
-                <p
-                  className="mb-0 text-center"
-                  style={{ color: "#666666", fontSize: "0.75rem" }}
-                >
-                  Tu
-                </p>
+                <div className="d-flex flex-column align-items-center ">
+                  <Image
+                    className="d-none d-lg-block"
+                    src="https://placecats.com/50/50"
+                    roundedCircle
+                    style={{
+                      width: "24px",
+                      height: "24px",
+                      objectFit: "cover",
+                    }}
+                    alt="Profilo"
+                  />
+
+                  <p
+                    className="mb-0 text-center"
+                    style={{
+                      color: "#666666",
+                      fontSize: "0.75rem",
+                      paddingRight: "8px",
+                    }}
+                  >
+                    Tu
+                  </p>
+                </div>
               </Dropdown.Toggle>
               {/*DROPDOWN */}
               <Dropdown.Menu
