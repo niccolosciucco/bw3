@@ -142,17 +142,24 @@ export default function ExperienceSection() {
   }
 
   return (
-    <div className="bg-white rounded-3 shadow-sm p-4">
+    <div className="bg-white rounded-3 shadow-sm p-3">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h5 className="fw-bold mb-0">Esperienze</h5>
-        <Button
-          variant="outline-primary"
-          size="sm"
-          onClick={openAddModal}
-          className="rounded-pill"
-        >
-          + Aggiungi
-        </Button>
+        <h6 className="fw-semibold mb-1">Esperienze</h6>
+        <button className="btn linkedin-btn-post">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="me-1"
+            onClick={openAddModal}
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          Aggiungi
+        </button>
       </div>
 
       {loading && (
@@ -160,13 +167,11 @@ export default function ExperienceSection() {
           <Spinner animation="border" variant="secondary" />
         </div>
       )}
-
       {!loading && experiences.length === 0 && (
         <p className="text-muted text-center py-4">
           Nessuna esperienza. Aggiungi la tua prima esperienza lavorativa.
         </p>
       )}
-
       {experiences.map((exp, idx) => (
         <div key={exp._id}>
           <div className="d-flex gap-3 py-3">
@@ -186,7 +191,9 @@ export default function ExperienceSection() {
                   }}
                 />
               ) : (
-                <span style={{ fontSize: "1.5rem" }}>🏢</span>
+                <span style={{ fontSize: "1.5rem" }}>
+                  <i class="bi bi-building-add"></i>
+                </span>
               )}
             </div>
 
@@ -200,7 +207,9 @@ export default function ExperienceSection() {
                     {exp.endDate?.slice(0, 10) || "Presente"}
                   </div>
                   {exp.area && (
-                    <div className="small text-muted mt-1">📍 {exp.area}</div>
+                    <div className="small mt-1">
+                      <i class="bi bi-geo"></i> {exp.area}
+                    </div>
                   )}
                 </div>
                 <div className="d-flex gap-1">
@@ -209,14 +218,14 @@ export default function ExperienceSection() {
                     size="sm"
                     onClick={() => openEditModal(exp)}
                   >
-                    ✏️
+                    <i className="bi bi-pencil" />
                   </Button>
                   <Button
                     variant="light"
                     size="sm"
                     onClick={() => handleDelete(exp._id)}
                   >
-                    🗑️
+                    <i class="bi bi-trash"></i>
                   </Button>
                 </div>
               </div>
@@ -230,7 +239,6 @@ export default function ExperienceSection() {
           {idx < experiences.length - 1 && <hr className="my-0" />}
         </div>
       ))}
-
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -262,7 +270,7 @@ export default function ExperienceSection() {
               <Form.Control
                 value={form.area}
                 onChange={(e) => setForm({ ...form, area: e.target.value })}
-                placeholder="es. Milano, Italia"
+                placeholder="es. Milano"
               />
             </Form.Group>
             <div className="d-flex gap-2 mb-3">
@@ -321,7 +329,7 @@ export default function ExperienceSection() {
             variant="primary"
             disabled={saving}
           >
-            {saving ? <Spinner size="sm" animation="border" /> : "Salva"}
+            salva
           </Button>
         </Modal.Footer>
       </Modal>

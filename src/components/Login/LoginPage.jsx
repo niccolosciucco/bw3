@@ -5,6 +5,7 @@ import { Container, Form, Button, Alert, Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router"
 import styles from "./LoginPage.module.css"
 import { FaLinkedin, FaApple, FaGoogle } from "react-icons/fa"
+import { setUser } from "../../store/slices/profileSlice"
 
 const LoginPage = () => {
     const dispatch = useDispatch()
@@ -34,9 +35,13 @@ const LoginPage = () => {
                     Authorization: `Bearer ${password}`  // password è il token inserito dall'utente
                 },
             })
+            console.log("Response status:", response.status)  // debug: vedi se è 200 o 401
+            console.log("ok:", response.ok)  // debug: vedi se è true o false
 
             if (response.ok) {
+                const data = await response.json()
                 dispatch(loginSuccess(password))  // salva il token nel localStorage
+                dispatch(setUser(response.data))  // salva l'utente nel profilo
                 navigate("/profile")  // reindirizza al profilo
             } else {
                 dispatch(loginFailure("Token non valido"))
