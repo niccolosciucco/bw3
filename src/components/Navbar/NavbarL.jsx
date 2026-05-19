@@ -22,12 +22,14 @@ import { IoNotifications } from "react-icons/io5"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import "./NavbarL.css"
 
-import { Link } from "react-router"
+import { NavLink } from "react-router"
 import { useDispatch } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
+import { useNavigate } from "react-router"
 
 const NavbarL = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
@@ -73,7 +75,8 @@ const NavbarL = () => {
           style={{ width: "650px" }}
         >
           {/*HOME*/}
-          <Link
+          <Nav.Link
+            as={NavLink}
             to={"/home"}
             className="text-decoration-none text-center btn-navbar"
           >
@@ -81,7 +84,7 @@ const NavbarL = () => {
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Home
             </p>
-          </Link>
+          </Nav.Link>
 
           <Nav.Link className="text-center btn-navbar ">
             <BsPeopleFill size={22} />
@@ -133,101 +136,108 @@ const NavbarL = () => {
                 </p>
               </Dropdown.Toggle>
               {/*DROPDOWN */}
-              <Dropdown.Menu align="end" className="py-1 pt-3">
-                <Dropdown.Item className="px-2 mx-0">
-                  <div className="d-flex align-items-center">
-                    <Image
-                      src="https://placecats.com/50/50"
-                      roundedCircle
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        objectFit: "cover",
-                      }}
-                      alt="Profilo"
-                    />
-                    <div className="ms-2">
-                      <h5 className="fs-6 m-0">Guido La Vespa </h5>
-                      <p className="m-0" style={{ fontSize: "0.9rem" }}>
-                        Professione
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-3 d-flex justify-content-center mt-2 gap-1">
-                    <Button
-                      className="bg-white rounded-pill"
-                      style={{ color: "#0B5ED7", fontSize: "0.9rem" }}
-                    >
-                      Visualizza Profilo
-                    </Button>
-                    <Button
-                      className="text-white rounded-pill"
-                      style={{ backgroundColor: "#0B5ED7", fontSize: "0.9rem" }}
-                    >
-                      Verifica ora
-                    </Button>
-                  </div>
-                  <hr />
-                  <div>
-                    <p className="fw-semibold fs-6 p-0 mb-2">Account</p>
-                    <p
-                      className="p-0 mb-2 fw-semibold text-secondary"
-                      style={{ fontSize: "0.9rem" }}
-                    >
-                      {" "}
-                      <FaSquare
-                        size={22}
-                        style={{ color: "#E7A33E" }}
-                        className="p-0 me-2"
-                      />
-                      1 month of Premium for € 0
+              <Dropdown.Menu
+                align="end"
+                className="py-1 pt-3 px-3"
+                style={{
+                  width: "290px",
+                  borderRadius: "8px",
+                }}
+              >
+                <div className="d-flex align-items-center">
+                  <Image
+                    src="https://placecats.com/50/50"
+                    roundedCircle
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      objectFit: "cover",
+                    }}
+                    alt="Profilo"
+                  />
+                  <div className="ms-2">
+                    <h5 className="fs-6 m-0">Guido La Vespa </h5>
+                    <p className="m-0" style={{ fontSize: "0.9rem" }}>
+                      Professione
                     </p>
-                    <Nav.Link
-                      style={{ fontSize: "0.9rem" }}
-                      className="text-secondary"
-                    >
-                      Impostazioni e Privacy
-                    </Nav.Link>
-                    <Nav.Link
-                      style={{ fontSize: "0.9rem" }}
-                      className="text-secondary"
-                    >
-                      Guida
-                    </Nav.Link>
-                    <Nav.Link
-                      style={{ fontSize: "0.9rem" }}
-                      className="text-secondary"
-                    >
-                      Lingua
-                    </Nav.Link>
                   </div>
-                  <hr />
-                  <div>
-                    <p className="fw-semibold p-0 mb-2">Gestisci</p>
-                    <Nav.Link
-                      style={{ fontSize: "0.9rem" }}
-                      className="text-secondary"
-                    >
-                      Post e attività
-                    </Nav.Link>
-                    <Nav.Link
-                      style={{ fontSize: "0.9rem" }}
-                      className="text-secondary"
-                    >
-                      Account per la pubblicazione di
-                      <br /> offerte di lavoro
-                    </Nav.Link>
-                  </div>
-                  <hr />
-                  <div>
-                    <Nav.Link
-                      style={{ fontSize: "0.9rem" }}
-                      className="text-secondary"
-                    >
-                      Esci
-                    </Nav.Link>
-                  </div>
-                </Dropdown.Item>
+                </div>
+                <div className="mt-3 d-flex justify-content-center mt-2 gap-1">
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => navigate("/profile")}
+                    className="bg-white rounded-pill"
+                    style={{ color: "#0B5ED7", fontSize: "0.9rem" }}
+                  >
+                    Visualizza Profilo
+                  </Button>
+                  <Button
+                    className="text-white rounded-pill"
+                    style={{ backgroundColor: "#0B5ED7", fontSize: "0.9rem" }}
+                  >
+                    Verifica ora
+                  </Button>
+                </div>
+                <hr />
+                <div>
+                  <p className="fw-semibold fs-6 p-0 mb-2">Account</p>
+                  <p
+                    className="p-0 mb-2 fw-semibold text-secondary"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    {" "}
+                    <FaSquare
+                      size={22}
+                      style={{ color: "#E7A33E" }}
+                      className="p-0 me-2"
+                    />
+                    1 month of Premium for € 0
+                  </p>
+                  <Nav.Link
+                    style={{ fontSize: "0.9rem" }}
+                    className="text-secondary"
+                  >
+                    Impostazioni e Privacy
+                  </Nav.Link>
+                  <Nav.Link
+                    style={{ fontSize: "0.9rem" }}
+                    className="text-secondary"
+                  >
+                    Guida
+                  </Nav.Link>
+                  <Nav.Link
+                    style={{ fontSize: "0.9rem" }}
+                    className="text-secondary"
+                  >
+                    Lingua
+                  </Nav.Link>
+                </div>
+                <hr />
+                <div>
+                  <p className="fw-semibold p-0 mb-2">Gestisci</p>
+                  <Nav.Link
+                    style={{ fontSize: "0.9rem" }}
+                    className="text-secondary"
+                  >
+                    Post e attività
+                  </Nav.Link>
+                  <Nav.Link
+                    style={{ fontSize: "0.9rem" }}
+                    className="text-secondary"
+                  >
+                    Account per la pubblicazione di
+                    <br /> offerte di lavoro
+                  </Nav.Link>
+                </div>
+                <hr />
+                <div>
+                  <Nav.Link
+                    style={{ fontSize: "0.9rem" }}
+                    className="text-secondary"
+                  >
+                    Esci
+                  </Nav.Link>
+                </div>
               </Dropdown.Menu>
             </Dropdown>
           </div>
