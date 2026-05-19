@@ -110,11 +110,6 @@ export default function PanelCarousel({ profile }) {
                   className="panel position-relative"
                   style={{ flex: 1 }}
                 >
-                  {card.hasClose && (
-                    <button className="btn btn-link p-0 text-secondary border-0 fs-6 position-absolute top-0 end-0">
-                      ✕
-                    </button>
-                  )}
                   {card.bold ? (
                     <p className="small mb-1">
                       <strong>{card.bold}</strong>
