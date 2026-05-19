@@ -23,7 +23,7 @@ import { BsGrid3X3GapFill } from "react-icons/bs"
 import "./NavbarL.css"
 
 import { Link } from "react-router"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
 import { useNavigate, useLocation } from "react-router"
 
@@ -32,21 +32,33 @@ const NavbarL = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const isHomepage = location.pathname.startsWith("/home")
+
+  const isMessagesOpen = useSelector((state) => state.messages.isMessagesOpen)
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
         {/*IMMAGINE MOBILE */}
         <Image
+          onClick={() => navigate("/profile")}
           className="d-block me-2 d-lg-none"
           src="https://placecats.com/50/50"
           roundedCircle
-          style={{ width: "30px", height: "30px", objectFit: "cover" }}
+          style={{
+            width: "30px",
+            height: "30px",
+            objectFit: "cover",
+            cursor: "pointer",
+          }}
           alt="Profilo"
         />
 
         {/*LOGO + BARRA DI RICERCA */}
         <div className="d-flex align-items-center">
-          <Navbar.Brand href="#home" className="me-2 d-none d-lg-block">
+          <Navbar.Brand
+            onClick={() => navigate("/home")}
+            className="me-2 d-none d-lg-block"
+            style={{ cursor: "pointer" }}
+          >
             <FaLinkedin className="text-primary" size={38} />
           </Navbar.Brand>
           <Form>
@@ -88,7 +100,7 @@ const NavbarL = () => {
             </p>
           </Link>
 
-          <Nav.Link className="text-center btn-navbar ">
+          <Nav.Link className="text-center btn-navbar">
             <BsPeopleFill size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               La mia rete
@@ -103,6 +115,10 @@ const NavbarL = () => {
           <Nav.Link
             className="text-center btn-navbar"
             onClick={() => dispatch(toggleMessages())}
+            style={{
+              color: isMessagesOpen ? "#191919" : "#666666",
+              cursor: "pointer",
+            }}
           >
             <AiFillMessage size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
@@ -118,24 +134,36 @@ const NavbarL = () => {
 
           {/*PROFILO */}
           <div className="d-flex flex-column align-items-center">
-            <Image
-              className="d-none d-lg-block"
-              src="https://placecats.com/50/50"
-              roundedCircle
-              style={{ width: "24px", height: "24px", objectFit: "cover" }}
-              alt="Profilo"
-            />
             <Dropdown>
               <Dropdown.Toggle
-                className="d-none d-lg-flex align-items-center bg-transparent text-black border-0 p-0"
+                className="d-none d-lg-inline-flex align-items-center bg-transparent text-black border-0 p-0"
                 id="dropdown-basic"
+                style={{ gap: "4px" }}
               >
-                <p
-                  className="mb-0 text-center"
-                  style={{ color: "#666666", fontSize: "0.75rem" }}
-                >
-                  Tu
-                </p>
+                <div className="d-flex flex-column align-items-center ">
+                  <Image
+                    className="d-none d-lg-block"
+                    src="https://placecats.com/50/50"
+                    roundedCircle
+                    style={{
+                      width: "24px",
+                      height: "24px",
+                      objectFit: "cover",
+                    }}
+                    alt="Profilo"
+                  />
+
+                  <p
+                    className="mb-0 text-center"
+                    style={{
+                      color: "#666666",
+                      fontSize: "0.75rem",
+                      paddingRight: "8px",
+                    }}
+                  >
+                    Tu
+                  </p>
+                </div>
               </Dropdown.Toggle>
               {/*DROPDOWN */}
               <Dropdown.Menu

@@ -2,7 +2,16 @@
   color: #666666;
 }
 
-.btn-navbar:hover,
-.btn-navbar:active {
+.btn-navbar:hover {
   color: #191919 !important;
+}
+
+.dropdown-toggle {
+  position: relative !important;
+}
+
+.dropdown-toggle::after {
+  position: absolute !important;
+  margin-top: 25px !important;
+  margin-left: 19px !important; /* Spinge giù la freccia per allinearla a "Tu" */
 }

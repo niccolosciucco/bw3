@@ -54,15 +54,32 @@ export default function LinkedInProfileSidebar() {
         <div className="card mb-3 rounded-3 border-2 p-1 ">
           <div className="card-body p-1 mt-2">
             <div
-              className="position-relative bg-secondary rounded mb-2 p-3"
-              style={{ height: 80 }}
+              className="position-relative rounded mb-2 p-3"
+              style={{
+                height: 80,
+                backgroundImage:
+                  "url('https://plus.unsplash.com/premium_photo-1668612066699-7bf9cc13aade?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
             >
               <div
-                className="bg-primary rounded z-1  position-absolute"
-                style={{ width: 60, height: 60, top: 30, left: 15 }}
+                className=" rounded z-1  position-absolute"
+                style={{
+                  width: 60,
+                  height: 60,
+                  top: 30,
+                  left: 15,
+                  backgroundImage:
+                    "url('https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
               />
               <span className="position-absolute top-0 end-0 px-1 border border-2 rounded-4 bg-light ">
-                <button className="border-0 bg-transparent">
+                <button className="border-0 bg-transparent small">
                   Promosso <i className="bi bi-three-dots" />
                 </button>
               </span>
