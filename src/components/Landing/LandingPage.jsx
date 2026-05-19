@@ -33,9 +33,21 @@ const LandingPage = () => {
                 <Row className="align-items-center">
                     <Col md={6}>
                         <h1 className={styles.heroTitle}>Ti diamo il benvenuto nella tua community professionale</h1>
+                        <div style={{ maxWidth: "400px" }}>
                         <Button variant="primary" className="rounded-pill w-100 mb-2" onClick={() => navigate("/login")}>
                             Accedi con l'email
                         </Button>
+                            <Button variant="primary" className="rounded-pill w-100 mb-3 d-flex align-items-center justify-content-center gap-2">
+                                <FaGoogle size={20} /> Continua con Google
+                            </Button>
+                            <Button variant="dark" className="rounded-pill w-100 mb-4 d-flex align-items-center justify-content-center gap-2">
+                                <FaApple size={20} /> Continua con Apple
+                            </Button>
+
+                            <p className="text-center text-muted" style={{ fontSize: "0.8rem" }}>
+                                Cliccando su "Continua" accetti il <a href="#">Contratto di licenza</a>, l'<a href="#">Informativa sulla privacy</a> e l'<a href="#">Informativa sui cookie</a> di LinkedIn.
+                            </p>
+                        </div>
                     </Col>
                     <Col md={6}>
                         <img
