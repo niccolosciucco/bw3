@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import ExperienceSection from "./ExperiencesProfile.jsx"
 import "../../style/ProfileHeader.css"
 import PanelCarousel from "../Profile/leftside.jsx/carousel"
 export default function ProfileHeader() {
@@ -409,6 +410,9 @@ export default function ProfileHeader() {
             Mostra tutto →
           </a>
         </div>
+      </div>
+      <div className="mt-3">
+        <ExperienceSection />
       </div>
     </>
   )
