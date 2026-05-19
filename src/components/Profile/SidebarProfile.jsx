@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
 const TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw"
 const API_URL = "https://striveschool-api.herokuapp.com/api/profile/"
@@ -23,12 +25,14 @@ export default function LinkedInProfileSidebar() {
 
   return (
     <>
-      <div className="p-3 ">
-        <section className=" p-3 border border-2 rounded-2 mb-3">
+      <div className="px-2">
+        <section className=" p-3 border border-2 rounded-2 mb-3 bg-light">
           <div className="mb-3">
             <div className="d-flex justify-content-between">
               <strong>Lingua del profilo</strong>
-              <i className="bi bi-pencil" />
+              <button className="border-0 bg-transparent">
+                <i className="bi bi-pencil" />
+              </button>
             </div>
             <span className="text-muted">Italiano</span>
           </div>
@@ -37,7 +41,9 @@ export default function LinkedInProfileSidebar() {
           <div className="mb-2 ">
             <div className="d-flex justify-content-between">
               <strong>Profilo pubblico e URL</strong>
-              <i className="bi bi-pencil" />
+              <button className="border-0 bg-transparent">
+                <i className="bi bi-pencil" />
+              </button>
             </div>
             <span className="text-primary small">
               www.linkedin.com/in/
@@ -45,18 +51,20 @@ export default function LinkedInProfileSidebar() {
             </span>
           </div>
         </section>
-        <div className="card mb-3 rounded-0 border-2">
+        <div className="card mb-3 rounded-3 border-2 p-1 ">
           <div className="card-body p-1 mt-2">
             <div
-              className="position-relative bg-secondary rounded mb-2"
+              className="position-relative bg-secondary rounded mb-2 p-3"
               style={{ height: 80 }}
             >
               <div
                 className="bg-primary rounded z-1  position-absolute"
                 style={{ width: 60, height: 60, top: 30, left: 15 }}
               />
-              <span className="position-absolute top-0 end-0 p-1 border border-2 rounded-4 bg-light">
-                Promosso <i className="bi bi-three-dots" />
+              <span className="position-absolute top-0 end-0 px-1 border border-2 rounded-4 bg-light ">
+                <button className="border-0 bg-transparent">
+                  Promosso <i className="bi bi-three-dots" />
+                </button>
               </span>
             </div>
             <div>
@@ -69,13 +77,13 @@ export default function LinkedInProfileSidebar() {
                 repeatable <i className="bi bi-recycle" />
               </p>
               <p className="text-muted small">Anche Haroon segue</p>
-              <button className="btn btn-outline-primary rounded-pill w-100">
+              <button className="btn btn-outline-primary rounded-pill w-100 mb-2">
                 Segui
               </button>
             </div>
           </div>
         </div>
-        <section className="border border-2 p-2 rounded-3">
+        <section className="border border-2 p-2 rounded-3 bg-light">
           <strong>Altri profili consultati</strong>
           <p className="text-muted small mb-2">Visibile solo a te</p>
 
