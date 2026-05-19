@@ -3,10 +3,12 @@ import ExperienceSection from "./ExperiencesProfile.jsx"
 import "../../style/ProfileHeader.css"
 import PanelCarousel from "./leftside.jsx/carousel"
 import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
+import ProfileCover from "../Profile/leftside.jsx/ProfileCover.jsx"
 
 export default function ProfileHeader() {
   const [profile, setProfile] = useState(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [coverImage, setCoverImage] = useState(null)
 
   const fetchProfile = async () => {
     try {
@@ -22,6 +24,9 @@ export default function ProfileHeader() {
       if (res.ok) {
         const myProfile = await res.json()
         setProfile(myProfile)
+        if (myProfile.coverImage) {
+          setCoverImage(myProfile.coverImage)
+        }
       } else {
         console.error("Errore nel recupero profilo personale")
       }
@@ -39,33 +44,21 @@ export default function ProfileHeader() {
     await fetchProfile()
   }
 
+  const handleCoverUpdate = (newCoverImage) => {
+    setCoverImage(newCoverImage)
+  }
+
   if (!profile) return <p>Caricamento profilo...</p>
 
   return (
     <>
       <div className="card profile-card ">
-        <div className="profile-cover position-relative">
-          <button className="btn btn-light btn-sm rounded-circle position-absolute top-0 end-0 m-2 d-flex align-items-center justify-content-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              id="camera-small"
-              fill="currentColor"
-              aria-hidden="true"
-              data-supported-dps="16x16"
-              viewBox="0 0 16 16"
-              data-token-id="525"
-              width="16"
-              height="16"
-              className="_3edc2961 _4cecf8c6 df2b129f _680a7526 c6867557 _824c8c41"
-              role="img"
-              aria-label=""
-            >
-              <path d="M10 9a2 2 0 1 1-2-2 2 2 0 0 1 2 2m5-2.5V14H1V6.5A2.5 2.5 0 0 1 3.5 4h.75L5 2h6l.75 2h.75A2.5 2.5 0 0 1 15 6.5M11 9a3 3 0 1 0-3 3 3 3 0 0 0 3-3"></path>
-            </svg>
-          </button>
-        </div>
+        <ProfileCover
+          currentCoverImage={coverImage}
+          onCoverUpdate={handleCoverUpdate}
+        />
 
-        <div className="px-3 position-relative mt-3">
+        <div className="px-3 position-relative mt-5">
           <div className="profile-avatar d-flex align-items-center justify-content-center">
             <img
               src={profile.image}
@@ -210,7 +203,7 @@ export default function ProfileHeader() {
           <div className="d-flex align-items-center gap-2 mb-2">
             <div className="position-relative">
               <img
-                src="https://placewaifu.com/image/50"
+                src={profile.image}
                 alt="profile suggestion"
                 className="rounded-circle"
                 width="40"
@@ -409,6 +402,7 @@ export default function ProfileHeader() {
         profile={profile}
         onUpdate={handleProfileUpdate}
       />
+
       <div className="mt-3">
         <ExperienceSection />
       </div>
