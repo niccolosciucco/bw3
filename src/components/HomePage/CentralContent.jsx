@@ -3,12 +3,14 @@ import {
   BsImageFill,
   BsNewspaper,
   BsPlayBtnFill,
-} from "react-icons/bs";
-import TextAreaCreatePost from "./TextAreaCreatePost";
-import PostActionButton from "../HomePage/PostActionButton";
-import Posts from "./Posts";
+} from "react-icons/bs"
+import TextAreaCreatePost from "./TextAreaCreatePost"
+import PostActionButton from "../HomePage/PostActionButton"
+import Posts from "./Posts"
+import { useNavigate } from "react-router"
 
 const CentralContent = function () {
+  const navigate = useNavigate()
   return (
     <>
       <div
@@ -17,10 +19,16 @@ const CentralContent = function () {
       >
         <div className="d-flex align-items-center gap-3 mb-2">
           <img
+            onClick={() => navigate("/profile")}
             src="https://placecats.com/70/70"
             alt="Profilo"
             className="rounded-circle border"
-            style={{ width: "48px", height: "48px", objectFit: "cover" }}
+            style={{
+              width: "48px",
+              height: "48px",
+              objectFit: "cover",
+              cursor: "pointer",
+            }}
           />
 
           <TextAreaCreatePost />
@@ -63,7 +71,7 @@ const CentralContent = function () {
 
       <Posts />
     </>
-  );
-};
+  )
+}
 
-export default CentralContent;
+export default CentralContent

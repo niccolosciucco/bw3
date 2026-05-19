@@ -1,11 +1,13 @@
-import { Card, Image, Nav, ListGroup } from "react-bootstrap";
-import { FaSquare } from "react-icons/fa";
-import { IoBookmark } from "react-icons/io5";
-import { MdGroups } from "react-icons/md";
-import { BiNews } from "react-icons/bi";
-import { MdEventNote } from "react-icons/md";
+import { Card, Image, Nav, ListGroup } from "react-bootstrap"
+import { FaSquare } from "react-icons/fa"
+import { IoBookmark } from "react-icons/io5"
+import { MdGroups } from "react-icons/md"
+import { BiNews } from "react-icons/bi"
+import { MdEventNote } from "react-icons/md"
+import { useNavigate } from "react-router"
 
 const ColonnaSX = () => {
+  const navigate = useNavigate()
   return (
     <>
       {/*PRIMO BLOCCO*/}
@@ -15,6 +17,7 @@ const ColonnaSX = () => {
 
         <Card.Body className="text-center position-relative pt-0">
           <Image
+            onClick={() => navigate("/profile")}
             src="https://placecats.com/150/150"
             roundedCircle
             className="position-absolute start-50 translate-middle-x"
@@ -24,6 +27,7 @@ const ColonnaSX = () => {
               border: "2px solid white",
               top: "-36px",
               objectFit: "cover",
+              cursor: "pointer",
             }}
           />
 
@@ -99,7 +103,7 @@ const ColonnaSX = () => {
         </ListGroup>
       </Card>
     </>
-  );
-};
+  )
+}
 
-export default ColonnaSX;
+export default ColonnaSX
