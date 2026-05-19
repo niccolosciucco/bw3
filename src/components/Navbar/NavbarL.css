@@ -2,7 +2,6 @@
   color: #666666;
 }
 
-.btn-navbar:hover,
-.btn-navbar:active {
+.btn-navbar:hover {
   color: #191919 !important;
 }

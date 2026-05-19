@@ -23,7 +23,7 @@ import { BsGrid3X3GapFill } from "react-icons/bs"
 import "./NavbarL.css"
 
 import { Link } from "react-router"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
 import { useNavigate, useLocation } from "react-router"
 
@@ -32,6 +32,8 @@ const NavbarL = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const isHomepage = location.pathname.startsWith("/home")
+
+  const isMessagesOpen = useSelector((state) => state.messages.isMessagesOpen)
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
@@ -88,7 +90,7 @@ const NavbarL = () => {
             </p>
           </Link>
 
-          <Nav.Link className="text-center btn-navbar ">
+          <Nav.Link className="text-center btn-navbar">
             <BsPeopleFill size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               La mia rete
@@ -103,6 +105,10 @@ const NavbarL = () => {
           <Nav.Link
             className="text-center btn-navbar"
             onClick={() => dispatch(toggleMessages())}
+            style={{
+              color: isMessagesOpen ? "#191919" : "#666666",
+              cursor: "pointer",
+            }}
           >
             <AiFillMessage size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
