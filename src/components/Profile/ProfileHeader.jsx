@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "../../style/ProfileHeader.css"
-
+import PanelCarousel from "../Profile/leftside.jsx/carousel"
 export default function ProfileHeader() {
   const [profile, setProfile] = useState(null)
 
@@ -32,15 +32,22 @@ export default function ProfileHeader() {
     <>
       <div className="card profile-card ">
         <div className="profile-cover position-relative">
-          <button className="btn btn-light btn-sm rounded-circle position-absolute top-0 end-0 m-2">
+          <button className="btn btn-light btn-sm rounded-circle position-absolute top-0 end-0 m-2 d-flex align-items-center justify-content-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
+              id="camera-small"
               fill="currentColor"
-              viewBox="0 0 24 24"
+              aria-hidden="true"
+              data-supported-dps="16x16"
+              viewBox="0 0 16 16"
+              data-token-id="525"
               width="16"
               height="16"
+              className="_3edc2961 _4cecf8c6 df2b129f _680a7526 c6867557 _824c8c41"
+              role="img"
+              aria-label=""
             >
-              <path d="M21.13 2.86a3 3 0 0 0-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 0 0 0-4.16zM6.77 18.57l-1.35-1.34L16.64 6 18 7.35z"></path>
+              <path d="M10 9a2 2 0 1 1-2-2 2 2 0 0 1 2 2m5-2.5V14H1V6.5A2.5 2.5 0 0 1 3.5 4h.75L5 2h6l.75 2h.75A2.5 2.5 0 0 1 15 6.5M11 9a3 3 0 1 0-3 3 3 3 0 0 0 3-3"></path>
             </svg>
           </button>
         </div>
@@ -173,7 +180,7 @@ export default function ProfileHeader() {
             </button>
           </div>
 
-          <div className="row g-2">
+          {/* <div className="row g-2">
             <div className="col-6">
               <div className="panel position-relative">
                 <p className="fw-semibold mb-1">Disponibile a lavorare</p>
@@ -196,6 +203,9 @@ export default function ProfileHeader() {
                 <span className="text-primary small">Inizia</span>
               </div>
             </div>
+          </div> */}
+          <div className="row g-2">
+            <PanelCarousel profile={profile} />
           </div>
         </div>
       </div>
@@ -378,14 +388,13 @@ export default function ProfileHeader() {
               </button>
               <button className="btn btn-link p-1 text-secondary">
                 <svg
-                  width="16"
-                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
                   viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
+                  width="18"
+                  height="18"
                 >
-                  <path d="M21.13 2.86a3 3 0 0 0-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 0 0 0-4.16z" />
+                  <path d="M21.13 2.86a3 3 0 0 0-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 0 0 0-4.16zM6.77 18.57l-1.35-1.34L16.64 6 18 7.35z"></path>
                 </svg>
               </button>
             </div>
