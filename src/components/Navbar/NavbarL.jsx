@@ -22,14 +22,16 @@ import { IoNotifications } from "react-icons/io5"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import "./NavbarL.css"
 
-import { NavLink } from "react-router"
+import { Link } from "react-router"
 import { useDispatch } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
-import { useNavigate } from "react-router"
+import { useNavigate, useLocation } from "react-router"
 
 const NavbarL = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
+  const isHomepage = location.pathname.startsWith("/home")
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
@@ -75,16 +77,16 @@ const NavbarL = () => {
           style={{ width: "650px" }}
         >
           {/*HOME*/}
-          <Nav.Link
-            as={NavLink}
+          <Link
             to={"/home"}
-            className="text-decoration-none text-center btn-navbar"
+            className="text-decoration-none text-center"
+            style={{ color: isHomepage ? "#191919" : " #666666" }}
           >
             <AiFillHome size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Home
             </p>
-          </Nav.Link>
+          </Link>
 
           <Nav.Link className="text-center btn-navbar ">
             <BsPeopleFill size={22} />

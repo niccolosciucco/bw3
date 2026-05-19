@@ -4,5 +4,5 @@
 
 .btn-navbar:hover,
 .btn-navbar:active {
-  color: #191919;
+  color: #191919 !important;
 }
