@@ -48,7 +48,11 @@ const NavbarL = () => {
 
         {/*LOGO + BARRA DI RICERCA */}
         <div className="d-flex align-items-center">
-          <Navbar.Brand href="#home" className="me-2 d-none d-lg-block">
+          <Navbar.Brand
+            onClick={() => navigate("/home")}
+            className="me-2 d-none d-lg-block"
+            style={{ cursor: "pointer" }}
+          >
             <FaLinkedin className="text-primary" size={38} />
           </Navbar.Brand>
           <Form>
