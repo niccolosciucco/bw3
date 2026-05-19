@@ -145,7 +145,7 @@ export default function ExperienceSection() {
     <div className="bg-white rounded-3 shadow-sm p-3">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h6 className="fw-semibold mb-1">Esperienze</h6>
-        <button className="btn linkedin-btn-post">
+        <button className="btn linkedin-btn-post" onClick={openAddModal}>
           <svg
             width="14"
             height="14"
@@ -154,7 +154,6 @@ export default function ExperienceSection() {
             stroke="currentColor"
             strokeWidth="2"
             className="me-1"
-            onClick={openAddModal}
           >
             <path d="M12 5v14M5 12h14" />
           </svg>
