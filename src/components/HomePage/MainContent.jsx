@@ -1,11 +1,13 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap"
+import ColonnaSX from "./ColonnaSX"
 
 const HomePage = function () {
   return (
     <>
       <Container>
         <Row>
-          <Col xs={12} lg={3}>
+          <Col xs={12} lg={3} className="mt-4">
+            <ColonnaSX />
             {/* colonna a sinistra */}
           </Col>
           <Col xs={12} lg={6}>
@@ -17,7 +19,7 @@ const HomePage = function () {
         </Row>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
