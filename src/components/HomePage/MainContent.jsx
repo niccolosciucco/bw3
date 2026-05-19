@@ -7,7 +7,7 @@ const HomePage = function () {
   return (
     <>
       <Container>
-        <Row className="mt-4">
+        <Row className="mt-3">
           <Col xs={12} lg={3}>
             {/* colonna a sinistra */}
             <ColonnaSX />
