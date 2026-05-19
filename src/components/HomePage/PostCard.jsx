@@ -9,8 +9,11 @@ import {
 } from "react-icons/bs";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { IoCloseSharp } from "react-icons/io5";
+import { useState } from "react";
 
 const PostCard = ({ post }) => {
+  const [liked, setLiked] = useState(false);
+
   const formatTime = (isoString) => {
     if (!isoString) return "1s";
     const postDate = new Date(isoString);
@@ -27,6 +30,8 @@ const PostCard = ({ post }) => {
 
   const hasValidImage =
     post.image && post.image !== "undefined" && post.image.trim() !== "";
+
+  const handleLike = () => setLiked(!liked);
 
   return (
     <Card
@@ -143,6 +148,7 @@ const PostCard = ({ post }) => {
         </Card.Body>
       )}
 
+      {/* FOOTER STATISTICHE */}
       <Card.Footer
         className="bg-white border-0 pt-2 pb-2 px-3 text-muted"
         style={{ fontSize: "12px" }}
@@ -157,21 +163,30 @@ const PostCard = ({ post }) => {
             </div>
             <span className="text-truncate">Consigliato da altri utenti</span>
           </Stack>
-          <span className="text-nowrap">Commenti</span>
+          <span className="text-nowrap cursor-pointer">Commenti</span>
         </div>
       </Card.Footer>
 
+      {/* FOOTER AZIONI */}
       <Card.Footer className="p-1 bg-white border-top d-flex justify-content-between row g-0 rounded-bottom-4">
         <Col>
           <Button
             variant="white"
-            className="w-100 py-2 btn-outline-light text-muted border-0 d-flex flex-column align-items-center justify-content-center"
+            onClick={handleLike}
+            className={`w-100 py-2 btn-outline-light border-0 d-flex flex-column align-items-center justify-content-center transition-all ${liked ? "text-primary" : "text-muted"}`}
             style={{ fontSize: "12px", fontWeight: "600" }}
           >
-            <BsHandThumbsUp size={18} className="mb-1" />
-            <span>Consiglia</span>
+            <BsHandThumbsUp
+              size={18}
+              className={`mb-1 ${liked ? "fill-primary" : ""}`}
+              style={liked ? { transform: "scale(1.1)" } : {}}
+            />
+            <span style={{ color: liked ? "#0a66c2" : "inherit" }}>
+              Consiglia
+            </span>
           </Button>
         </Col>
+
         <Col>
           <Button
             variant="white"
@@ -182,6 +197,7 @@ const PostCard = ({ post }) => {
             <span>Commenta</span>
           </Button>
         </Col>
+
         <Col>
           <Button
             variant="white"
@@ -192,6 +208,7 @@ const PostCard = ({ post }) => {
             <span>Diffondi</span>
           </Button>
         </Col>
+
         <Col>
           <Button
             variant="white"
