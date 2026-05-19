@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react"
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-icons/font/bootstrap-icons.css"
 const TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw"
 const API_URL = "https://striveschool-api.herokuapp.com/api/profile/"
@@ -57,7 +55,7 @@ export default function LinkedInProfileSidebar() {
                 className="bg-primary rounded z-1  position-absolute"
                 style={{ width: 60, height: 60, top: 30, left: 15 }}
               />
-              <span className="position-absolute top-0 end-0  border border-2 rounded-4 bg-light">
+              <span className="position-absolute top-0 end-0 p-1 border border-2 rounded-4 bg-light">
                 Promosso <i className="bi bi-three-dots" />
               </span>
             </div>
