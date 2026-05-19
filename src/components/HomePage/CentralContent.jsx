@@ -6,6 +6,7 @@ import {
 } from "react-icons/bs";
 import TextAreaCreatePost from "./TextAreaCreatePost";
 import PostActionButton from "../HomePage/PostActionButton";
+import Posts from "./Posts";
 
 const CentralContent = function () {
   return (
@@ -59,6 +60,8 @@ const CentralContent = function () {
           <BsChevronDown style={{ fontSize: "11px", strokeWidth: "1.5" }} />
         </button>
       </div>
+
+      <Posts />
     </>
   );
 };
