@@ -26,12 +26,14 @@ import { Link } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
 import { useNavigate, useLocation } from "react-router"
+import { logout } from "../../store/slices/authSlice"
 
 const NavbarL = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
   const isHomepage = location.pathname.startsWith("/home")
+  const isJobsPage = location.pathname.startsWith("/jobs")
 
   const isMessagesOpen = useSelector((state) => state.messages.isMessagesOpen)
   return (
@@ -114,12 +116,16 @@ const NavbarL = () => {
           </Nav.Link>
 
           {/*LAVORO*/}
-          <Nav.Link className="text-center btn-navbar">
+          <Link
+            to={"/jobs"}
+            className="text-decoration-none text-center"
+            style={{ color: isJobsPage ? "#191919" : " #666666" }}
+          >
             <FaBriefcase size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Lavoro
             </p>
-          </Nav.Link>
+          </Link>
 
           {/*MESSAGGISTICA*/}
           <Nav.Link
@@ -276,6 +282,10 @@ const NavbarL = () => {
                   <Nav.Link
                     style={{ fontSize: "0.9rem" }}
                     className="text-secondary"
+                    onClick={() => {
+                      dispatch(logout())
+                      navigate("/")
+                    }}
                   >
                     Esci
                   </Nav.Link>
