@@ -10,10 +10,11 @@ function Profile() {
   return (
     <>
       <NavbarL />
-      <Container>
-        <Row>
+      <Container className="px-5">
+        <Row className="g-0 mt-3">
           <Col md={9}>
             <ProfileHeader />
+            <Footer />
           </Col>
           <Col md={3}>
             <LinkedInProfileSidebar />
@@ -21,7 +22,6 @@ function Profile() {
         </Row>
       </Container>
       <Messages />
-      <Footer />
     </>
   )
 }
