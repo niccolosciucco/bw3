@@ -6,20 +6,45 @@ import LandingPage from "./components/Landing/LandingPage"
 import LoginPage from "./components/Login/LoginPage"
 import Profile from "./components/Profile/Profile"
 import HomePage from "./components/HomePage/HomePage"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setUser } from "./store/slices/profileSlice"
+
+
+function AppContent() {
+  const dispatch = useDispatch()
+  const { token } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (token) {
+      fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((res) => res.json())
+        .then((data) => dispatch(setUser(data)))
+        .catch(() => dispatch(setUser(null)))
+    } else {
+      dispatch(setUser(null))
+    }
+  }, [token, dispatch])
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} /> 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/home" element={<HomePage />} />
-        </Routes>
-      </BrowserRouter>
+      <AppContent />
     </Provider>
   )
 }
-
 export default App
