@@ -7,9 +7,9 @@ const HomePage = function () {
     <>
       <Container>
         <Row>
-          <Col xs={12} lg={3} className="mt-4">
-            <ColonnaSX />
+          <Col xs={12} lg={3}>
             {/* colonna a sinistra */}
+            <ColonnaSX />
           </Col>
           <Col xs={12} lg={6}>
             <CentralContent />

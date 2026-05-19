@@ -36,14 +36,12 @@ const CentralContent = function () {
             icon={BsImageFill}
             label="Foto"
             iconColor="#2b72c4"
-            onClick={() => alert("Click Foto!")}
           />
 
           <PostActionButton
             icon={BsNewspaper}
             label="Scrivi un articolo"
             iconColor="#b25b29"
-            onClick={() => alert("Click Articolo!")}
           />
         </div>
       </div>
