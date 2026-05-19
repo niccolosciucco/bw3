@@ -1,7 +1,6 @@
-import { Col, Container, Row } from "react-bootstrap"
-import ColonnaSX from "./ColonnaSX"
-import { Col, Container, Row } from "react-bootstrap"
-import CentralContent from "./CentralContent"
+import { Col, Container, Row } from "react-bootstrap";
+import ColonnaSX from "./ColonnaSX";
+import CentralContent from "./CentralContent";
 
 const HomePage = function () {
   return (
@@ -21,7 +20,7 @@ const HomePage = function () {
         </Row>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
