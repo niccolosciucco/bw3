@@ -2,7 +2,6 @@ import { Card, Button, ListGroup, Stack } from "react-bootstrap"
 import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
 import SpanFooterDX from "./SpanFooterDX"
 import { useSelector } from "react-redux"
-import { useState, useEffect } from "react"
 const ColonnaDX = () => {
   const profileImage = useSelector((state) => state.image.profileImage)
   /*const newsItems = [
