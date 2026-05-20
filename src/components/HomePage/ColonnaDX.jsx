@@ -3,71 +3,70 @@ import {
   BsInfoSquareFill,
   BsChevronDown,
   BsChevronRight,
+  BsGrid3X3GapFill,
+  BsLink45Deg,
+  Bs123,
+  BsGrid1X2Fill,
 } from "react-icons/bs";
 import SpanFooterDX from "./SpanFooterDX";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+
 const ColonnaDX = () => {
   const profileImage = useSelector((state) => state.image.profileImage);
-  const newsItems = [
-    {
-      id: 1,
-      title: "Playatomic, Canva: cercasi country man...",
-      time: "2 giorni fa",
-      readers: "393 lettori",
-    },
-    {
-      id: 2,
-      title: "L'auto europea parla sempre più cinese",
-      time: "2 giorni fa",
-      readers: "369 lettori",
-    },
-    {
-      id: 3,
-      title: "Aumentano i consumi per cani e gatti",
-      time: "2 giorni fa",
-      readers: "104 lettori",
-    },
-    {
-      id: 4,
-      title: "Le nuove Top Voices di LinkedIn",
-      time: "4 giorni fa",
-      readers: "1312 lettori",
-    },
-    {
-      id: 5,
-      title: "Internazionali di Roma: vince Sinner",
-      time: "2h fa",
-      readers: "1237 lettori",
-    },
-  ];
+  const [newsItems, setNewsItems] = useState([]);
+  const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu";
+
+  const seztioneNotizie = () => {
+    const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`;
+    fetch(url)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("errore nel recupero notizie");
+        }
+      })
+      .then((data) => {
+        const primeCinque = data.news.slice(0, 5);
+        setNewsItems(primeCinque);
+      })
+      .catch((err) => {
+        console.log("errore", err);
+      });
+  };
+
+  useEffect(() => {
+    seztioneNotizie();
+  }, []);
 
   const gamesItems = [
     {
       id: 1,
       name: "Patches #62",
       desc: "2 collegamenti hanno giocato",
-      icon: "🧩",
+      IconComponent: BsGrid3X3GapFill,
       color: "#f39c12",
     },
     {
       id: 2,
       name: "Zip #42",
       desc: "Completa il percorso",
-      icon: "🔗",
+      IconComponent: BsLink45Deg,
       color: "#e67e22",
     },
     {
       id: 3,
       name: "Mini Sudoku #280",
       desc: "Il gioco classico, in versione mini",
-      icon: "🔢",
+      IconComponent: Bs123,
       color: "#2ecc71",
     },
     {
       id: 4,
       name: "Tango #588",
       desc: "Armonizza la griglia",
-      icon: "📐",
+      IconComponent: BsGrid1X2Fill,
       color: "#3498db",
     },
   ];
@@ -79,36 +78,54 @@ const ColonnaDX = () => {
     >
       {/* 1. SEZIONE LINKEDIN NOTIZIE */}
       <Card className="mb-2 shadow-sm">
-        <Card.Body>
-          <div className="d-flex justify-content-between align-items-center mb-2">
-            <h5 className="mb-0 fw-bold fs-6 text-dark">LinkedIn Notizie</h5>
+        <Card.Body className="p-0">
+          <div className="d-flex justify-content-between align-items-center my-2 px-3">
+            <h5 className="mb-0 fw-bold fs-6 text-dark mt-2">
+              LinkedIn Notizie
+            </h5>
             <BsInfoSquareFill
-              className="text-secondary"
+              className="text-secondary mt-2"
               style={{ fontSize: "0.75rem", cursor: "pointer" }}
             />
           </div>
           <p
-            className="text-muted fw-semibold mb-3"
+            className="text-muted fw-semibold my-2 px-3"
             style={{ fontSize: "0.8rem" }}
           >
             Storie principali
           </p>
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
-            {newsItems.map((item) => (
+            {newsItems.map((item, index) => (
               <ListGroup.Item
-                key={item.id}
-                className="p-0 border-0 bg-transparent mb-2"
+                key={item.id || index}
+                className="p-0 border-0 mb-2"
                 style={{ cursor: "pointer" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "rgb(232, 232, 232)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
+                onClick={() =>
+                  window.open(item.url, "_blank", "noopener,noreferrer")
+                }
               >
-                <div
-                  className="fw-semibold text-dark text-truncate"
-                  style={{ lineHeight: "1.3" }}
-                >
-                  {item.title}
-                </div>
-                <div className="text-muted" style={{ fontSize: "0.75rem" }}>
-                  {item.time} • {item.readers}
+                <div className="mb-1">
+                  <div
+                    className="fw-semibold text-dark text-truncate px-3"
+                    style={{
+                      lineHeight: "1.3",
+                    }}
+                  >
+                    {item.title}
+                  </div>
+                  <div
+                    className="text-muted px-3"
+                    style={{ fontSize: "0.75rem" }}
+                  >
+                    {item.author || "fonte sconosciuta"} • {item.category}
+                  </div>
                 </div>
               </ListGroup.Item>
             ))}
@@ -119,8 +136,12 @@ const ColonnaDX = () => {
             className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
             style={{ fontSize: "0.8rem" }}
           >
-            <span>Mostra altre notizie</span>
-            <BsChevronDown style={{ fontSize: "0.75rem" }} />
+            <span className="ps-3 mb-2">Mostra altre notizie</span>
+            <BsChevronDown
+              className="mb-2 mt-1"
+              style={{ fontSize: "0.75rem" }}
+              size={13}
+            />
           </Button>
         </Card.Body>
       </Card>
@@ -131,48 +152,50 @@ const ColonnaDX = () => {
           <h5 className="fw-bold mb-3 fs-6 text-dark">I rompicapo di oggi</h5>
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
-            {gamesItems.map((game) => (
-              <ListGroup.Item
-                key={game.id}
-                className="p-0 border-0 bg-transparent mb-3 d-flex align-items-center justify-content-between"
-                style={{ cursor: "pointer" }}
-              >
-                <div className="d-flex align-items-center gap-2">
-                  <div
-                    className="rounded-2 d-flex align-items-center justify-content-center text-white"
-                    style={{
-                      width: "36px",
-                      height: "36px",
-                      backgroundColor: game.color,
-                      fontSize: "1.2rem",
-                    }}
-                  >
-                    {game.icon}
-                  </div>
-                  <div
-                    className="overflow-hidden"
-                    style={{ maxWidth: "220px" }}
-                  >
+            {gamesItems.map((game) => {
+              const Icon = game.IconComponent;
+              return (
+                <ListGroup.Item
+                  key={game.id}
+                  className="p-0 border-0 bg-transparent mb-3 d-flex align-items-center justify-content-between"
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="d-flex align-items-center gap-2">
                     <div
-                      className="fw-semibold text-dark text-truncate"
-                      style={{ lineHeight: "1.2" }}
+                      className="rounded-2 d-flex align-items-center justify-content-center text-white"
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        backgroundColor: game.color,
+                      }}
                     >
-                      {game.name}
+                      <Icon size={20} />
                     </div>
                     <div
-                      className="text-muted text-truncate"
-                      style={{ fontSize: "0.75rem" }}
+                      className="overflow-hidden"
+                      style={{ maxWidth: "220px" }}
                     >
-                      {game.desc}
+                      <div
+                        className="fw-semibold text-dark text-truncate"
+                        style={{ lineHeight: "1.2" }}
+                      >
+                        {game.name}
+                      </div>
+                      <div
+                        className="text-muted text-truncate"
+                        style={{ fontSize: "0.75rem" }}
+                      >
+                        {game.desc}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <BsChevronRight
-                  className="text-muted"
-                  style={{ fontSize: "0.75rem" }}
-                />
-              </ListGroup.Item>
-            ))}
+                  <BsChevronRight
+                    className="text-muted"
+                    style={{ fontSize: "0.75rem" }}
+                  />
+                </ListGroup.Item>
+              );
+            })}
           </ListGroup>
 
           <Button
