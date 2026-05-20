@@ -5,20 +5,40 @@ import { MdGroups } from "react-icons/md"
 import { BiNews } from "react-icons/bi"
 import { MdEventNote } from "react-icons/md"
 import { useNavigate } from "react-router"
-
+import { useSelector } from "react-redux"
 const ColonnaSX = () => {
   const navigate = useNavigate()
+  const profileImage = useSelector((state) => state.image.profileImage)
+  const profileName = useSelector((state) => state.image.profileName)
+  const profileSurname = useSelector((state) => state.image.profileSurname)
+  const profileProfession = useSelector(
+    (state) => state.image.profileProfession,
+  )
+  const profileLocation = useSelector((state) => state.image.profileLocation)
+
+  const coverImage = useSelector((state) => state.image.coverImage)
   return (
     <>
       {/*PRIMO BLOCCO*/}
       <Card className="mb-2 shadow-sm overflow-hidden">
         {/* Sfondo del banner */}
-        <div style={{ height: "60px", backgroundColor: "#a0b4c8" }}></div>
+        <div
+          style={{
+            height: "60px",
+            backgroundImage: coverImage ? `url(${coverImage})` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: "4px 4px 0px 0px",
+          }}
+        ></div>
 
         <Card.Body className="text-center position-relative pt-0">
           <Image
             onClick={() => navigate("/profile")}
-            src="https://placecats.com/150/150"
+            src={
+              profileImage ||
+              "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+            }
             roundedCircle
             className="position-absolute start-50 translate-middle-x"
             style={{
@@ -33,12 +53,14 @@ const ColonnaSX = () => {
 
           {/* Dati Profilo */}
           <div style={{ marginTop: "45px" }}>
-            <h5 className="mb-0 fw-bold fs-6">Guido La Vespa</h5>
+            <h5 className="mb-0 fw-bold fs-6">
+              {profileName} {profileSurname}
+            </h5>
             <p className="text-secondary mb-1" style={{ fontSize: "0.85rem" }}>
-              Professione
+              {profileProfession}
             </p>
             <p className="text-muted mb-2" style={{ fontSize: "0.75rem" }}>
-              Italia
+              {profileLocation}
             </p>
 
             {/* Azienda */}
@@ -47,10 +69,12 @@ const ColonnaSX = () => {
               style={{ fontSize: "0.85rem" }}
             >
               <Image
-                src="https://placecats.com/20/20"
+                src={
+                  "https://e7.pngegg.com/pngimages/391/20/png-clipart-h-m-logo-h-m-logo-icons-logos-emojis-iconic-brands.png"
+                }
                 style={{ width: "16px" }}
               />
-              <span className="fw-semibold">Azienda</span>
+              <span className="fw-semibold">H&M</span>
             </div>
           </div>
         </Card.Body>

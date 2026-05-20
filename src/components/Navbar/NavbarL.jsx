@@ -21,7 +21,7 @@ import { AiFillMessage } from "react-icons/ai"
 import { IoNotifications } from "react-icons/io5"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import "./NavbarL.css"
-
+import { useState } from "react"
 import { Link } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
@@ -29,6 +29,11 @@ import { useNavigate, useLocation } from "react-router"
 import { logout } from "../../store/slices/authSlice"
 
 const NavbarL = () => {
+  const profileName = useSelector((state) => state.image.profileName)
+  const profileSurname = useSelector((state) => state.image.profileSurname)
+  const profileProfession = useSelector(
+    (state) => state.image.profileProfession,
+  )
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
@@ -36,6 +41,7 @@ const NavbarL = () => {
   const isJobsPage = location.pathname.startsWith("/jobs")
 
   const isMessagesOpen = useSelector((state) => state.messages.isMessagesOpen)
+  const [searchQuery, setSearchQuery] = useState("")
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
@@ -64,13 +70,20 @@ const NavbarL = () => {
             <FaLinkedin className="text-primary" size={38} />
           </Navbar.Brand>
           {/*BARRA DI RICERCA */}
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault()
+              navigate(`/search?q=${searchQuery}`)
+            }}
+          >
             <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">
               <IoSearchSharp size={18} />
               <Form.Control
                 type="search"
                 placeholder="Cerca"
                 className="border-0 bg-transparent py-0 px-1 fs-6"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               ></Form.Control>
             </InputGroup>
           </Form>
@@ -204,9 +217,11 @@ const NavbarL = () => {
                     alt="Profilo"
                   />
                   <div className="ms-2">
-                    <h5 className="fs-6 m-0">Guido La Vespa </h5>
+                    <h5 className="fs-6 m-0">
+                      {profileName} {profileSurname}
+                    </h5>
                     <p className="m-0" style={{ fontSize: "0.9rem" }}>
-                      Professione
+                      {profileProfession}
                     </p>
                   </div>
                 </div>

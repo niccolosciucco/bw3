@@ -1,41 +1,25 @@
 import { Card, Button, ListGroup, Stack } from "react-bootstrap"
-import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
+import {
+  BsInfoSquareFill,
+  BsChevronDown,
+  BsChevronRight,
+  BsGrid3X3GapFill,
+  BsLink45Deg,
+  Bs123,
+  BsGrid1X2Fill,
+  BsChevronUp,
+} from "react-icons/bs"
 import SpanFooterDX from "./SpanFooterDX"
+import { useSelector } from "react-redux"
 import { useState, useEffect } from "react"
 
 const ColonnaDX = () => {
-  /*const newsItems = [
-    {
-      id: 1,
-      title: "Playatomic, Canva: cercasi country man...",
-      time: "2 giorni fa",
-      readers: "393 lettori",
-    },
-    {
-      id: 2,
-      title: "L'auto europea parla sempre più cinese",
-      time: "2 giorni fa",
-      readers: "369 lettori",
-    },
-    {
-      id: 3,
-      title: "Aumentano i consumi per cani e gatti",
-      time: "2 giorni fa",
-      readers: "104 lettori",
-    },
-    {
-      id: 4,
-      title: "Le nuove Top Voices di LinkedIn",
-      time: "4 giorni fa",
-      readers: "1312 lettori",
-    },
-    {
-      id: 5,
-      title: "Internazionali di Roma: vince Sinner",
-      time: "2h fa",
-      readers: "1237 lettori",
-    },
-  ]*/
+  const profileImage = useSelector((state) => state.image.profileImage)
+  const profileName = useSelector((state) => state.image.profileName)
+
+  const [visibleCount, setVisibleCount] = useState(5)
+  const [newsItems, setNewsItems] = useState([])
+  const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu"
 
   const seztioneNotizie = () => {
     const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`
@@ -48,8 +32,7 @@ const ColonnaDX = () => {
         }
       })
       .then((data) => {
-        const primeCinque = data.news.slice(0, 5)
-        setNewsItems(primeCinque)
+        setNewsItems(data.news)
       })
       .catch((err) => {
         console.log("errore", err)
@@ -59,6 +42,19 @@ const ColonnaDX = () => {
   useEffect(() => {
     seztioneNotizie()
   }, [])
+
+  const isOpen = visibleCount > 5
+
+  const gestisciVisibilita = () => {
+    if (isOpen) {
+      setVisibleCount(5) // Se è aperto, lo richiudiamo a 5
+    } else {
+      setVisibleCount(10) // Se è chiuso, mostriamo 10 notizie
+    }
+  }
+
+  // array "tagliato" per fare il .map() delle altre notizie
+  const notizieDaMostrare = newsItems.slice(0, visibleCount)
 
   const gamesItems = [
     {
@@ -116,9 +112,9 @@ const ColonnaDX = () => {
           </p>
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
-            {newsItems.map((item, index) => (
+            {notizieDaMostrare.map((notizia) => (
               <ListGroup.Item
-                key={item.id || index}
+                key={notizia.id}
                 className="p-0 border-0 mb-2"
                 style={{ cursor: "pointer" }}
                 onMouseEnter={(e) => {
@@ -128,7 +124,7 @@ const ColonnaDX = () => {
                   e.currentTarget.style.backgroundColor = "transparent"
                 }}
                 onClick={() =>
-                  window.open(item.url, "_blank", "noopener,noreferrer")
+                  window.open(notizia.url, "_blank", "noopener,noreferrer")
                 }
               >
                 <div className="mb-1">
@@ -138,31 +134,46 @@ const ColonnaDX = () => {
                       lineHeight: "1.3",
                     }}
                   >
-                    {item.title}
+                    {notizia.title}
                   </div>
                   <div
                     className="text-muted px-3"
                     style={{ fontSize: "0.75rem" }}
                   >
-                    {item.author || "fonte sconosciuta"} • {item.category}
+                    {notizia.author || "fonte sconosciuta"} • {notizia.category}
                   </div>
                 </div>
               </ListGroup.Item>
             ))}
           </ListGroup>
 
-          <Button
-            variant="link"
-            className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
-            style={{ fontSize: "0.8rem" }}
-          >
-            <span className="ps-3 mb-2">Mostra altre notizie</span>
-            <BsChevronDown
-              className="mb-2 mt-1"
-              style={{ fontSize: "0.75rem" }}
-              size={13}
-            />
-          </Button>
+          {newsItems.length > 5 && (
+            <Button
+              variant="link"
+              className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
+              style={{ fontSize: "0.8rem" }}
+              onClick={gestisciVisibilita} // <-- Cambiata la funzione
+            >
+              <span className="ps-3 mb-2">
+                {isOpen ? "Mostra meno" : "Mostra altre notizie"}{" "}
+              </span>
+
+              {/*cambio l'icona e inverto il margine in base allo stato */}
+              {isOpen ? (
+                <BsChevronUp
+                  className="mb-2"
+                  style={{ fontSize: "0.75rem" }}
+                  size={13}
+                />
+              ) : (
+                <BsChevronDown
+                  className="mb-2 mt-1"
+                  style={{ fontSize: "0.75rem" }}
+                  size={13}
+                />
+              )}
+            </Button>
+          )}
         </Card.Body>
       </Card>
 
@@ -237,7 +248,7 @@ const ColonnaDX = () => {
 
         <Card.Body className="pt-0 px-3 pb-3" style={{ fontSize: "0.8rem" }}>
           <p className="text-secondary mb-3" style={{ fontSize: "0.75rem" }}>
-            Guido, scopri le opportunità offerte da BRANDART
+            {profileName}, scopri le opportunità offerte da BRANDART
           </p>
 
           <Stack
@@ -246,7 +257,10 @@ const ColonnaDX = () => {
             className="justify-content-center align-items-center mb-3"
           >
             <img
-              src="https://placecats.com/70/70"
+              src={
+                profileImage ||
+                "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+              }
               alt="User avatar"
               className="rounded-circle border"
               style={{ width: "64px", height: "64px", objectFit: "cover" }}

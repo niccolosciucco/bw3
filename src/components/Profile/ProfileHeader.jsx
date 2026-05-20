@@ -4,26 +4,54 @@ import "../../style/ProfileHeader.css"
 import PanelCarousel from "./leftside.jsx/carousel"
 import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
 import ProfileCover from "../Profile/leftside.jsx/ProfileCover.jsx"
+import { useDispatch } from "react-redux"
+import {
+  setProfileImage,
+  setProfileName,
+  setProfileSurname,
+  setProfileProfession,
+  setProfileLocation,
+} from "../../store/slices/imageSlice.js"
+import { useSelector } from "react-redux"
 
-export default function ProfileHeader() {
+export default function ProfileHeader({ id }) {
   const [profile, setProfile] = useState(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [coverImage, setCoverImage] = useState(null)
-
+  const dispatch = useDispatch()
+  const token = useSelector((state) => state.auth.token)
+  const analytics = {
+    // eslint-disable-next-line
+    views: Math.floor(Math.random() * 500) + 50,
+    // eslint-disable-next-line
+    impressions: Math.floor(Math.random() * 1000) + 100,
+    // eslint-disable-next-line
+    searches: Math.floor(Math.random() * 200) + 10,
+  }
   const fetchProfile = async () => {
     try {
-      const res = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
-          },
+      const url = id
+        ? `https://striveschool-api.herokuapp.com/api/profile/${id}`
+        : "https://striveschool-api.herokuapp.com/api/profile/me"
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
       if (res.ok) {
         const myProfile = await res.json()
         setProfile(myProfile)
+        dispatch(setProfileImage(myProfile.image))
+        dispatch(setProfileName(myProfile.name))
+        dispatch(setProfileSurname(myProfile.surname))
+        dispatch(setProfileProfession(myProfile.title))
+        dispatch(setProfileLocation(myProfile.area))
+
+        console.log("immagine:", myProfile.image)
+        console.log("nome:", myProfile.name)
+        console.log("cognome:", myProfile.surname)
+
+        console.log("immagine:", myProfile.image)
         if (myProfile.coverImage) {
           setCoverImage(myProfile.coverImage)
         }
@@ -36,9 +64,10 @@ export default function ProfileHeader() {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line
-    fetchProfile()
-  }, [])
+    if (token) {
+      fetchProfile()
+    }
+  }, [id, token])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()
@@ -61,7 +90,10 @@ export default function ProfileHeader() {
         <div className="px-3 position-relative mt-5">
           <div className="profile-avatar d-flex align-items-center justify-content-center">
             <img
-              src={profile.image}
+              src={
+                profile.image ||
+                "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+              }
               alt={`${profile.name} ${profile.surname}`}
               className="img-fluid rounded-circle"
             />
@@ -203,7 +235,10 @@ export default function ProfileHeader() {
           <div className="d-flex align-items-center gap-2 mb-2">
             <div className="position-relative">
               <img
-                src={profile.image}
+                src={
+                  profile.image ||
+                  "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+                }
                 alt="profile suggestion"
                 className="rounded-circle"
                 width="40"
@@ -270,7 +305,7 @@ export default function ProfileHeader() {
                   <circle cx="12" cy="12" r="3" />
                 </svg>
                 <p className="fw-semibold mb-1">
-                  0 visualizzazioni del profilo
+                  {analytics.views} visualizzazioni del profilo
                 </p>
                 <p className="text-secondary small">
                   Aggiorna il tuo profilo per attrarre visitatori
@@ -292,7 +327,9 @@ export default function ProfileHeader() {
                   <rect x="2" y="2" width="20" height="20" rx="2.18" />
                   <path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 17h5M17 7h5" />
                 </svg>
-                <p className="fw-semibold mb-1">0 impressioni dei post</p>
+                <p className="fw-semibold mb-1">
+                  {analytics.impressions} impressioni dei post
+                </p>
                 <p className="text-secondary small mb-1">
                   Crea un post per aumentare l'interesse
                 </p>
@@ -314,7 +351,9 @@ export default function ProfileHeader() {
                   <circle cx="11" cy="11" r="8" />
                   <path d="M21 21l-4.35-4.35" />
                 </svg>
-                <p className="fw-semibold mb-1">0 comparse nelle ricerche</p>
+                <p className="fw-semibold mb-1">
+                  {analytics.searches} comparse nelle ricerche
+                </p>
                 <p className="text-secondary small">
                   Aggiorna il tuo profilo per comparire di più nei risultati di
                   ricerca
