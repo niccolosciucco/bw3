@@ -214,16 +214,21 @@ const NavbarL = () => {
                   <Button
                     variant="outline-primary"
                     onClick={() => navigate("/profile")}
-                    className="bg-white rounded-pill"
-                    style={{ color: "#0B5ED7", fontSize: "0.9rem" }}
+                    className="rounded-pill fw-semibold py-1 ps-3 pe-5 text-start"
+                    style={{
+                      fontSize: "1rem",
+                      borderWidth: "1.5px",
+                      lineHeight: "1.2rem",
+                    }}
                   >
-                    Visualizza Profilo
+                    Visualizza <br /> profilo
                   </Button>
                   <Button
-                    className="text-white rounded-pill"
-                    style={{ backgroundColor: "#0B5ED7", fontSize: "0.9rem" }}
+                    variant="primary"
+                    className="rounded-pill fw-semibold py-1 ps-3 pe-4 text-start"
+                    style={{ fontSize: "1rem", lineHeight: "1.2rem" }}
                   >
-                    Verifica ora
+                    Verifica <br /> ora
                   </Button>
                 </div>
                 <hr />
