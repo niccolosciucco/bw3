@@ -234,18 +234,19 @@ const NavbarL = () => {
                 <hr />
                 <div>
                   <p className="fw-semibold fs-6 p-0 mb-2">Account</p>
-                  <p
-                    className="p-0 mb-2 fw-semibold text-secondary"
-                    style={{ fontSize: "0.9rem" }}
-                  >
-                    {" "}
+                  <div className="d-flex align-items-center">
                     <FaSquare
-                      size={22}
+                      size={15}
                       style={{ color: "#E7A33E" }}
-                      className="p-0 me-2"
+                      className="p-0 me-1"
                     />
-                    1 month of Premium for € 0
-                  </p>
+                    <p
+                      className="p-0 mb-2 fw-semibold text-secondary"
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      Sblocca la tua prova gratuita di 1 mese
+                    </p>
+                  </div>
                   <Nav.Link
                     style={{ fontSize: "0.9rem" }}
                     className="text-secondary"
