@@ -1,13 +1,10 @@
-import { Card, Button, ListGroup, Stack } from "react-bootstrap";
-import {
-  BsInfoSquareFill,
-  BsChevronDown,
-  BsChevronRight,
-} from "react-icons/bs";
-import SpanFooterDX from "./SpanFooterDX";
+import { Card, Button, ListGroup, Stack } from "react-bootstrap"
+import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
+import SpanFooterDX from "./SpanFooterDX"
+import { useState, useEffect } from "react"
 
 const ColonnaDX = () => {
-  const newsItems = [
+  /*const newsItems = [
     {
       id: 1,
       title: "Playatomic, Canva: cercasi country man...",
@@ -38,7 +35,33 @@ const ColonnaDX = () => {
       time: "2h fa",
       readers: "1237 lettori",
     },
-  ];
+  ]*/
+
+  const [newsItems, setNewsItems] = useState([])
+  const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu"
+  const seztioneNotizie = () => {
+    const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`
+    fetch(url)
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error("errore nel recupero notizie")
+        }
+      })
+
+      .then((data) => {
+        const primeCinque = data.news.slice(0, 5)
+        setNewsItems(primeCinque)
+      })
+      .catch((err) => {
+        console.log("errore", err)
+      })
+  }
+
+  useEffect(() => {
+    seztioneNotizie()
+  }, [])
 
   const gamesItems = [
     {
@@ -69,7 +92,7 @@ const ColonnaDX = () => {
       icon: "📐",
       color: "#3498db",
     },
-  ];
+  ]
 
   return (
     <div
@@ -78,16 +101,18 @@ const ColonnaDX = () => {
     >
       {/* 1. SEZIONE LINKEDIN NOTIZIE */}
       <Card className="mb-2 shadow-sm">
-        <Card.Body>
-          <div className="d-flex justify-content-between align-items-center mb-2">
-            <h5 className="mb-0 fw-bold fs-6 text-dark">LinkedIn Notizie</h5>
+        <Card.Body className="p-0">
+          <div className="d-flex justify-content-between align-items-center my-2 px-3">
+            <h5 className="mb-0 fw-bold fs-6 text-dark mt-2">
+              LinkedIn Notizie
+            </h5>
             <BsInfoSquareFill
-              className="text-secondary"
+              className="text-secondary mt-2"
               style={{ fontSize: "0.75rem", cursor: "pointer" }}
             />
           </div>
           <p
-            className="text-muted fw-semibold mb-3"
+            className="text-muted fw-semibold my-2 px-3"
             style={{ fontSize: "0.8rem" }}
           >
             Storie principali
@@ -97,17 +122,33 @@ const ColonnaDX = () => {
             {newsItems.map((item) => (
               <ListGroup.Item
                 key={item.id}
-                className="p-0 border-0 bg-transparent mb-2"
+                className="p-0 border-0 mb-2"
                 style={{ cursor: "pointer" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "rgb(232, 232, 232)"
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent"
+                }}
+                onClick={() =>
+                  window.open(item.url, "_blank", "noopener,noreferrer")
+                }
               >
-                <div
-                  className="fw-semibold text-dark text-truncate"
-                  style={{ lineHeight: "1.3" }}
-                >
-                  {item.title}
-                </div>
-                <div className="text-muted" style={{ fontSize: "0.75rem" }}>
-                  {item.time} • {item.readers}
+                <div className="mb-1">
+                  <div
+                    className="fw-semibold text-dark text-truncate px-3"
+                    style={{
+                      lineHeight: "1.3",
+                    }}
+                  >
+                    {item.title}
+                  </div>
+                  <div
+                    className="text-muted px-3"
+                    style={{ fontSize: "0.75rem" }}
+                  >
+                    {item.author || "fonte sconosciuta"} • {item.category}
+                  </div>
                 </div>
               </ListGroup.Item>
             ))}
@@ -118,8 +159,12 @@ const ColonnaDX = () => {
             className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
             style={{ fontSize: "0.8rem" }}
           >
-            <span>Mostra altre notizie</span>
-            <BsChevronDown style={{ fontSize: "0.75rem" }} />
+            <span className="ps-3 mb-2">Mostra altre notizie</span>
+            <BsChevronDown
+              className="mb-2 mt-1"
+              style={{ fontSize: "0.75rem" }}
+              size={13}
+            />
           </Button>
         </Card.Body>
       </Card>
@@ -269,7 +314,7 @@ const ColonnaDX = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ColonnaDX;
+export default ColonnaDX
