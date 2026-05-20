@@ -123,7 +123,14 @@ const NavbarL = () => {
                   className="border-0 bg-transparent py-0 px-1 fs-6"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                ></Form.Control>
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && searchQuery.trim().length > 0) {
+                      e.preventDefault()
+                      setShowDropdown(false)
+                      navigate(`/search?q=${searchQuery}`)
+                    }
+                  }}
+                />
               </InputGroup>
             </Form>
 
