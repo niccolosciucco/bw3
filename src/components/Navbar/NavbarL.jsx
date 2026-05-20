@@ -29,6 +29,8 @@ import { useNavigate, useLocation } from "react-router"
 import { logout } from "../../store/slices/authSlice"
 
 const NavbarL = () => {
+  const profileName = useSelector((state) => state.image.profileName)
+  const profileSurname = useSelector((state) => state.image.profileSurname)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
@@ -66,10 +68,12 @@ const NavbarL = () => {
             <FaLinkedin className="text-primary" size={38} />
           </Navbar.Brand>
           {/*BARRA DI RICERCA */}
-          <Form onSubmit={(e) => {
-            e.preventDefault()
-            navigate("/search")
-          }}>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault()
+              navigate("/search")
+            }}
+          >
             <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">
               <IoSearchSharp size={18} />
               <Form.Control
@@ -217,7 +221,9 @@ const NavbarL = () => {
                     alt="Profilo"
                   />
                   <div className="ms-2">
-                    <h5 className="fs-6 m-0">Guido La Vespa </h5>
+                    <h5 className="fs-6 m-0">
+                      {profileName} {profileSurname}
+                    </h5>
                     <p className="m-0" style={{ fontSize: "0.9rem" }}>
                       Professione
                     </p>
