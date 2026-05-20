@@ -7,8 +7,8 @@ import NavbarL from "../Navbar/NavbarL"
 const SearchPage = () => {
     const [profiles, setProfiles] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [searchParams] = useSearchParams()        // ← qui, fuori dal useEffect
-    const query = searchParams.get("q") || ""       // ← qui, fuori dal useEffect
+    const [searchParams] = useSearchParams()
+    const query = searchParams.get("q") || ""       
     const { token } = useSelector((state) => state.auth)
 
     useEffect(() => {
@@ -48,7 +48,9 @@ const SearchPage = () => {
                                     <Card.Subtitle className="mb-2 text-muted">{prof.surname}</Card.Subtitle>
                                     <Card.Text>{prof.title}</Card.Text>
                                     <Card.Text>{prof.area}</Card.Text>
-                                    <Card.Text><Link to={`/profile/${prof._id}`}>Vedi profilo</Link></Card.Text>
+                                    <Card.Text>
+                                        <Link to={`/profile/${prof._id}`}>Vedi profilo</Link>
+                                    </Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -58,5 +60,4 @@ const SearchPage = () => {
         </>
     )
 }
-
 export default SearchPage
