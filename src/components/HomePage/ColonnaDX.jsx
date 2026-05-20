@@ -1,9 +1,9 @@
 import { Card, Button, ListGroup, Stack } from "react-bootstrap"
 import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
 import SpanFooterDX from "./SpanFooterDX"
-import { useSelector } from "react-redux"
+import { useState, useEffect } from "react"
+
 const ColonnaDX = () => {
-  const profileImage = useSelector((state) => state.image.profileImage)
   /*const newsItems = [
     {
       id: 1,
@@ -247,10 +247,7 @@ const ColonnaDX = () => {
             className="justify-content-center align-items-center mb-3"
           >
             <img
-              src={
-                profileImage ||
-                "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
-              }
+              src="https://placecats.com/70/70"
               alt="User avatar"
               className="rounded-circle border"
               style={{ width: "64px", height: "64px", objectFit: "cover" }}
