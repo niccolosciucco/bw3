@@ -21,11 +21,12 @@ import { AiFillMessage } from "react-icons/ai"
 import { IoNotifications } from "react-icons/io5"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import "./NavbarL.css"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Link } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useLocation } from "react-router"
 import { logout } from "../../store/slices/authSlice"
+
 
 const NavbarL = () => {
   const profileName = useSelector((state) => state.image.profileName)
@@ -41,8 +42,43 @@ const NavbarL = () => {
   const isMessagesPage = location.pathname.startsWith("/messages")
   const profileImage = useSelector((state) => state.image.profileImage)
   console.log("stato redux image:", profileImage)
-
+  const token = useSelector((state) => state.auth.token)
   const [searchQuery, setSearchQuery] = useState("")
+  const [suggestions, setSuggestions] = useState([])
+  const [showDropdown, setShowDropdown] = useState(false)
+  const searchRef = useRef(null)
+  useEffect(() => {
+    if (searchQuery.trim().length < 2) {
+      setSuggestions([])
+      setShowDropdown(false)
+      return
+    }
+
+    const timer = setTimeout(() => {
+      fetch(`https://striveschool-api.herokuapp.com/api/profile?search=${searchQuery}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setSuggestions(data.slice(0, 5))
+          setShowDropdown(true)
+        })
+        .catch(() => setSuggestions([]))
+    }, 400)
+
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowDropdown(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
@@ -71,23 +107,69 @@ const NavbarL = () => {
             <FaLinkedin className="text-primary" size={38} />
           </Navbar.Brand>
           {/*BARRA DI RICERCA */}
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault()
-              navigate(`/search?q=${searchQuery}`)
-            }}
-          >
-            <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">
-              <IoSearchSharp size={18} />
-              <Form.Control
-                type="search"
-                placeholder="Cerca"
-                className="border-0 bg-transparent py-0 px-1 fs-6"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              ></Form.Control>
-            </InputGroup>
-          </Form>
+          <div ref={searchRef} style={{ position: "relative" }}>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault()
+                setShowDropdown(false)
+                navigate(`/search?q=${searchQuery}`)
+              }}
+            >
+              <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">
+                <IoSearchSharp size={18} />
+                <Form.Control
+                  type="search"
+                  placeholder="Cerca"
+                  className="border-0 bg-transparent py-0 px-1 fs-6"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                ></Form.Control>
+              </InputGroup>
+            </Form>
+
+            {showDropdown && suggestions.length > 0 && (
+              <div style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                right: 0,
+                backgroundColor: "white",
+                border: "1px solid #e0e0e0",
+                borderRadius: "8px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                zIndex: 9999,
+                marginTop: "4px"
+              }}>
+                {suggestions.map((s) => (
+                  <div
+                    key={s._id}
+                    onClick={() => {
+                      setShowDropdown(false)
+                      setSearchQuery("")
+                      navigate(`/profile/${s._id}`)
+                    }}
+                    style={{ padding: "10px 16px", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f3f2f1"}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "white"}
+                  >
+                    <img
+                      src={s.image || "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"}
+                      alt={s.name}
+                      style={{ width: "36px", height: "36px", borderRadius: "50%", objectFit: "cover" }}
+                      onError={(e) => {
+                        e.target.src = "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+                      }}
+                    />
+                    {/* Nome e professione */}
+                    <div>
+                      <p style={{ margin: 0, fontWeight: 600, fontSize: "0.9rem" }}>{s.name} {s.surname}</p>
+                      <p style={{ margin: 0, color: "#666", fontSize: "0.8rem" }}>{s.title}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/*ICONE MOBILE */}
