@@ -1,78 +1,50 @@
-import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setCoverImage } from "../../../store/slices/imageSlice"
+import { useState } from "react"
 
 const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
-  const dispatch = useDispatch()
-
-  const reduxCoverImage = useSelector((state) => state.image.coverImage)
-
   const [showOptions, setShowOptions] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [coverImage, setCoverImage] = useState(currentCoverImage)
   const [showImageGallery, setShowImageGallery] = useState(false)
-
-  const [coverImage, setCoverImageState] = useState(
-    reduxCoverImage || localStorage.getItem("coverImage") || currentCoverImage,
-  )
-
-  useEffect(() => {
-    if (reduxCoverImage && reduxCoverImage !== coverImage) {
-      // eslint-disable-next-line
-      setCoverImageState(reduxCoverImage)
-    }
-  }, [reduxCoverImage])
-
-  const saveCoverImage = (newImage) => {
-    localStorage.setItem("coverImage", newImage)
-
-    setCoverImageState(newImage)
-
-    dispatch(setCoverImage(newImage))
-
-    if (onCoverUpdate) {
-      onCoverUpdate(newImage)
-    }
-  }
 
   const presetImages = [
     {
       id: 1,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=400&fit=crop", // Montagna
       name: "Montagna",
     },
     {
       id: 2,
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=400&fit=crop", // Foresta
       name: "Foresta",
     },
     {
       id: 3,
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=400&fit=crop", // Spiaggia
       name: "Spiaggia",
     },
     {
       id: 4,
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=400&fit=crop", // Natura
       name: "Natura",
     },
     {
       id: 5,
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=400&fit=crop", // Foresta pluviale
       name: "Foresta Pluviale",
     },
     {
       id: 6,
-      url: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1200&h=400&fit=crop", // Deserto
       name: "Deserto",
     },
     {
       id: 7,
-      url: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=1200&h=400&fit=crop", // Città
       name: "Città",
     },
     {
       id: 8,
-      url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&h=400&fit=crop",
+      url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&h=400&fit=crop", // Oceano
       name: "Oceano",
     },
   ]
@@ -92,7 +64,9 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       if (file) {
         const reader = new FileReader()
         reader.onload = (event) => {
-          saveCoverImage(event.target.result)
+          const newImage = event.target.result
+          setCoverImage(newImage)
+          onCoverUpdate(newImage)
           setShowModal(false)
         }
         reader.readAsDataURL(file)
@@ -107,7 +81,9 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       .then((blob) => {
         const reader = new FileReader()
         reader.onload = (event) => {
-          saveCoverImage(event.target.result)
+          const newImage = event.target.result
+          setCoverImage(newImage)
+          onCoverUpdate(newImage)
           setShowModal(false)
           setShowImageGallery(false)
         }
@@ -115,7 +91,9 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       })
       .catch((error) => {
         console.error("Errore nel caricamento immagine:", error)
-        saveCoverImage(imageUrl)
+
+        setCoverImage(imageUrl)
+        onCoverUpdate(imageUrl)
         setShowModal(false)
         setShowImageGallery(false)
       })

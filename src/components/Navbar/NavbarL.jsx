@@ -34,8 +34,7 @@ const NavbarL = () => {
   const location = useLocation()
   const isHomepage = location.pathname.startsWith("/home")
   const isJobsPage = location.pathname.startsWith("/jobs")
-  const profileImage = useSelector((state) => state.image.profileImage)
-  console.log("stato redux image:", profileImage)
+
   const isMessagesOpen = useSelector((state) => state.messages.isMessagesOpen)
   return (
     <Navbar className="bg-white border-bottom py-1">
@@ -44,7 +43,7 @@ const NavbarL = () => {
         <Image
           onClick={() => navigate("/profile")}
           className="d-block me-2 d-lg-none"
-          src={profileImage}
+          src="https://placecats.com/50/50"
           roundedCircle
           style={{
             width: "30px",
@@ -162,10 +161,7 @@ const NavbarL = () => {
                 <div className="d-flex flex-column align-items-center ">
                   <Image
                     className="d-none d-lg-block"
-                    src={
-                      profileImage ||
-                      "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
-                    }
+                    src="https://placecats.com/50/50"
                     roundedCircle
                     style={{
                       width: "24px",
@@ -174,6 +170,7 @@ const NavbarL = () => {
                     }}
                     alt="Profilo"
                   />
+
                   <p
                     className="mb-0 text-center"
                     style={{
@@ -197,11 +194,7 @@ const NavbarL = () => {
               >
                 <div className="d-flex align-items-center">
                   <Image
-                    className="d-none d-lg-block"
-                    src={
-                      profileImage ||
-                      "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
-                    }
+                    src="https://placecats.com/50/50"
                     roundedCircle
                     style={{
                       width: "40px",

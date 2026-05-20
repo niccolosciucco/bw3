@@ -1,44 +1,64 @@
-import { Card, Button, ListGroup, Stack } from "react-bootstrap";
-import {
-  BsInfoSquareFill,
-  BsChevronDown,
-  BsChevronRight,
-  BsGrid3X3GapFill,
-  BsLink45Deg,
-  Bs123,
-  BsGrid1X2Fill,
-} from "react-icons/bs";
-import SpanFooterDX from "./SpanFooterDX";
-import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { Card, Button, ListGroup, Stack } from "react-bootstrap"
+import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
+import SpanFooterDX from "./SpanFooterDX"
+import { useState, useEffect } from "react"
 
 const ColonnaDX = () => {
-  const profileImage = useSelector((state) => state.image.profileImage);
-  const [newsItems, setNewsItems] = useState([]);
-  const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu";
+  /*const newsItems = [
+    {
+      id: 1,
+      title: "Playatomic, Canva: cercasi country man...",
+      time: "2 giorni fa",
+      readers: "393 lettori",
+    },
+    {
+      id: 2,
+      title: "L'auto europea parla sempre più cinese",
+      time: "2 giorni fa",
+      readers: "369 lettori",
+    },
+    {
+      id: 3,
+      title: "Aumentano i consumi per cani e gatti",
+      time: "2 giorni fa",
+      readers: "104 lettori",
+    },
+    {
+      id: 4,
+      title: "Le nuove Top Voices di LinkedIn",
+      time: "4 giorni fa",
+      readers: "1312 lettori",
+    },
+    {
+      id: 5,
+      title: "Internazionali di Roma: vince Sinner",
+      time: "2h fa",
+      readers: "1237 lettori",
+    },
+  ]*/
 
   const seztioneNotizie = () => {
-    const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`;
+    const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`
     fetch(url)
       .then((res) => {
         if (res.ok) {
-          return res.json();
+          return res.json()
         } else {
-          throw new Error("errore nel recupero notizie");
+          throw new Error("errore nel recupero notizie")
         }
       })
       .then((data) => {
-        const primeCinque = data.news.slice(0, 5);
-        setNewsItems(primeCinque);
+        const primeCinque = data.news.slice(0, 5)
+        setNewsItems(primeCinque)
       })
       .catch((err) => {
-        console.log("errore", err);
-      });
-  };
+        console.log("errore", err)
+      })
+  }
 
   useEffect(() => {
-    seztioneNotizie();
-  }, []);
+    seztioneNotizie()
+  }, [])
 
   const gamesItems = [
     {
@@ -69,7 +89,7 @@ const ColonnaDX = () => {
       IconComponent: BsGrid1X2Fill,
       color: "#3498db",
     },
-  ];
+  ]
 
   return (
     <div
@@ -102,10 +122,10 @@ const ColonnaDX = () => {
                 className="p-0 border-0 mb-2"
                 style={{ cursor: "pointer" }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "rgb(232, 232, 232)";
+                  e.currentTarget.style.backgroundColor = "rgb(232, 232, 232)"
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.backgroundColor = "transparent"
                 }}
                 onClick={() =>
                   window.open(item.url, "_blank", "noopener,noreferrer")
@@ -153,7 +173,7 @@ const ColonnaDX = () => {
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
             {gamesItems.map((game) => {
-              const Icon = game.IconComponent;
+              const Icon = game.IconComponent
               return (
                 <ListGroup.Item
                   key={game.id}
@@ -194,7 +214,7 @@ const ColonnaDX = () => {
                     style={{ fontSize: "0.75rem" }}
                   />
                 </ListGroup.Item>
-              );
+              )
             })}
           </ListGroup>
 
@@ -226,10 +246,7 @@ const ColonnaDX = () => {
             className="justify-content-center align-items-center mb-3"
           >
             <img
-              src={
-                profileImage ||
-                "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
-              }
+              src="https://placecats.com/70/70"
               alt="User avatar"
               className="rounded-circle border"
               style={{ width: "64px", height: "64px", objectFit: "cover" }}
@@ -296,7 +313,7 @@ const ColonnaDX = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ColonnaDX;
+export default ColonnaDX

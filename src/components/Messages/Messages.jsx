@@ -3,10 +3,10 @@ import { FaChevronUp, FaChevronDown, FaEllipsisH } from "react-icons/fa"
 import { BsPencilSquare } from "react-icons/bs"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
+
 function Messages() {
   const dispatch = useDispatch()
   const isOpen = useSelector((state) => state.messages.isMessagesOpen)
-  const profileImage = useSelector((state) => state.image.profileImage)
   const chats = [
     {
       id: 1,
@@ -84,18 +84,9 @@ function Messages() {
         >
           <div className="d-flex align-items-center gap-2">
             <img
-              src={
-                profileImage ||
-                "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
-              }
+              src="https://placecats.com/41/41"
               alt="personal profile"
               className="rounded-circle"
-              style={{
-                width: "48px",
-                height: "48px",
-                objectFit: "cover",
-                cursor: "pointer",
-              }}
             />
             <strong style={{ fontSize: "14px" }}>Messages</strong>
           </div>

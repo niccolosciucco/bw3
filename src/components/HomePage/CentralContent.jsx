@@ -3,16 +3,14 @@ import {
   BsImageFill,
   BsNewspaper,
   BsPlayBtnFill,
-} from "react-icons/bs"
-import TextAreaCreatePost from "./TextAreaCreatePost"
-import PostActionButton from "../HomePage/PostActionButton"
-import Posts from "./Posts"
-import { useNavigate } from "react-router"
-import { useSelector } from "react-redux"
+} from "react-icons/bs";
+import TextAreaCreatePost from "./TextAreaCreatePost";
+import PostActionButton from "../HomePage/PostActionButton";
+import Posts from "./Posts";
+import { useNavigate } from "react-router";
 
 const CentralContent = function () {
-  const navigate = useNavigate()
-  const profileImage = useSelector((state) => state.image.profileImage)
+  const navigate = useNavigate();
   return (
     <>
       <div
@@ -22,10 +20,7 @@ const CentralContent = function () {
         <div className="d-flex align-items-center gap-3 mb-2">
           <img
             onClick={() => navigate("/profile")}
-            src={
-              profileImage ||
-              "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
-            }
+            src="https://placecats.com/70/70"
             alt="Profilo"
             className="rounded-circle border"
             style={{
@@ -77,7 +72,7 @@ const CentralContent = function () {
 
       <Posts />
     </>
-  )
-}
+  );
+};
 
-export default CentralContent
+export default CentralContent;

@@ -10,11 +10,9 @@ import {
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
-import CommentsSection from "./CommentsSection";
 
 const PostCard = ({ post }) => {
   const [liked, setLiked] = useState(false);
-  const [showComments, setShowComments] = useState(false);
 
   const formatTime = (isoString) => {
     if (!isoString) return "1s";
@@ -165,21 +163,12 @@ const PostCard = ({ post }) => {
             </div>
             <span className="text-truncate">Consigliato da altri utenti</span>
           </Stack>
-          {/* Il click sulla scritta "Commenti" ora apre la tendina */}
-          <span
-            className="text-nowrap cursor-pointer"
-            style={{ cursor: "pointer" }}
-            onClick={() => setShowComments(!showComments)}
-          >
-            Commenti
-          </span>
+          <span className="text-nowrap cursor-pointer">Commenti</span>
         </div>
       </Card.Footer>
 
-      {/* FOOTER AZIONI  */}
-      <Card.Footer
-        className={`p-1 bg-white border-top d-flex justify-content-between row g-0 ${showComments ? "rounded-0" : "rounded-bottom-4"}`}
-      >
+      {/* FOOTER AZIONI */}
+      <Card.Footer className="p-1 bg-white border-top d-flex justify-content-between row g-0 rounded-bottom-4">
         <Col>
           <Button
             variant="white"
@@ -199,11 +188,9 @@ const PostCard = ({ post }) => {
         </Col>
 
         <Col>
-          {/* onClick per mostrare/nascondere la sezione commenti e classe active dinamica */}
           <Button
             variant="white"
-            onClick={() => setShowComments(!showComments)}
-            className={`w-100 py-2 btn-outline-light border-0 d-flex flex-column align-items-center justify-content-center ${showComments ? "text-primary fw-bold" : "text-muted"}`}
+            className="w-100 py-2 btn-outline-light text-muted border-0 d-flex flex-column align-items-center justify-content-center"
             style={{ fontSize: "12px", fontWeight: "600" }}
           >
             <BsChatText size={18} className="mb-1" />
@@ -233,9 +220,6 @@ const PostCard = ({ post }) => {
           </Button>
         </Col>
       </Card.Footer>
-
-      {/*Render condizionale per montare CommentsSection passandogli l'id di questo post */}
-      {showComments && <CommentsSection postId={post._id} />}
     </Card>
   );
 };
