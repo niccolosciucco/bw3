@@ -31,6 +31,9 @@ import { logout } from "../../store/slices/authSlice"
 const NavbarL = () => {
   const profileName = useSelector((state) => state.image.profileName)
   const profileSurname = useSelector((state) => state.image.profileSurname)
+  const profileProfession = useSelector(
+    (state) => state.image.profileProfession,
+  )
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
@@ -225,7 +228,7 @@ const NavbarL = () => {
                       {profileName} {profileSurname}
                     </h5>
                     <p className="m-0" style={{ fontSize: "0.9rem" }}>
-                      Professione
+                      {profileProfession}
                     </p>
                   </div>
                 </div>

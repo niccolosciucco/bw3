@@ -9,6 +9,8 @@ import {
   setProfileImage,
   setProfileName,
   setProfileSurname,
+  setProfileProfession,
+  setProfileLocation,
 } from "../../store/slices/imageSlice.js"
 import { useSelector } from "react-redux"
 export default function ProfileHeader() {
@@ -41,6 +43,8 @@ export default function ProfileHeader() {
         dispatch(setProfileImage(myProfile.image))
         dispatch(setProfileName(myProfile.name))
         dispatch(setProfileSurname(myProfile.surname))
+        dispatch(setProfileProfession(myProfile.title))
+        dispatch(setProfileLocation(myProfile.area))
 
         console.log("immagine:", myProfile.image)
         console.log("nome:", myProfile.name)
