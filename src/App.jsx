@@ -10,7 +10,7 @@ import JobsPage from "./components/Jobs/JobsPage"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "./store/slices/profileSlice"
-
+import MessagesPage from "./components/MessagesPage/Messages"
 
 function AppContent() {
   const dispatch = useDispatch()
@@ -37,6 +37,7 @@ function AppContent() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/messages" element={<MessagesPage />} />
       </Routes>
     </BrowserRouter>
   )
