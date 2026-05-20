@@ -36,7 +36,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/messages" element={<MessagesPage />} />
