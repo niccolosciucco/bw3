@@ -1,9 +1,13 @@
-import { Card, Button, ListGroup, Stack } from "react-bootstrap"
-import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
-import SpanFooterDX from "./SpanFooterDX"
-import { useSelector } from "react-redux"
+import { Card, Button, ListGroup, Stack } from "react-bootstrap";
+import {
+  BsInfoSquareFill,
+  BsChevronDown,
+  BsChevronRight,
+} from "react-icons/bs";
+import SpanFooterDX from "./SpanFooterDX";
+import { useSelector } from "react-redux";
 const ColonnaDX = () => {
-  const profileImage = useSelector((state) => state.image.profileImage)
+  const profileImage = useSelector((state) => state.image.profileImage);
   const newsItems = [
     {
       id: 1,
@@ -35,7 +39,7 @@ const ColonnaDX = () => {
       time: "2h fa",
       readers: "1237 lettori",
     },
-  ]
+  ];
 
   const gamesItems = [
     {
@@ -66,7 +70,7 @@ const ColonnaDX = () => {
       icon: "📐",
       color: "#3498db",
     },
-  ]
+  ];
 
   return (
     <div
@@ -269,7 +273,7 @@ const ColonnaDX = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ColonnaDX
+export default ColonnaDX;

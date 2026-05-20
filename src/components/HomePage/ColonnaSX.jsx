@@ -1,14 +1,18 @@
-import { Card, Image, Nav, ListGroup } from "react-bootstrap"
-import { FaSquare } from "react-icons/fa"
-import { IoBookmark } from "react-icons/io5"
-import { MdGroups } from "react-icons/md"
-import { BiNews } from "react-icons/bi"
-import { MdEventNote } from "react-icons/md"
-import { useNavigate } from "react-router"
-import { useSelector } from "react-redux"
+import { Card, Image, Nav, ListGroup } from "react-bootstrap";
+import { FaSquare } from "react-icons/fa";
+import { IoBookmark } from "react-icons/io5";
+import { MdGroups } from "react-icons/md";
+import { BiNews } from "react-icons/bi";
+import { MdEventNote } from "react-icons/md";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+
 const ColonnaSX = () => {
-  const navigate = useNavigate()
-  const profileImage = useSelector((state) => state.image.profileImage)
+  const navigate = useNavigate();
+
+  const currentUser = useSelector((state) => state.profile?.user);
+  const profileImage = useSelector((state) => state.image?.profileImage);
+
   return (
     <>
       {/*PRIMO BLOCCO*/}
@@ -35,14 +39,18 @@ const ColonnaSX = () => {
             }}
           />
 
-          {/* Dati Profilo */}
+          {/* Dati Profilo dinamici */}
           <div style={{ marginTop: "45px" }}>
-            <h5 className="mb-0 fw-bold fs-6">Guido La Vespa</h5>
+            <h5 className="mb-0 fw-bold fs-6">
+              {currentUser?.name && currentUser?.surname
+                ? `${currentUser.name} ${currentUser.surname}`
+                : "Guido La Vespa"}
+            </h5>
             <p className="text-secondary mb-1" style={{ fontSize: "0.85rem" }}>
-              Professione
+              {currentUser?.title || "Professione"}
             </p>
             <p className="text-muted mb-2" style={{ fontSize: "0.75rem" }}>
-              Italia
+              {currentUser?.area || "Italia"}
             </p>
 
             {/* Azienda */}
@@ -109,7 +117,7 @@ const ColonnaSX = () => {
         </ListGroup>
       </Card>
     </>
-  )
-}
+  );
+};
 
-export default ColonnaSX
+export default ColonnaSX;
