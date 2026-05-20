@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Form, Button, Spinner, Stack } from "react-bootstrap";
-import { BsSendFill } from "react-icons/bs";
+import {
+  BsSendFill,
+  BsPencilSquare,
+  BsXCircle,
+  BsCheckCircle,
+} from "react-icons/bs";
 import { useSelector } from "react-redux";
 
 const CommentsSection = ({ postId }) => {
@@ -8,6 +13,11 @@ const CommentsSection = ({ postId }) => {
   const [newComment, setNewComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Stati per la gestione della modifica del commento
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingText, setEditingText] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const profileImage = useSelector((state) => state.image?.profileImage);
   const currentUser = useSelector((state) => state.profile?.user);
@@ -56,7 +66,7 @@ const CommentsSection = ({ postId }) => {
     }
   }, [postId]);
 
-  // 3. Funzione di supporto per ricaricare i commenti dopo una POST con successo
+  // 3. Funzione di supporto per ricaricare i commenti dopo modifiche o inserimenti
   const refreshCommentsList = async () => {
     try {
       const response = await fetch(
@@ -119,6 +129,56 @@ const CommentsSection = ({ postId }) => {
     }
   };
 
+  // 5. Attivazione modalità modifica
+  const startEditing = (commentId, currentText) => {
+    setEditingCommentId(commentId);
+    setEditingText(currentText);
+  };
+
+  // 6. Annullamento modalità modifica
+  const cancelEditing = () => {
+    setEditingCommentId(null);
+    setEditingText("");
+  };
+
+  // 7. Salvataggio della PUT del commento modificato
+  const handleUpdateComment = async (commentId) => {
+    if (!editingText.trim()) return;
+
+    setIsUpdating(true);
+
+    const payload = {
+      comment: editingText.trim(),
+      rate: "5",
+      elementId: postId,
+    };
+
+    try {
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/comments/${commentId}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      if (!response.ok) throw new Error("Impossibile modificare il commento");
+
+      setEditingCommentId(null);
+      setEditingText("");
+      await refreshCommentsList();
+    } catch (error) {
+      console.error(error);
+      alert("Errore durante la modifica del commento.");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   return (
     <div className="border-top p-3 bg-light rounded-bottom-4">
       {/* Form di inserimento commento */}
@@ -132,6 +192,7 @@ const CommentsSection = ({ postId }) => {
           className="rounded-circle border"
           style={{ width: "32px", height: "32px", objectFit: "cover" }}
           onError={(e) => {
+            e.target.onerror = null;
             e.target.src =
               "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg";
           }}
@@ -141,7 +202,7 @@ const CommentsSection = ({ postId }) => {
           placeholder="Aggiungi un commento..."
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          disabled={isSubmitting}
+          disabled={isSubmitting || editingCommentId !== null}
           className="rounded-pill bg-white border shadow-none py-2 px-3"
           style={{ fontSize: "13px" }}
         />
@@ -169,8 +230,8 @@ const CommentsSection = ({ postId }) => {
         </div>
       ) : comments.length > 0 ? (
         <Stack gap={2} className="mt-2">
-          {comments.map((c) => {
-            // Normalizzazione e pulizia dei testi
+          {comments.map((c, index) => {
+            // Normalizzazione dei testi
             const authorClean = c.author?.toLowerCase().trim() || "";
             const reduxUsername =
               currentUser?.username?.toLowerCase().trim() || "";
@@ -186,29 +247,84 @@ const CommentsSection = ({ postId }) => {
                 authorClean === reduxFullName ||
                 authorClean === "guido_la_vespa");
 
+            const isCurrentlyEditing = editingCommentId === c._id;
+
             return (
               <div
-                key={c._id}
-                className="d-flex gap-2 align-items-start text-start p-2 rounded bg-white shadow-sm"
+                key={c._id || index}
+                className="d-flex gap-2 align-items-start text-start p-2 rounded bg-white shadow-sm position-relative"
               >
                 <img
                   src={
                     isMe
-                      ? myAvatarImage // Mostra la foto del profilo (o il gatto di fallback)
+                      ? myAvatarImage
                       : `https://ui-avatars.com/api/?name=${c.author || "Utente"}&background=random`
                   }
                   alt="Autore"
                   className="rounded-circle border"
                   style={{ width: "28px", height: "28px", objectFit: "cover" }}
                   onError={(e) => {
+                    e.target.onerror = null;
                     e.target.src = `https://ui-avatars.com/api/?name=${c.author || "Utente"}&background=random`;
                   }}
                 />
                 <div className="w-100" style={{ fontSize: "13px" }}>
-                  <div className="fw-bold text-dark">
-                    {c.author || "Anonimo"}
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div className="fw-bold text-dark">
+                      {c.author || "Anonimo"}
+                    </div>
+
+                    {/* Pulsante Modifica: compare solo se il commento è nostro e non lo stiamo già modificando */}
+                    {isMe && !isCurrentlyEditing && (
+                      <Button
+                        variant="link"
+                        className="text-secondary p-0 border-0 shadow-none text-decoration-none"
+                        onClick={() => startEditing(c._id, c.comment)}
+                        title="Modifica commento"
+                        style={{ height: "fit-content" }}
+                      >
+                        <BsPencilSquare size={14} className="text-muted" />
+                      </Button>
+                    )}
                   </div>
-                  <div className="text-secondary mt-1">{c.comment}</div>
+
+                  {isCurrentlyEditing ? (
+                    <div className="mt-2 d-flex gap-2 align-items-center">
+                      <Form.Control
+                        type="text"
+                        value={editingText}
+                        onChange={(e) => setEditingText(e.target.value)}
+                        className="form-control-sm border shadow-none bg-light py-1 px-2"
+                        style={{ fontSize: "12px" }}
+                        disabled={isUpdating}
+                        autoFocus
+                      />
+                      <Stack direction="horizontal" gap={1}>
+                        <Button
+                          variant="link"
+                          className="p-0 text-success"
+                          disabled={isUpdating || !editingText.trim()}
+                          onClick={() => handleUpdateComment(c._id)}
+                        >
+                          {isUpdating ? (
+                            <Spinner animation="border" size="sm" />
+                          ) : (
+                            <BsCheckCircle size={16} />
+                          )}
+                        </Button>
+                        <Button
+                          variant="link"
+                          className="p-0 text-danger"
+                          disabled={isUpdating}
+                          onClick={cancelEditing}
+                        >
+                          <BsXCircle size={16} />
+                        </Button>
+                      </Stack>
+                    </div>
+                  ) : (
+                    <div className="text-secondary mt-1">{c.comment}</div>
+                  )}
                 </div>
               </div>
             );
