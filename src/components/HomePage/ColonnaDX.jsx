@@ -1,5 +1,10 @@
 import { Card, Button, ListGroup, Stack } from "react-bootstrap"
-import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
+import {
+  BsInfoSquareFill,
+  BsChevronDown,
+  BsChevronUp,
+  BsChevronRight,
+} from "react-icons/bs"
 import SpanFooterDX from "./SpanFooterDX"
 import { useSelector } from "react-redux"
 const ColonnaDX = () => {
@@ -38,6 +43,7 @@ const ColonnaDX = () => {
   ]*/
 
   const [newsItems, setNewsItems] = useState([])
+  const [visibleCount, setVisibleCount] = useState(5)
   const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu"
   const seztioneNotizie = () => {
     const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`
@@ -51,8 +57,7 @@ const ColonnaDX = () => {
       })
 
       .then((data) => {
-        const primeCinque = data.news.slice(0, 5)
-        setNewsItems(primeCinque)
+        setNewsItems(data.news)
       })
       .catch((err) => {
         console.log("errore", err)
@@ -62,6 +67,19 @@ const ColonnaDX = () => {
   useEffect(() => {
     seztioneNotizie()
   }, [])
+
+  const isOpen = visibleCount > 5
+
+  const gestisciVisibilita = () => {
+    if (isOpen) {
+      setVisibleCount(5) // Se è aperto, lo richiudiamo a 5
+    } else {
+      setVisibleCount(10) // Se è chiuso, mostriamo 10 notizie
+    }
+  }
+
+  // array "tagliato" per fare il .map() delle altre notizie
+  const notizieDaMostrare = newsItems.slice(0, visibleCount)
 
   const gamesItems = [
     {
@@ -119,9 +137,9 @@ const ColonnaDX = () => {
           </p>
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
-            {newsItems.map((item) => (
+            {notizieDaMostrare.map((notizia) => (
               <ListGroup.Item
-                key={item.id}
+                key={notizia.id}
                 className="p-0 border-0 mb-2"
                 style={{ cursor: "pointer" }}
                 onMouseEnter={(e) => {
@@ -131,7 +149,7 @@ const ColonnaDX = () => {
                   e.currentTarget.style.backgroundColor = "transparent"
                 }}
                 onClick={() =>
-                  window.open(item.url, "_blank", "noopener,noreferrer")
+                  window.open(notizia.url, "_blank", "noopener,noreferrer")
                 }
               >
                 <div className="mb-1">
@@ -141,31 +159,46 @@ const ColonnaDX = () => {
                       lineHeight: "1.3",
                     }}
                   >
-                    {item.title}
+                    {notizia.title}
                   </div>
                   <div
                     className="text-muted px-3"
                     style={{ fontSize: "0.75rem" }}
                   >
-                    {item.author || "fonte sconosciuta"} • {item.category}
+                    {notizia.author || "fonte sconosciuta"} • {notizia.category}
                   </div>
                 </div>
               </ListGroup.Item>
             ))}
           </ListGroup>
 
-          <Button
-            variant="link"
-            className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
-            style={{ fontSize: "0.8rem" }}
-          >
-            <span className="ps-3 mb-2">Mostra altre notizie</span>
-            <BsChevronDown
-              className="mb-2 mt-1"
-              style={{ fontSize: "0.75rem" }}
-              size={13}
-            />
-          </Button>
+          {newsItems.length > 5 && (
+            <Button
+              variant="link"
+              className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
+              style={{ fontSize: "0.8rem" }}
+              onClick={gestisciVisibilita} // <-- Cambiata la funzione
+            >
+              <span className="ps-3 mb-2">
+                {isOpen ? "Mostra meno" : "Mostra altre notizie"}{" "}
+              </span>
+
+              {/*cambio l'icona e inverto il margine in base allo stato */}
+              {isOpen ? (
+                <BsChevronUp
+                  className="mb-2"
+                  style={{ fontSize: "0.75rem" }}
+                  size={13}
+                />
+              ) : (
+                <BsChevronDown
+                  className="mb-2 mt-1"
+                  style={{ fontSize: "0.75rem" }}
+                  size={13}
+                />
+              )}
+            </Button>
+          )}
         </Card.Body>
       </Card>
 
