@@ -1,58 +1,78 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setCoverImage } from "../../../store/slices/imageSlice"
 
 const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
+  const dispatch = useDispatch()
+
+  const reduxCoverImage = useSelector((state) => state.image.coverImage)
+
   const [showOptions, setShowOptions] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showImageGallery, setShowImageGallery] = useState(false)
-  const [coverImage, setCoverImage] = useState(
-    localStorage.getItem("coverImage") ?? currentCoverImage,
+
+  const [coverImage, setCoverImageState] = useState(
+    reduxCoverImage || localStorage.getItem("coverImage") || currentCoverImage,
   )
+
+  useEffect(() => {
+    if (reduxCoverImage && reduxCoverImage !== coverImage) {
+      // eslint-disable-next-line
+      setCoverImageState(reduxCoverImage)
+    }
+  }, [reduxCoverImage])
 
   const saveCoverImage = (newImage) => {
     localStorage.setItem("coverImage", newImage)
-    setCoverImage(newImage)
-    onCoverUpdate(newImage)
+
+    setCoverImageState(newImage)
+
+    dispatch(setCoverImage(newImage))
+
+    if (onCoverUpdate) {
+      onCoverUpdate(newImage)
+    }
   }
 
   const presetImages = [
     {
       id: 1,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=400&fit=crop", // Montagna
+      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=400&fit=crop",
       name: "Montagna",
     },
     {
       id: 2,
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=400&fit=crop", // Foresta
+      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=400&fit=crop",
       name: "Foresta",
     },
     {
       id: 3,
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=400&fit=crop", // Spiaggia
+      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=400&fit=crop",
       name: "Spiaggia",
     },
     {
       id: 4,
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=400&fit=crop", // Natura
+      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=400&fit=crop",
       name: "Natura",
     },
     {
       id: 5,
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=400&fit=crop", // Foresta pluviale
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=400&fit=crop",
       name: "Foresta Pluviale",
     },
     {
       id: 6,
-      url: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1200&h=400&fit=crop", // Deserto
+      url: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1200&h=400&fit=crop",
       name: "Deserto",
     },
     {
       id: 7,
-      url: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=1200&h=400&fit=crop", // Città
+      url: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=1200&h=400&fit=crop",
       name: "Città",
     },
     {
       id: 8,
-      url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&h=400&fit=crop", // Oceano
+      url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&h=400&fit=crop",
       name: "Oceano",
     },
   ]
@@ -87,7 +107,7 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       .then((blob) => {
         const reader = new FileReader()
         reader.onload = (event) => {
-          saveCoverImage(event.target.result) // ← sostituisci
+          saveCoverImage(event.target.result)
           setShowModal(false)
           setShowImageGallery(false)
         }
@@ -95,7 +115,6 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       })
       .catch((error) => {
         console.error("Errore nel caricamento immagine:", error)
-
         saveCoverImage(imageUrl)
         setShowModal(false)
         setShowImageGallery(false)

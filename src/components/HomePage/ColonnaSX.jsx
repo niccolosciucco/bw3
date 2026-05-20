@@ -11,12 +11,21 @@ const ColonnaSX = () => {
   const profileImage = useSelector((state) => state.image.profileImage)
   const profileName = useSelector((state) => state.image.profileName)
   const profileSurname = useSelector((state) => state.image.profileSurname)
+  const coverImage = useSelector((state) => state.image.coverImage)
   return (
     <>
       {/*PRIMO BLOCCO*/}
       <Card className="mb-2 shadow-sm overflow-hidden">
         {/* Sfondo del banner */}
-        <div style={{ height: "60px", backgroundColor: "#a0b4c8" }}></div>
+        <div
+          style={{
+            height: "60px",
+            backgroundImage: coverImage ? `url(${coverImage})` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: "4px 4px 0px 0px",
+          }}
+        ></div>
 
         <Card.Body className="text-center position-relative pt-0">
           <Image
