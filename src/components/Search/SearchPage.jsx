@@ -13,9 +13,15 @@ const SearchPage = () => {
 
     useEffect(() => {
         if (!query) {
-            setProfiles([])
+            fetch("https://striveschool-api.herokuapp.com/api/profile?search=a", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then((res) => res.json())
+                .then((data) => setProfiles(data))
+                .catch((err) => console.error(err))
             return
         }
+
         setIsLoading(true)
         fetch(`https://striveschool-api.herokuapp.com/api/profile?search=${query}`, {
             headers: {
@@ -33,17 +39,27 @@ const SearchPage = () => {
             })
     }, [token, query])
 
+    const pageTitle = query ? `Risultati per "${query}"` : " Persone che potresti conoscere " 
+
     return (
         <>
             <NavbarL />
             <Container>
-                <h1>Profili</h1>
+                <h1>{pageTitle}</h1>
                 {isLoading && <p>Caricamento...</p>}
                 <Row xs={1} md={2} lg={3} className="g-3">
                     {profiles.map((prof) => (
                         <Col key={prof._id}>
                             <Card className="mb-3 h-100 d-flex flex-column">
                                 <Card.Body>
+                                    <img
+                                        src={prof.image || "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"}
+                                        alt={prof.name}
+                                        style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", marginBottom: "8px" }}
+                                        onError={(e) => {
+                                            e.target.src = "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+                                        }}
+                                    />
                                     <Card.Title>{prof.name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">{prof.surname}</Card.Subtitle>
                                     <Card.Text>{prof.title}</Card.Text>
