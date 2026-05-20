@@ -6,7 +6,8 @@ import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
 import ProfileCover from "../Profile/leftside.jsx/ProfileCover.jsx"
 import { useDispatch } from "react-redux"
 import { setProfileImage } from "../../store/slices/imageSlice.js"
-export default function ProfileHeader() {
+
+export default function ProfileHeader({ id }) {
   const [profile, setProfile] = useState(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [coverImage, setCoverImage] = useState(null)
@@ -21,15 +22,15 @@ export default function ProfileHeader() {
   }
   const fetchProfile = async () => {
     try {
-      const res = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
-          },
+      const url = id
+        ? `https://striveschool-api.herokuapp.com/api/profile/${id}`
+        : "https://striveschool-api.herokuapp.com/api/profile/me"
+      const res = await fetch(url, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
         },
-      )
+      })
       if (res.ok) {
         const myProfile = await res.json()
         setProfile(myProfile)
@@ -48,9 +49,8 @@ export default function ProfileHeader() {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line
     fetchProfile()
-  }, [])
+  }, [id])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()

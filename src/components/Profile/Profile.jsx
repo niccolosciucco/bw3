@@ -5,15 +5,19 @@ import Footer from "../Footer/Footer"
 import NavbarL from "../Navbar/NavbarL"
 import Messages from "../Messages/Messages"
 import "bootstrap/dist/css/bootstrap.min.css"
+import { useParams } from "react-router"
 
 function Profile() {
+  const { id } = useParams()  // prendi l'id dalla URL
   return (
     <>
       <NavbarL />
       <Container className="">
         <Row className=" mt-3">
           <Col xs={12} lg={9} className="mb-4">
-            <ProfileHeader />
+            <ProfileHeader
+              id={id}
+            />
           </Col>
           <Col xs={12} lg={3}>
             <LinkedInProfileSidebar />
