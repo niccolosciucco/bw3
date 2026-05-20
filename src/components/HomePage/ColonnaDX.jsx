@@ -1,12 +1,9 @@
-import { Card, Button, ListGroup, Stack } from "react-bootstrap";
-import {
-  BsInfoSquareFill,
-  BsChevronDown,
-  BsChevronRight,
-} from "react-icons/bs";
-import SpanFooterDX from "./SpanFooterDX";
-
+import { Card, Button, ListGroup, Stack } from "react-bootstrap"
+import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
+import SpanFooterDX from "./SpanFooterDX"
+import { useSelector } from "react-redux"
 const ColonnaDX = () => {
+  const profileImage = useSelector((state) => state.image.profileImage)
   const newsItems = [
     {
       id: 1,
@@ -38,7 +35,7 @@ const ColonnaDX = () => {
       time: "2h fa",
       readers: "1237 lettori",
     },
-  ];
+  ]
 
   const gamesItems = [
     {
@@ -69,7 +66,7 @@ const ColonnaDX = () => {
       icon: "📐",
       color: "#3498db",
     },
-  ];
+  ]
 
   return (
     <div
@@ -202,7 +199,10 @@ const ColonnaDX = () => {
             className="justify-content-center align-items-center mb-3"
           >
             <img
-              src="https://placecats.com/70/70"
+              src={
+                profileImage ||
+                "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+              }
               alt="User avatar"
               className="rounded-circle border"
               style={{ width: "64px", height: "64px", objectFit: "cover" }}
@@ -269,7 +269,7 @@ const ColonnaDX = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ColonnaDX;
+export default ColonnaDX
