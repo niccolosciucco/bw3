@@ -35,7 +35,7 @@ const initialChats = [
   },
   {
     id: 3,
-    name: "Mohamed Zamel",
+    name: "Mohamed Jaouad",
     unread: false,
     avatar: "https://placecats.com/50/50",
     messages: [
