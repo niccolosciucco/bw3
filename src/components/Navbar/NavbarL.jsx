@@ -32,6 +32,8 @@ const NavbarL = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
+  const profileName = useSelector((state) => state.image.profileName)
+  const profileSurname = useSelector((state) => state.image.profileSurname)
   const isHomepage = location.pathname.startsWith("/home")
   const isJobsPage = location.pathname.startsWith("/jobs")
   const profileImage = useSelector((state) => state.image.profileImage)
@@ -211,7 +213,10 @@ const NavbarL = () => {
                     alt="Profilo"
                   />
                   <div className="ms-2">
-                    <h5 className="fs-6 m-0">Guido La Vespa </h5>
+                    <h5 className="fs-6 m-0">
+                      {" "}
+                      {profileName} {profileSurname}{" "}
+                    </h5>
                     <p className="m-0" style={{ fontSize: "0.9rem" }}>
                       Professione
                     </p>

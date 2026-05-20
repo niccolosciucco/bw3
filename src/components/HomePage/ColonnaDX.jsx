@@ -4,6 +4,7 @@ import SpanFooterDX from "./SpanFooterDX"
 import { useSelector } from "react-redux"
 const ColonnaDX = () => {
   const profileImage = useSelector((state) => state.image.profileImage)
+  const profileName = useSelector((state) => state.image.profileName)
   const newsItems = [
     {
       id: 1,
@@ -190,7 +191,7 @@ const ColonnaDX = () => {
 
         <Card.Body className="pt-0 px-3 pb-3" style={{ fontSize: "0.8rem" }}>
           <p className="text-secondary mb-3" style={{ fontSize: "0.75rem" }}>
-            Guido, scopri le opportunità offerte da BRANDART
+            {profileName}, scopri le opportunità offerte da BRANDART
           </p>
 
           <Stack

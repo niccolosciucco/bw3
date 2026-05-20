@@ -9,6 +9,8 @@ import { useSelector } from "react-redux"
 const ColonnaSX = () => {
   const navigate = useNavigate()
   const profileImage = useSelector((state) => state.image.profileImage)
+  const profileName = useSelector((state) => state.image.profileName)
+  const profileSurname = useSelector((state) => state.image.profileSurname)
   return (
     <>
       {/*PRIMO BLOCCO*/}
@@ -37,7 +39,9 @@ const ColonnaSX = () => {
 
           {/* Dati Profilo */}
           <div style={{ marginTop: "45px" }}>
-            <h5 className="mb-0 fw-bold fs-6">Guido La Vespa</h5>
+            <h5 className="mb-0 fw-bold fs-6">
+              {profileName} {profileSurname}
+            </h5>
             <p className="text-secondary mb-1" style={{ fontSize: "0.85rem" }}>
               Professione
             </p>

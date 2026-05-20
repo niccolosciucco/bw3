@@ -5,12 +5,18 @@ import PanelCarousel from "./leftside.jsx/carousel"
 import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
 import ProfileCover from "../Profile/leftside.jsx/ProfileCover.jsx"
 import { useDispatch } from "react-redux"
-import { setProfileImage } from "../../store/slices/imageSlice.js"
+import {
+  setProfileImage,
+  setProfileName,
+  setProfileSurname,
+} from "../../store/slices/imageSlice.js"
+import { useSelector } from "react-redux"
 export default function ProfileHeader() {
   const [profile, setProfile] = useState(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [coverImage, setCoverImage] = useState(null)
   const dispatch = useDispatch()
+  const token = useSelector((state) => state.auth.token)
   const analytics = {
     // eslint-disable-next-line
     views: Math.floor(Math.random() * 500) + 50,
@@ -25,8 +31,7 @@ export default function ProfileHeader() {
         "https://striveschool-api.herokuapp.com/api/profile/me",
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
+            Authorization: `Bearer ${token}`,
           },
         },
       )
@@ -34,6 +39,12 @@ export default function ProfileHeader() {
         const myProfile = await res.json()
         setProfile(myProfile)
         dispatch(setProfileImage(myProfile.image))
+        dispatch(setProfileName(myProfile.name))
+        dispatch(setProfileSurname(myProfile.surname))
+
+        console.log("immagine:", myProfile.image)
+        console.log("nome:", myProfile.name)
+        console.log("cognome:", myProfile.surname)
 
         console.log("immagine:", myProfile.image)
         if (myProfile.coverImage) {
@@ -48,9 +59,11 @@ export default function ProfileHeader() {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line
-    fetchProfile()
-  }, [])
+    if (token) {
+      // eslint-disable-next-line
+      fetchProfile()
+    }
+  }, [token])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()

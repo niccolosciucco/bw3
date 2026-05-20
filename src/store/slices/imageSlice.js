@@ -5,6 +5,7 @@ const imageSlice = createSlice({
   initialState: {
     profileImage: null,
     profileName: null,
+    profileSurname: null,
   },
   reducers: {
     setProfileImage: (state, action) => {
@@ -13,8 +14,12 @@ const imageSlice = createSlice({
     setProfileName: (state, action) => {
       state.profileName = action.payload
     },
+    setProfileSurname: (state, action) => {
+      state.profileSurname = action.payload
+    },
   },
 })
 
-export const { setProfileImage } = imageSlice.actions
+export const { setProfileImage, setProfileName, setProfileSurname } =
+  imageSlice.actions
 export default imageSlice.reducer

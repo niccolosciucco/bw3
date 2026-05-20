@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import {
   loginStart,
   loginSuccess,
   loginFailure,
   clearError,
-} from "../../store/slices/authSlice";
-import { Container, Form, Button, Alert, Spinner } from "react-bootstrap";
-import { useNavigate } from "react-router";
-import styles from "./LoginPage.module.css";
-import { FaLinkedin, FaApple, FaGoogle } from "react-icons/fa";
-import { setUser } from "../../store/slices/profileSlice";
-
+} from "../../store/slices/authSlice"
+import { Container, Form, Button, Alert, Spinner } from "react-bootstrap"
+import { useNavigate } from "react-router"
+import styles from "./LoginPage.module.css"
+import { FaLinkedin, FaApple, FaGoogle } from "react-icons/fa"
+import { setUser } from "../../store/slices/profileSlice"
+import { Link } from "react-router"
 const LoginPage = () => {
-  const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.auth);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const { isLoading, error } = useSelector((state) => state.auth)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     // 1. Validazione Email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
-      dispatch(loginFailure("Inserisci un'email valida"));
-      return;
+      dispatch(loginFailure("Inserisci un'email valida"))
+      return
     }
 
     // 2. Chiamata API
-    dispatch(loginStart());
+    dispatch(loginStart())
     try {
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/me",
@@ -39,22 +39,22 @@ const LoginPage = () => {
             Authorization: `Bearer ${password}`, // Il token viene inserito nel campo password
           },
         },
-      );
+      )
 
       if (response.ok) {
-        const userData = await response.json();
+        const userData = await response.json()
 
         // Successo: salviamo token e dati utente
-        dispatch(loginSuccess(password));
-        dispatch(setUser(userData));
-        navigate("/profile");
+        dispatch(loginSuccess(password))
+        dispatch(setUser(userData))
+        navigate("/profile")
       } else {
-        dispatch(loginFailure("Token non valido o scaduto"));
+        dispatch(loginFailure("Token non valido o scaduto"))
       }
     } catch (err) {
-      dispatch(loginFailure("Errore di connessione: " + err.message));
+      dispatch(loginFailure("Errore di connessione: " + err.message))
     }
-  };
+  }
 
   return (
     <div className={styles.pageWrapper}>
@@ -76,8 +76,8 @@ const LoginPage = () => {
                 placeholder="Inserisci email"
                 value={email}
                 onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (error) dispatch(clearError());
+                  setEmail(e.target.value)
+                  if (error) dispatch(clearError())
                 }}
                 required
               />
@@ -90,8 +90,8 @@ const LoginPage = () => {
                 placeholder="Inserisci il tuo token"
                 value={password}
                 onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (error) dispatch(clearError());
+                  setPassword(e.target.value)
+                  if (error) dispatch(clearError())
                 }}
                 required
               />
@@ -145,7 +145,7 @@ const LoginPage = () => {
             Hai dimenticato la <a href="#">password?</a>
           </p>
           <p className="text-center">
-            Non hai un account? <a href="#">Iscriviti ora</a>
+            Non hai un account? <Link to="/register">Iscriviti ora</Link>
           </p>
         </div>
       </Container>
@@ -158,7 +158,7 @@ const LoginPage = () => {
         <span>Informativa sui cookie</span>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage
