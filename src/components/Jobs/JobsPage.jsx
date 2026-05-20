@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Container, Row, Col, Card } from "react-bootstrap"
+import { Container, Row, Col, Card, Button } from "react-bootstrap"
 import NavbarL from "../Navbar/NavbarL" 
 
 const JobsPage = () => {
@@ -25,6 +25,15 @@ const JobsPage = () => {
     return (
         <>
             <NavbarL />
+            <div className="px-3 py-2 d-flex gap-2 justify-content-center">
+                <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Lavoro</Button>
+                <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Data di pubblicazione</Button>
+                <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Livello di esperienza</Button>
+                <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Tipo di contratto</Button>
+                <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Località</Button>
+                <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Azienda</Button>
+                <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Tutti i filtri</Button>
+            </div >
             <Container>
                 <h1>Offerte di lavoro</h1>
                 {isLoading && <p>Caricamento...</p>}
