@@ -24,7 +24,6 @@ import "./NavbarL.css"
 import { useState } from "react"
 import { Link } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
-import { toggleMessages } from "../../store/slices/messagesSlice"
 import { useNavigate, useLocation } from "react-router"
 import { logout } from "../../store/slices/authSlice"
 
@@ -39,9 +38,10 @@ const NavbarL = () => {
   const location = useLocation()
   const isHomepage = location.pathname.startsWith("/home")
   const isJobsPage = location.pathname.startsWith("/jobs")
+  const isMessagesPage = location.pathname.startsWith("/messages")
   const profileImage = useSelector((state) => state.image.profileImage)
   console.log("stato redux image:", profileImage)
-  const isMessagesOpen = useSelector((state) => state.messages.isMessagesOpen)
+
   const [searchQuery, setSearchQuery] = useState("")
   return (
     <Navbar className="bg-white border-bottom py-1">
@@ -142,19 +142,16 @@ const NavbarL = () => {
           </Link>
 
           {/*MESSAGGISTICA*/}
-          <Nav.Link
-            className="text-center btn-navbar"
-            onClick={() => dispatch(toggleMessages())}
-            style={{
-              color: isMessagesOpen ? "#191919" : "#666666",
-              cursor: "pointer",
-            }}
+          <Link
+            to={"/messages"}
+            className="text-decoration-none text-center"
+            style={{ color: isMessagesPage ? "#191919" : " #666666" }}
           >
             <AiFillMessage size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Messaggistica
             </p>
-          </Nav.Link>
+          </Link>
 
           {/*NOTIFICHE*/}
           <Nav.Link className="text-center btn-navbar">
@@ -332,7 +329,13 @@ const NavbarL = () => {
           </div>
           <div className="d-none d-lg-flex align-items-center">
             <Button className="bg-transparent border-0 p-0 me-1">
-              <FaSquare size={22} style={{ color: "#E7A33E" }} />
+              {/*  <FaSquare size={22} style={{ color: "#E7A33E" }} /> */}
+              <i
+                className="bi bi-currency-dollar fs-6 rounded-1"
+                style={{
+                  backgroundColor: "#E7A33E",
+                }}
+              ></i>
             </Button>
             <p
               className="mb-0 text-center btn-navbar"

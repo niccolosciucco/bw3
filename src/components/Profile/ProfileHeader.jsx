@@ -34,8 +34,7 @@ export default function ProfileHeader({ id }) {
         : "https://striveschool-api.herokuapp.com/api/profile/me"
       const res = await fetch(url, {
         headers: {
-          Authorization:
-            `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       if (res.ok) {
@@ -63,11 +62,11 @@ export default function ProfileHeader({ id }) {
     }
   }
 
- useEffect(() => {
+  useEffect(() => {
     if (token) {
-        fetchProfile()
+      fetchProfile()
     }
-}, [id, token])
+  }, [id, token])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()

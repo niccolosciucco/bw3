@@ -20,17 +20,22 @@ const CommentsSection = ({ postId }) => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const profileImage = useSelector((state) => state.image?.profileImage);
-  const currentUser = useSelector((state) => state.profile?.user);
+  const profileName = useSelector((state) => state.image?.profileName);
+  const profileSurname = useSelector((state) => state.image?.profileSurname);
 
   // Fallback dell'avatar
   const myAvatarImage =
     profileImage ||
     "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg";
 
+  const myFullName =
+    profileName && profileSurname
+      ? `${profileName} ${profileSurname}`
+      : "Tu (Guido)";
+
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw";
 
-  // 2. useEffect per gestire il caricamento iniziale
   useEffect(() => {
     const fetchComments = async () => {
       setIsLoading(true);
@@ -66,7 +71,7 @@ const CommentsSection = ({ postId }) => {
     }
   }, [postId]);
 
-  // 3. Funzione di supporto per ricaricare i commenti dopo modifiche o inserimenti
+  // Funzione di supporto per ricaricare i commenti
   const refreshCommentsList = async () => {
     try {
       const response = await fetch(
@@ -91,7 +96,7 @@ const CommentsSection = ({ postId }) => {
     }
   };
 
-  // 4. Invio del nuovo commento
+  // Invio del nuovo commento
   const handlePostComment = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
@@ -129,19 +134,17 @@ const CommentsSection = ({ postId }) => {
     }
   };
 
-  // 5. Attivazione modalità modifica
   const startEditing = (commentId, currentText) => {
     setEditingCommentId(commentId);
     setEditingText(currentText);
   };
 
-  // 6. Annullamento modalità modifica
   const cancelEditing = () => {
     setEditingCommentId(null);
     setEditingText("");
   };
 
-  // 7. Salvataggio della PUT del commento modificato
+  // Salvataggio del commento modificato
   const handleUpdateComment = async (commentId) => {
     if (!editingText.trim()) return;
 
@@ -223,7 +226,7 @@ const CommentsSection = ({ postId }) => {
         )}
       </Form>
 
-      {/* Lista dei commenti filtrati */}
+      {/* Lista dei commenti */}
       {isLoading ? (
         <div className="text-center py-2">
           <Spinner animation="border" size="sm" variant="secondary" />
@@ -231,21 +234,24 @@ const CommentsSection = ({ postId }) => {
       ) : comments.length > 0 ? (
         <Stack gap={2} className="mt-2">
           {comments.map((c, index) => {
-            // Normalizzazione dei testi
             const authorClean = c.author?.toLowerCase().trim() || "";
-            const reduxUsername =
-              currentUser?.username?.toLowerCase().trim() || "";
-            const reduxFullName =
-              `${currentUser?.name || ""}_${currentUser?.surname || ""}`
+
+            const reduxFullNameClean =
+              `${profileName || ""}_${profileSurname || ""}`
+                .toLowerCase()
+                .trim();
+            const reduxSpaceNameClean =
+              `${profileName || ""} ${profileSurname || ""}`
                 .toLowerCase()
                 .trim();
 
-            // Riconoscimento autore commento
             const isMe =
               authorClean !== "" &&
-              (authorClean === reduxUsername ||
-                authorClean === reduxFullName ||
-                authorClean === "guido_la_vespa");
+              (authorClean === reduxFullNameClean ||
+                authorClean === reduxSpaceNameClean ||
+                authorClean === "guido_la_vespa" ||
+                authorClean.includes("guido") ||
+                authorClean.includes("vespa"));
 
             const isCurrentlyEditing = editingCommentId === c._id;
 
@@ -271,10 +277,9 @@ const CommentsSection = ({ postId }) => {
                 <div className="w-100" style={{ fontSize: "13px" }}>
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="fw-bold text-dark">
-                      {c.author || "Anonimo"}
+                      {isMe ? myFullName : c.author || "Anonimo"}
                     </div>
 
-                    {/* Pulsante Modifica: compare solo se il commento è nostro e non lo stiamo già modificando */}
                     {isMe && !isCurrentlyEditing && (
                       <Button
                         variant="link"
