@@ -21,7 +21,7 @@ import { AiFillMessage } from "react-icons/ai"
 import { IoNotifications } from "react-icons/io5"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import "./NavbarL.css"
-
+import { useState } from "react"
 import { Link } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleMessages } from "../../store/slices/messagesSlice"
@@ -37,6 +37,7 @@ const NavbarL = () => {
   const profileImage = useSelector((state) => state.image.profileImage)
   console.log("stato redux image:", profileImage)
   const isMessagesOpen = useSelector((state) => state.messages.isMessagesOpen)
+  const [searchQuery, setSearchQuery] = useState("")
   return (
     <Navbar className="bg-white border-bottom py-1">
       <Container className="w-100">
@@ -65,13 +66,18 @@ const NavbarL = () => {
             <FaLinkedin className="text-primary" size={38} />
           </Navbar.Brand>
           {/*BARRA DI RICERCA */}
-          <Form>
+          <Form onSubmit={(e) => {
+            e.preventDefault()
+            navigate("/search")
+          }}>
             <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">
               <IoSearchSharp size={18} />
               <Form.Control
                 type="search"
                 placeholder="Cerca"
                 className="border-0 bg-transparent py-0 px-1 fs-6"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               ></Form.Control>
             </InputGroup>
           </Form>
