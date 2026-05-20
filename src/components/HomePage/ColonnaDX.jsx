@@ -64,7 +64,7 @@ const ColonnaDX = () => {
     {
       id: 1,
       name: "Patches #62",
-      desc: "2 collegamenti hanno giocato",
+      desc: "Riuscirai a vincere?",
       IconComponent: BsGrid3X3GapFill,
       color: "#f39c12",
     },
