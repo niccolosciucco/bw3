@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-
+import { useSelector } from "react-redux"
 export default function EditProfileModal({
   isOpen,
   onClose,
@@ -91,7 +91,7 @@ export default function EditProfileModal({
       image: "",
     })
   }
-
+  const token = useSelector((state) => state.auth.token)
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -103,8 +103,7 @@ export default function EditProfileModal({
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             name: formData.name,

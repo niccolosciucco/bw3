@@ -29,6 +29,8 @@ import { useNavigate, useLocation } from "react-router"
 import { logout } from "../../store/slices/authSlice"
 
 const NavbarL = () => {
+  const profileName = useSelector((state) => state.image.profileName)
+  const profileSurname = useSelector((state) => state.image.profileSurname)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
@@ -219,7 +221,9 @@ const NavbarL = () => {
                     alt="Profilo"
                   />
                   <div className="ms-2">
-                    <h5 className="fs-6 m-0">Guido La Vespa </h5>
+                    <h5 className="fs-6 m-0">
+                      {profileName} {profileSurname}
+                    </h5>
                     <p className="m-0" style={{ fontSize: "0.9rem" }}>
                       Professione
                     </p>

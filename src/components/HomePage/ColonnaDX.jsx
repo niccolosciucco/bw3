@@ -1,45 +1,26 @@
 import { Card, Button, ListGroup, Stack } from "react-bootstrap"
-import { BsInfoSquareFill, BsChevronDown, BsChevronRight } from "react-icons/bs"
+import {
+  BsInfoSquareFill,
+  BsChevronDown,
+  BsChevronRight,
+  BsGrid3X3GapFill,
+  BsLink45Deg,
+  Bs123,
+  BsGrid1X2Fill,
+  BsChevronUp,
+} from "react-icons/bs"
 import SpanFooterDX from "./SpanFooterDX"
 import { useSelector } from "react-redux"
 import { useState, useEffect } from "react"
+
 const ColonnaDX = () => {
   const profileImage = useSelector((state) => state.image.profileImage)
-  /*const newsItems = [
-    {
-      id: 1,
-      title: "Playatomic, Canva: cercasi country man...",
-      time: "2 giorni fa",
-      readers: "393 lettori",
-    },
-    {
-      id: 2,
-      title: "L'auto europea parla sempre più cinese",
-      time: "2 giorni fa",
-      readers: "369 lettori",
-    },
-    {
-      id: 3,
-      title: "Aumentano i consumi per cani e gatti",
-      time: "2 giorni fa",
-      readers: "104 lettori",
-    },
-    {
-      id: 4,
-      title: "Le nuove Top Voices di LinkedIn",
-      time: "4 giorni fa",
-      readers: "1312 lettori",
-    },
-    {
-      id: 5,
-      title: "Internazionali di Roma: vince Sinner",
-      time: "2h fa",
-      readers: "1237 lettori",
-    },
-  ]*/
+  const profileName = useSelector((state) => state.image.profileName)
 
+  const [visibleCount, setVisibleCount] = useState(5)
   const [newsItems, setNewsItems] = useState([])
   const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu"
+
   const seztioneNotizie = () => {
     const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`
     fetch(url)
@@ -50,10 +31,8 @@ const ColonnaDX = () => {
           throw new Error("errore nel recupero notizie")
         }
       })
-
       .then((data) => {
-        const primeCinque = data.news.slice(0, 5)
-        setNewsItems(primeCinque)
+        setNewsItems(data.news)
       })
       .catch((err) => {
         console.log("errore", err)
@@ -64,33 +43,46 @@ const ColonnaDX = () => {
     seztioneNotizie()
   }, [])
 
+  const isOpen = visibleCount > 5
+
+  const gestisciVisibilita = () => {
+    if (isOpen) {
+      setVisibleCount(5) // Se è aperto, lo richiudiamo a 5
+    } else {
+      setVisibleCount(10) // Se è chiuso, mostriamo 10 notizie
+    }
+  }
+
+  // array "tagliato" per fare il .map() delle altre notizie
+  const notizieDaMostrare = newsItems.slice(0, visibleCount)
+
   const gamesItems = [
     {
       id: 1,
       name: "Patches #62",
-      desc: "2 collegamenti hanno giocato",
-      icon: "🧩",
+      desc: "Riuscirai a vincere?",
+      IconComponent: BsGrid3X3GapFill,
       color: "#f39c12",
     },
     {
       id: 2,
       name: "Zip #42",
       desc: "Completa il percorso",
-      icon: "🔗",
+      IconComponent: BsLink45Deg,
       color: "#e67e22",
     },
     {
       id: 3,
       name: "Mini Sudoku #280",
       desc: "Il gioco classico, in versione mini",
-      icon: "🔢",
+      IconComponent: Bs123,
       color: "#2ecc71",
     },
     {
       id: 4,
       name: "Tango #588",
       desc: "Armonizza la griglia",
-      icon: "📐",
+      IconComponent: BsGrid1X2Fill,
       color: "#3498db",
     },
   ]
@@ -120,9 +112,9 @@ const ColonnaDX = () => {
           </p>
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
-            {newsItems.map((item) => (
+            {notizieDaMostrare.map((notizia) => (
               <ListGroup.Item
-                key={item.id}
+                key={notizia.id}
                 className="p-0 border-0 mb-2"
                 style={{ cursor: "pointer" }}
                 onMouseEnter={(e) => {
@@ -132,7 +124,7 @@ const ColonnaDX = () => {
                   e.currentTarget.style.backgroundColor = "transparent"
                 }}
                 onClick={() =>
-                  window.open(item.url, "_blank", "noopener,noreferrer")
+                  window.open(notizia.url, "_blank", "noopener,noreferrer")
                 }
               >
                 <div className="mb-1">
@@ -142,31 +134,46 @@ const ColonnaDX = () => {
                       lineHeight: "1.3",
                     }}
                   >
-                    {item.title}
+                    {notizia.title}
                   </div>
                   <div
                     className="text-muted px-3"
                     style={{ fontSize: "0.75rem" }}
                   >
-                    {item.author || "fonte sconosciuta"} • {item.category}
+                    {notizia.author || "fonte sconosciuta"} • {notizia.category}
                   </div>
                 </div>
               </ListGroup.Item>
             ))}
           </ListGroup>
 
-          <Button
-            variant="link"
-            className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
-            style={{ fontSize: "0.8rem" }}
-          >
-            <span className="ps-3 mb-2">Mostra altre notizie</span>
-            <BsChevronDown
-              className="mb-2 mt-1"
-              style={{ fontSize: "0.75rem" }}
-              size={13}
-            />
-          </Button>
+          {newsItems.length > 5 && (
+            <Button
+              variant="link"
+              className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
+              style={{ fontSize: "0.8rem" }}
+              onClick={gestisciVisibilita} // <-- Cambiata la funzione
+            >
+              <span className="ps-3 mb-2">
+                {isOpen ? "Mostra meno" : "Mostra altre notizie"}{" "}
+              </span>
+
+              {/*cambio l'icona e inverto il margine in base allo stato */}
+              {isOpen ? (
+                <BsChevronUp
+                  className="mb-2"
+                  style={{ fontSize: "0.75rem" }}
+                  size={13}
+                />
+              ) : (
+                <BsChevronDown
+                  className="mb-2 mt-1"
+                  style={{ fontSize: "0.75rem" }}
+                  size={13}
+                />
+              )}
+            </Button>
+          )}
         </Card.Body>
       </Card>
 
@@ -176,48 +183,50 @@ const ColonnaDX = () => {
           <h5 className="fw-bold mb-3 fs-6 text-dark">I rompicapo di oggi</h5>
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
-            {gamesItems.map((game) => (
-              <ListGroup.Item
-                key={game.id}
-                className="p-0 border-0 bg-transparent mb-3 d-flex align-items-center justify-content-between"
-                style={{ cursor: "pointer" }}
-              >
-                <div className="d-flex align-items-center gap-2">
-                  <div
-                    className="rounded-2 d-flex align-items-center justify-content-center text-white"
-                    style={{
-                      width: "36px",
-                      height: "36px",
-                      backgroundColor: game.color,
-                      fontSize: "1.2rem",
-                    }}
-                  >
-                    {game.icon}
-                  </div>
-                  <div
-                    className="overflow-hidden"
-                    style={{ maxWidth: "220px" }}
-                  >
+            {gamesItems.map((game) => {
+              const Icon = game.IconComponent
+              return (
+                <ListGroup.Item
+                  key={game.id}
+                  className="p-0 border-0 bg-transparent mb-3 d-flex align-items-center justify-content-between"
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="d-flex align-items-center gap-2">
                     <div
-                      className="fw-semibold text-dark text-truncate"
-                      style={{ lineHeight: "1.2" }}
+                      className="rounded-2 d-flex align-items-center justify-content-center text-white"
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        backgroundColor: game.color,
+                      }}
                     >
-                      {game.name}
+                      <Icon size={20} />
                     </div>
                     <div
-                      className="text-muted text-truncate"
-                      style={{ fontSize: "0.75rem" }}
+                      className="overflow-hidden"
+                      style={{ maxWidth: "220px" }}
                     >
-                      {game.desc}
+                      <div
+                        className="fw-semibold text-dark text-truncate"
+                        style={{ lineHeight: "1.2" }}
+                      >
+                        {game.name}
+                      </div>
+                      <div
+                        className="text-muted text-truncate"
+                        style={{ fontSize: "0.75rem" }}
+                      >
+                        {game.desc}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <BsChevronRight
-                  className="text-muted"
-                  style={{ fontSize: "0.75rem" }}
-                />
-              </ListGroup.Item>
-            ))}
+                  <BsChevronRight
+                    className="text-muted"
+                    style={{ fontSize: "0.75rem" }}
+                  />
+                </ListGroup.Item>
+              )
+            })}
           </ListGroup>
 
           <Button
@@ -239,7 +248,7 @@ const ColonnaDX = () => {
 
         <Card.Body className="pt-0 px-3 pb-3" style={{ fontSize: "0.8rem" }}>
           <p className="text-secondary mb-3" style={{ fontSize: "0.75rem" }}>
-            Guido, scopri le opportunità offerte da BRANDART
+            {profileName}, scopri le opportunità offerte da BRANDART
           </p>
 
           <Stack

@@ -4,14 +4,15 @@ import "../../style/ProfileHeader.css"
 import PanelCarousel from "./leftside.jsx/carousel"
 import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
 import ProfileCover from "../Profile/leftside.jsx/ProfileCover.jsx"
-import { useDispatch } from "react-redux"
-import { setProfileImage } from "../../store/slices/imageSlice.js"
+import { useDispatch, useSelector } from "react-redux"
+import { setProfileImage, setProfileName, setProfileSurname } from "../../store/slices/imageSlice.js"
 
 export default function ProfileHeader({ id }) {
   const [profile, setProfile] = useState(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [coverImage, setCoverImage] = useState(null)
   const dispatch = useDispatch()
+  const token = useSelector((state) => state.auth.token)
   const analytics = {
     // eslint-disable-next-line
     views: Math.floor(Math.random() * 500) + 50,
@@ -28,13 +29,19 @@ export default function ProfileHeader({ id }) {
       const res = await fetch(url, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
+            `Bearer ${token}`,
         },
       })
       if (res.ok) {
         const myProfile = await res.json()
         setProfile(myProfile)
         dispatch(setProfileImage(myProfile.image))
+        dispatch(setProfileName(myProfile.name))
+        dispatch(setProfileSurname(myProfile.surname))
+
+        console.log("immagine:", myProfile.image)
+        console.log("nome:", myProfile.name)
+        console.log("cognome:", myProfile.surname)
 
         console.log("immagine:", myProfile.image)
         if (myProfile.coverImage) {
@@ -48,9 +55,11 @@ export default function ProfileHeader({ id }) {
     }
   }
 
-  useEffect(() => {
-    fetchProfile()
-  }, [id])
+ useEffect(() => {
+    if (token) {
+        fetchProfile()
+    }
+}, [id, token])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()

@@ -1,40 +1,59 @@
-import { useState } from "react";
-import { Modal, Button, Form, Spinner, Stack } from "react-bootstrap";
-import { BsGlobe2, BsImage, BsEmojiSmile } from "react-icons/bs";
+import { useState, useRef } from "react"
+import { Modal, Button, Form, Spinner, Stack } from "react-bootstrap"
+import { BsGlobe2, BsImage, BsEmojiSmile, BsCloudUpload } from "react-icons/bs"
+import { useSelector } from "react-redux"
 
 const TextAreaCreatePost = ({ onPostSuccess }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [text, setText] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [showImageField, setShowImageField] = useState(false);
-  const [isPublishing, setIsPublishing] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+  const [text, setText] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [showImageField, setShowImageField] = useState(false)
+  const [isPublishing, setIsPublishing] = useState(false)
+  const profileImage = useSelector((state) => state.image.profileImage)
+  const profileName = useSelector((state) => state.image.profileName)
+  const profileSurname = useSelector((state) => state.image.profileSurname)
+  const fileInputRef = useRef(null)
+
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw"
 
   const handleClose = () => {
-    setShowModal(false);
-    setText("");
-    setImageUrl("");
-    setShowImageField(false);
-  };
+    setShowModal(false)
+    setText("")
+    setImageUrl("")
+    setSelectedFile(null)
+    setShowImageField(false)
+  }
 
-  const handleOpen = () => setShowModal(true);
+  const handleOpen = () => setShowModal(true)
+
+  // Gestore del cambio file dal PC locale
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0])
+      setImageUrl("") // Resetta l'URL testuale se l'utente sceglie un file locale
+    }
+  }
 
   const handlePublish = async (e) => {
-    e.preventDefault();
-    if (!text.trim()) return;
+    e.preventDefault()
+    if (!text.trim()) return
 
-    setIsPublishing(true);
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw";
+    setIsPublishing(true)
 
+    // Costruiamo il payload iniziale per il testo
     const payload = {
       text: text.trim(),
-    };
+    }
 
-    if (imageUrl.trim()) {
-      payload.image = imageUrl.trim();
+    // Se l'utente ha inserito un URL web lo allego subito
+    if (imageUrl.trim() && !selectedFile) {
+      payload.image = imageUrl.trim()
     }
 
     try {
+      // FASE 1: Creazione del Post
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/posts/",
         {
@@ -45,27 +64,53 @@ const TextAreaCreatePost = ({ onPostSuccess }) => {
           },
           body: JSON.stringify(payload),
         },
-      );
+      )
 
       if (!response.ok) {
-        throw new Error("Errore durante la pubblicazione del post");
+        throw new Error("Errore durante la pubblicazione del testo del post")
       }
 
-      const data = await response.json();
-      console.log("Post pubblicato con successo!", data);
+      const createdPost = await response.json()
 
-      handleClose();
+      // FASE 2: Se è presente un file locale dal PC, eseguo la seconda chiamata per caricare l'immagine
+      if (selectedFile && createdPost._id) {
+        const formData = new FormData()
+        formData.append("post", selectedFile)
+
+        const imageResponse = await fetch(
+          `https://striveschool-api.herokuapp.com/api/posts/${createdPost._id}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              // Nota: 'Content-Type' NON deve essere impostato manualmente quando si invia un FormData
+            },
+            body: formData,
+          },
+        )
+
+        if (!imageResponse.ok) {
+          throw new Error(
+            "Testo salvato, ma si è verificato un errore nel caricamento del file immagine.",
+          )
+        }
+      }
+
+      console.log("Post pubblicato con successo!")
+      handleClose()
 
       if (onPostSuccess) {
-        onPostSuccess();
+        onPostSuccess()
       }
     } catch (error) {
-      console.error(error);
-      alert("Impossibile pubblicare il post, riprova più tardi.");
+      console.error(error)
+      alert(
+        error.message || "Impossibile pubblicare il post, riprova più tardi.",
+      )
     } finally {
-      setIsPublishing(false);
+      setIsPublishing(false)
     }
-  };
+  }
 
   return (
     <>
@@ -94,13 +139,19 @@ const TextAreaCreatePost = ({ onPostSuccess }) => {
         <Modal.Header closeButton className="border-0 pt-3 px-4">
           <Modal.Title className="fs-5 fw-normal text-secondary d-flex align-items-center gap-2">
             <img
-              src="https://placecats.com/70/70"
+              src={profileImage || "https://placecats.com/70/70"}
               alt="Profilo"
-              className="rounded-circle"
+              className="rounded-circle border"
               style={{ width: "40px", height: "40px", objectFit: "cover" }}
+              onError={(e) => {
+                e.target.onerror = null
+                e.target.src = "https://placecats.com/70/70"
+              }}
             />
             <div>
-              <div className="fw-bold text-dark fs-6">Guido La Vespa</div>
+              <div className="fw-bold text-dark fs-6">
+                {profileName} {profileSurname}
+              </div>
               <Button
                 variant="outline-secondary"
                 size="sm"
@@ -130,18 +181,67 @@ const TextAreaCreatePost = ({ onPostSuccess }) => {
 
             {showImageField && (
               <Form.Group className="mt-3 p-3 border rounded bg-light">
-                <Form.Label className="fw-semibold text-muted small">
-                  Inserisci l'URL di un'immagine
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="https://esempio.com/immagine.jpg"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  className="bg-white border shadow-none"
-                  style={{ fontSize: "14px" }}
-                  disabled={isPublishing}
-                />
+                <div className="d-flex flex-column gap-3">
+                  {/* Sezione 1: Caricamento File Locale dal Computer */}
+                  <div>
+                    <Form.Label className="fw-semibold text-muted small d-block">
+                      Opzione A: Carica un file dal computer
+                    </Form.Label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      className="d-none"
+                      disabled={isPublishing}
+                    />
+                    <Button
+                      variant="outline-primary"
+                      size="sm"
+                      className="d-flex align-items-center gap-2 mt-1 rounded-pill"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isPublishing}
+                    >
+                      <BsCloudUpload size={16} />
+                      <span>
+                        {selectedFile
+                          ? "Cambia immagine"
+                          : "Sfoglia file locali"}
+                      </span>
+                    </Button>
+                    {selectedFile && (
+                      <div className="text-success small fw-medium mt-2 ps-1">
+                        ✓ Pronto per l'invio:{" "}
+                        <strong>{selectedFile.name}</strong>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="border-top my-1 text-center position-relative">
+                    <span className="px-2 bg-light text-muted small position-absolute top-50 start-50 translate-middle">
+                      oppure
+                    </span>
+                  </div>
+
+                  {/* Sezione 2: Inserimento URL Immagine remota */}
+                  <div>
+                    <Form.Label className="fw-semibold text-muted small">
+                      Opzione B: Inserisci l'URL di un'immagine web
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="https://esempio.com/immagine.jpg"
+                      value={imageUrl}
+                      onChange={(e) => {
+                        setImageUrl(e.target.value)
+                        setSelectedFile(null) // Resetta il file locale se inserisci un URL testuale
+                      }}
+                      className="bg-white border shadow-none mt-1"
+                      style={{ fontSize: "14px" }}
+                      disabled={isPublishing || !!selectedFile}
+                    />
+                  </div>
+                </div>
               </Form.Group>
             )}
           </Modal.Body>
@@ -154,7 +254,14 @@ const TextAreaCreatePost = ({ onPostSuccess }) => {
                 onClick={() => setShowImageField(!showImageField)}
                 disabled={isPublishing}
               >
-                <BsImage size={20} className="text-primary" />
+                <BsImage
+                  size={20}
+                  className={
+                    showImageField || selectedFile || imageUrl
+                      ? "text-success"
+                      : "text-primary"
+                  }
+                />
               </Button>
               <Button
                 variant="link"
@@ -185,7 +292,7 @@ const TextAreaCreatePost = ({ onPostSuccess }) => {
         </Form>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default TextAreaCreatePost;
+export default TextAreaCreatePost

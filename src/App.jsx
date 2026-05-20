@@ -12,8 +12,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "./store/slices/profileSlice"
 
-
-
+import RegisterPage from "./components/Login/Registerpage" // import della pagina di registrazione;
 function AppContent() {
   const dispatch = useDispatch()
   const { token } = useSelector((state) => state.auth)
@@ -40,6 +39,7 @@ function AppContent() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
   )
