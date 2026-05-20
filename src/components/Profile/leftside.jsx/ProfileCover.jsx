@@ -3,8 +3,16 @@ import { useState } from "react"
 const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
   const [showOptions, setShowOptions] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [coverImage, setCoverImage] = useState(currentCoverImage)
   const [showImageGallery, setShowImageGallery] = useState(false)
+  const [coverImage, setCoverImage] = useState(
+    localStorage.getItem("coverImage") ?? currentCoverImage,
+  )
+
+  const saveCoverImage = (newImage) => {
+    localStorage.setItem("coverImage", newImage)
+    setCoverImage(newImage)
+    onCoverUpdate(newImage)
+  }
 
   const presetImages = [
     {
@@ -64,9 +72,7 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       if (file) {
         const reader = new FileReader()
         reader.onload = (event) => {
-          const newImage = event.target.result
-          setCoverImage(newImage)
-          onCoverUpdate(newImage)
+          saveCoverImage(event.target.result)
           setShowModal(false)
         }
         reader.readAsDataURL(file)
@@ -81,9 +87,7 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       .then((blob) => {
         const reader = new FileReader()
         reader.onload = (event) => {
-          const newImage = event.target.result
-          setCoverImage(newImage)
-          onCoverUpdate(newImage)
+          saveCoverImage(event.target.result) // ← sostituisci
           setShowModal(false)
           setShowImageGallery(false)
         }
@@ -92,8 +96,7 @@ const ProfileCover = ({ currentCoverImage, onCoverUpdate }) => {
       .catch((error) => {
         console.error("Errore nel caricamento immagine:", error)
 
-        setCoverImage(imageUrl)
-        onCoverUpdate(imageUrl)
+        saveCoverImage(imageUrl)
         setShowModal(false)
         setShowImageGallery(false)
       })

@@ -5,9 +5,10 @@ import { MdGroups } from "react-icons/md"
 import { BiNews } from "react-icons/bi"
 import { MdEventNote } from "react-icons/md"
 import { useNavigate } from "react-router"
-
+import { useSelector } from "react-redux"
 const ColonnaSX = () => {
   const navigate = useNavigate()
+  const profileImage = useSelector((state) => state.image.profileImage)
   return (
     <>
       {/*PRIMO BLOCCO*/}
@@ -18,7 +19,10 @@ const ColonnaSX = () => {
         <Card.Body className="text-center position-relative pt-0">
           <Image
             onClick={() => navigate("/profile")}
-            src="https://placecats.com/150/150"
+            src={
+              profileImage ||
+              "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+            }
             roundedCircle
             className="position-absolute start-50 translate-middle-x"
             style={{
@@ -47,10 +51,12 @@ const ColonnaSX = () => {
               style={{ fontSize: "0.85rem" }}
             >
               <Image
-                src="https://placecats.com/20/20"
+                src={
+                  "https://e7.pngegg.com/pngimages/391/20/png-clipart-h-m-logo-h-m-logo-icons-logos-emojis-iconic-brands.png"
+                }
                 style={{ width: "16px" }}
               />
-              <span className="fw-semibold">Azienda</span>
+              <span className="fw-semibold">H&M</span>
             </div>
           </div>
         </Card.Body>

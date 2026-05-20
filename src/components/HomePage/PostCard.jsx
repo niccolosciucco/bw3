@@ -1,4 +1,4 @@
-import { Card, Row, Col, Stack, Button } from "react-bootstrap";
+import { Card, Row, Col, Stack, Button } from "react-bootstrap"
 import {
   BsCheckCircleFill,
   BsGlobe2,
@@ -6,32 +6,32 @@ import {
   BsChatText,
   BsShare,
   BsSendFill,
-} from "react-icons/bs";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { IoCloseSharp } from "react-icons/io5";
-import { useState } from "react";
+} from "react-icons/bs"
+import { BiDotsHorizontalRounded } from "react-icons/bi"
+import { IoCloseSharp } from "react-icons/io5"
+import { useState } from "react"
 
 const PostCard = ({ post }) => {
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(false)
 
   const formatTime = (isoString) => {
-    if (!isoString) return "1s";
-    const postDate = new Date(isoString);
-    const now = new Date();
-    const diffMs = now - postDate;
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMins / 60);
-    const diffDays = Math.floor(diffHours / 24);
+    if (!isoString) return "1s"
+    const postDate = new Date(isoString)
+    const now = new Date()
+    const diffMs = now - postDate
+    const diffMins = Math.floor(diffMs / 60000)
+    const diffHours = Math.floor(diffMins / 60)
+    const diffDays = Math.floor(diffHours / 24)
 
-    if (diffMins < 60) return `${diffMins <= 0 ? 1 : diffMins}m`;
-    if (diffHours < 24) return `${diffHours}o`;
-    return `${diffDays}g`;
-  };
+    if (diffMins < 60) return `${diffMins <= 0 ? 1 : diffMins}m`
+    if (diffHours < 24) return `${diffHours}o`
+    return `${diffDays}g`
+  }
 
   const hasValidImage =
-    post.image && post.image !== "undefined" && post.image.trim() !== "";
+    post.image && post.image !== "undefined" && post.image.trim() !== ""
 
-  const handleLike = () => setLiked(!liked);
+  const handleLike = () => setLiked(!liked)
 
   return (
     <Card
@@ -46,14 +46,18 @@ const PostCard = ({ post }) => {
         <Row className="align-items-center g-0">
           <Col xs="auto" className="me-2">
             <img
-              src={post.user?.image || "https://placecats.com/48/48"}
+              src={
+                post.user?.image ||
+                "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+              }
               alt="User avatar"
               width="48"
               height="48"
               className="rounded-circle border"
               style={{ objectFit: "cover" }}
               onError={(e) => {
-                e.target.src = "https://placecats.com/48/48";
+                e.target.src =
+                  "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
               }}
             />
           </Col>
@@ -141,7 +145,7 @@ const PostCard = ({ post }) => {
                 display: "block",
               }}
               onError={(e) => {
-                e.target.style.display = "none";
+                e.target.style.display = "none"
               }}
             />
           </div>
@@ -221,7 +225,7 @@ const PostCard = ({ post }) => {
         </Col>
       </Card.Footer>
     </Card>
-  );
-};
+  )
+}
 
-export default PostCard;
+export default PostCard
