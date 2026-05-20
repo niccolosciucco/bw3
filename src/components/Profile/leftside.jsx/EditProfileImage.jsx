@@ -1,9 +1,11 @@
 import { useState } from "react"
+import { useSelector } from "react-redux"
 
 export default function EditProfileImage({ profile, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
   const [loading, setLoading] = useState(false)
+  const token = useSelector((state) => state.auth.token)
 
   const handleSaveImage = async () => {
     if (!imageUrl) {
@@ -14,38 +16,48 @@ export default function EditProfileImage({ profile, onUpdate }) {
     setLoading(true)
 
     try {
-      const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTBhZGEzYjA2YmJlOTAwMTVkZWU1ODEiLCJpYXQiOjE3NzkwOTYxMjMsImV4cCI6MTc4MDMwNTcyM30.4JBZcE70K5YVN4QRpIVSD1AO8yNJrWtf7Q0WS-E2mtw",
-          },
-          body: JSON.stringify({
-            name: profile.name,
-            surname: profile.surname,
-            title: profile.title,
-            bio: profile.bio,
-            area: profile.area,
-            image: imageUrl,
-          }),
+      const url = `https://striveschool-api.herokuapp.com/api/profile/${profile._id}`
+
+      const bodyData = {
+        name: profile.name,
+        surname: profile.surname,
+        title: profile.title,
+        bio: profile.bio,
+        area: profile.area,
+        image: imageUrl,
+      }
+      console.log("Body inviato:", bodyData)
+
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      )
+        body: JSON.stringify(bodyData),
+      })
+
+      console.log("Status response:", response.status)
+      console.log("Response ok?", response.ok)
 
       if (response.ok) {
+        const data = await response.json()
+        console.log("Dati ricevuti dall'API:", data)
+        console.log("Nuova immagine:", data.image)
+
         await onUpdate()
+
         setIsModalOpen(false)
         setImageUrl("")
-        alert("Immagine aggiornata!")
+        alert("Immagine aggiornata con successo!")
       } else {
-        const error = await response.text()
-        alert("Errore: " + error)
+        const errorText = await response.text()
+        console.error("Errore response:", errorText)
+        alert(`Errore ${response.status}: ${errorText}`)
       }
     } catch (error) {
-      console.error("Errore:", error)
-      alert("Errore di connessione")
+      console.error("Errore catch:", error)
+      alert("Errore di connessione: " + error.message)
     } finally {
       setLoading(false)
     }
@@ -115,6 +127,10 @@ export default function EditProfileImage({ profile, onUpdate }) {
                     height: "100px",
                     borderRadius: "50%",
                     objectFit: "cover",
+                  }}
+                  onError={(e) => {
+                    console.log("ERRORE: Immagine preview non caricabile")
+                    e.target.src = "https://via.placeholder.com/100?text=Error"
                   }}
                 />
               </div>
