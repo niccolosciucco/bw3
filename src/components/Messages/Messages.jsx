@@ -55,7 +55,7 @@ function Messages() {
       name: "Stefano Casasola",
       lastMess: `Hey legend 
                 Not sure if you’re open to new wealth streams, but I’ve been quietly building passive income in Web3 since 2021.
-                We’re onboarding a few ambitious professionals who want to escape the 9–5.
+                We’re onboarding a few ambitious professionals who want to escape the 95.
                 Are you open-minded?`,
       avatar: "https://placecats.com/60/60",
     },

@@ -12,6 +12,7 @@ import ProfileView from "./components/Profile/ProfileView"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "./store/slices/profileSlice"
+import MessagesPage from "./components/MessagesPage/Messages"
 
 import RegisterPage from "./components/Login/Registerpage" // import della pagina di registrazione;
 function AppContent() {
@@ -40,6 +41,7 @@ function AppContent() {
         <Route path="/profile/:id" element={<ProfileView />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/messages" element={<MessagesPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
