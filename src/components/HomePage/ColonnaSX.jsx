@@ -11,6 +11,11 @@ const ColonnaSX = () => {
   const profileImage = useSelector((state) => state.image.profileImage)
   const profileName = useSelector((state) => state.image.profileName)
   const profileSurname = useSelector((state) => state.image.profileSurname)
+  const profileProfession = useSelector(
+    (state) => state.image.profileProfession,
+  )
+  const profileLocation = useSelector((state) => state.image.profileLocation)
+
   const coverImage = useSelector((state) => state.image.coverImage)
   return (
     <>
@@ -52,10 +57,10 @@ const ColonnaSX = () => {
               {profileName} {profileSurname}
             </h5>
             <p className="text-secondary mb-1" style={{ fontSize: "0.85rem" }}>
-              Professione
+              {profileProfession}
             </p>
             <p className="text-muted mb-2" style={{ fontSize: "0.75rem" }}>
-              Italia
+              {profileLocation}
             </p>
 
             {/* Azienda */}

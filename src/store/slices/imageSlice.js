@@ -14,6 +14,8 @@ const initialState = {
   profileName: loadFromLocalStorage("profileName"),
   profileSurname: loadFromLocalStorage("profileSurname"),
   coverImage: loadFromLocalStorage("coverImage"),
+  profileProfession: loadFromLocalStorage("profileProfession"),
+  profileLocation: loadFromLocalStorage("profileLocation"),
 }
 
 const imageSlice = createSlice({
@@ -36,6 +38,14 @@ const imageSlice = createSlice({
       state.coverImage = action.payload
       localStorage.setItem("coverImage", JSON.stringify(action.payload))
     },
+    setProfileProfession: (state, action) => {
+      state.profileProfession = action.payload
+      localStorage.setItem("profileProfession", JSON.stringify(action.payload))
+    },
+    setProfileLocation: (state, action) => {
+      state.profileLocation = action.payload
+      localStorage.setItem("profileLocation", JSON.stringify(action.payload))
+    },
   },
 })
 
@@ -44,5 +54,8 @@ export const {
   setProfileName,
   setProfileSurname,
   setCoverImage,
+  setProfileProfession,
+  setProfileLocation,
 } = imageSlice.actions
+
 export default imageSlice.reducer
