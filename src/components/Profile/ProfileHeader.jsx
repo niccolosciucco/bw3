@@ -13,7 +13,7 @@ import {
   setProfileLocation,
 } from "../../store/slices/imageSlice.js"
 
-export default function ProfileHeader({ id }) {
+export default function ProfileHeader() {
   const [profile, setProfile] = useState(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [coverImage, setCoverImage] = useState(null)
@@ -29,10 +29,7 @@ export default function ProfileHeader({ id }) {
   }
   const fetchProfile = async () => {
     try {
-      const url = id
-        ? `https://striveschool-api.herokuapp.com/api/profile/${id}`
-        : "https://striveschool-api.herokuapp.com/api/profile/me"
-      const res = await fetch(url, {
+      const res = await fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +63,7 @@ export default function ProfileHeader({ id }) {
     if (token) {
       fetchProfile()
     }
-  }, [id, token])
+  }, [token])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()

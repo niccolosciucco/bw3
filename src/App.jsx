@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile"
 import HomePage from "./components/HomePage/HomePage"
 import JobsPage from "./components/Jobs/JobsPage"
 import SearchPage from "./components/Search/SearchPage"
+import ProfileView from "./components/Profile/ProfileView"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "./store/slices/profileSlice"
@@ -36,7 +37,8 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<ProfileView />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/messages" element={<MessagesPage />} />
