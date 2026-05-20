@@ -13,9 +13,6 @@ import {
   setProfileLocation,
 } from "../../store/slices/imageSlice.js"
 import { useSelector } from "react-redux"
-export default function ProfileHeader() {
-import { useDispatch, useSelector } from "react-redux"
-import { setProfileImage, setProfileName, setProfileSurname } from "../../store/slices/imageSlice.js"
 
 export default function ProfileHeader({ id }) {
   const [profile, setProfile] = useState(null)
@@ -38,8 +35,7 @@ export default function ProfileHeader({ id }) {
         : "https://striveschool-api.herokuapp.com/api/profile/me"
       const res = await fetch(url, {
         headers: {
-          Authorization:
-            `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       if (res.ok) {
@@ -67,11 +63,11 @@ export default function ProfileHeader({ id }) {
     }
   }
 
- useEffect(() => {
+  useEffect(() => {
     if (token) {
-        fetchProfile()
+      fetchProfile()
     }
-}, [id, token])
+  }, [id, token])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()
