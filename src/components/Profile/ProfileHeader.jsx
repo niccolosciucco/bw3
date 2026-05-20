@@ -4,7 +4,7 @@ import "../../style/ProfileHeader.css"
 import PanelCarousel from "./leftside.jsx/carousel"
 import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
 import ProfileCover from "../Profile/leftside.jsx/ProfileCover.jsx"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {
   setProfileImage,
   setProfileName,
@@ -12,7 +12,6 @@ import {
   setProfileProfession,
   setProfileLocation,
 } from "../../store/slices/imageSlice.js"
-import { useSelector } from "react-redux"
 
 export default function ProfileHeader({ id }) {
   const [profile, setProfile] = useState(null)
