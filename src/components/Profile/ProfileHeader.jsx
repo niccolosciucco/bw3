@@ -4,14 +4,10 @@ import "../../style/ProfileHeader.css"
 import PanelCarousel from "./leftside.jsx/carousel"
 import EditProfileModal from "../Profile/leftside.jsx/EditProfileModal"
 import ProfileCover from "../Profile/leftside.jsx/ProfileCover.jsx"
-import { useDispatch } from "react-redux"
-import {
-  setProfileImage,
-  setProfileName,
-  setProfileSurname,
-} from "../../store/slices/imageSlice.js"
-import { useSelector } from "react-redux"
-export default function ProfileHeader() {
+import { useDispatch, useSelector } from "react-redux"
+import { setProfileImage, setProfileName, setProfileSurname } from "../../store/slices/imageSlice.js"
+
+export default function ProfileHeader({ id }) {
   const [profile, setProfile] = useState(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [coverImage, setCoverImage] = useState(null)
@@ -27,14 +23,15 @@ export default function ProfileHeader() {
   }
   const fetchProfile = async () => {
     try {
-      const res = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const url = id
+        ? `https://striveschool-api.herokuapp.com/api/profile/${id}`
+        : "https://striveschool-api.herokuapp.com/api/profile/me"
+      const res = await fetch(url, {
+        headers: {
+          Authorization:
+            `Bearer ${token}`,
         },
-      )
+      })
       if (res.ok) {
         const myProfile = await res.json()
         setProfile(myProfile)
@@ -58,12 +55,11 @@ export default function ProfileHeader() {
     }
   }
 
-  useEffect(() => {
+ useEffect(() => {
     if (token) {
-      // eslint-disable-next-line
-      fetchProfile()
+        fetchProfile()
     }
-  }, [token])
+}, [id, token])
 
   const handleProfileUpdate = async () => {
     await fetchProfile()

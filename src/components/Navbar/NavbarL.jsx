@@ -71,7 +71,7 @@ const NavbarL = () => {
           <Form
             onSubmit={(e) => {
               e.preventDefault()
-              navigate("/search")
+              navigate(`/search?q=${searchQuery}`)
             }}
           >
             <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">

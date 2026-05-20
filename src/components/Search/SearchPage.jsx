@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Container, Row, Col, Card, Form } from "react-bootstrap"
-import { Link } from "react-router"
+import { Link, useSearchParams } from "react-router"
 import NavbarL from "../Navbar/NavbarL" 
 
 const SearchPage = () => {
     const [profiles, setProfiles] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [query, setQuery] = useState("")
+    const [searchParams] = useSearchParams()        // ← qui, fuori dal useEffect
+    const query = searchParams.get("q") || ""       // ← qui, fuori dal useEffect
     const { token } = useSelector((state) => state.auth)
+
     useEffect(() => {
-    if (!query) {
-        setProfiles([])
-        return
-    }
+        if (!query) {
+            setProfiles([])
+            return
+        }
         setIsLoading(true)
         fetch(`https://striveschool-api.herokuapp.com/api/profile?search=${query}`, {
             headers: {
@@ -37,12 +39,6 @@ const SearchPage = () => {
             <Container>
                 <h1>Profili</h1>
                 {isLoading && <p>Caricamento...</p>}
-                <Form.Control
-                        type="text"
-                        placeholder="Cerca profili..."
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                    />
                 <Row xs={1} md={2} lg={3} className="g-3">
                     {profiles.map((prof) => (
                         <Col key={prof._id}>
