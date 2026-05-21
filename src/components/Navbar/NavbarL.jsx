@@ -27,7 +27,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useLocation } from "react-router"
 import { logout } from "../../store/slices/authSlice"
 
-
 const NavbarL = () => {
   const profileName = useSelector((state) => state.image.profileName)
   const profileSurname = useSelector((state) => state.image.profileSurname)
@@ -40,6 +39,7 @@ const NavbarL = () => {
   const isHomepage = location.pathname.startsWith("/home")
   const isJobsPage = location.pathname.startsWith("/jobs")
   const isMessagesPage = location.pathname.startsWith("/messages")
+  const [isNetworkActive, setIsNetworkActive] = useState(false)
   const profileImage = useSelector((state) => state.image.profileImage)
   console.log("stato redux image:", profileImage)
   const token = useSelector((state) => state.auth.token)
@@ -55,9 +55,12 @@ const NavbarL = () => {
     }
 
     const timer = setTimeout(() => {
-      fetch(`https://striveschool-api.herokuapp.com/api/profile?search=${searchQuery}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      fetch(
+        `https://striveschool-api.herokuapp.com/api/profile?search=${searchQuery}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      )
         .then((res) => res.json())
         .then((data) => {
           setSuggestions(data.slice(0, 5))
@@ -135,18 +138,20 @@ const NavbarL = () => {
             </Form>
 
             {showDropdown && suggestions.length > 0 && (
-              <div style={{
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                right: 0,
-                backgroundColor: "white",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                zIndex: 9999,
-                marginTop: "4px"
-              }}>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: 0,
+                  right: 0,
+                  backgroundColor: "white",
+                  border: "1px solid #e0e0e0",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                  zIndex: 9999,
+                  marginTop: "4px",
+                }}
+              >
                 {suggestions.map((s) => (
                   <div
                     key={s._id}
@@ -155,22 +160,53 @@ const NavbarL = () => {
                       setSearchQuery("")
                       navigate(`/search?profile=${s._id}`)
                     }}
-                    style={{ padding: "10px 16px", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f3f2f1"}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "white"}
+                    style={{
+                      padding: "10px 16px",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#f3f2f1")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = "white")
+                    }
                   >
                     <img
-                      src={s.image || "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"}
+                      src={
+                        s.image ||
+                        "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+                      }
                       alt={s.name}
-                      style={{ width: "36px", height: "36px", borderRadius: "50%", objectFit: "cover" }}
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
                       onError={(e) => {
-                        e.target.src = "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+                        e.target.src =
+                          "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
                       }}
                     />
                     {/* Nome e professione */}
                     <div>
-                      <p style={{ margin: 0, fontWeight: 600, fontSize: "0.9rem" }}>{s.name} {s.surname}</p>
-                      <p style={{ margin: 0, color: "#666", fontSize: "0.8rem" }}>{s.title}</p>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontWeight: 600,
+                          fontSize: "0.9rem",
+                        }}
+                      >
+                        {s.name} {s.surname}
+                      </p>
+                      <p
+                        style={{ margin: 0, color: "#666", fontSize: "0.8rem" }}
+                      >
+                        {s.title}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -215,7 +251,8 @@ const NavbarL = () => {
           <Link
             to="/search?q="
             className="text-decoration-none text-center"
-            style={{ color: "#666666" }}
+            style={{ color: isNetworkActive ? "#191919" : "#666666" }}
+            onClick={() => setIsNetworkActive(true)}
           >
             <BsPeopleFill size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>

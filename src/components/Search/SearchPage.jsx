@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Container, Row, Col, Card, Modal, Form, Spinner } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router"
-import NavbarL from "../Navbar/NavbarL" 
+import NavbarL from "../Navbar/NavbarL"
 
 const SearchPage = () => {
     const [profiles, setProfiles] = useState([])
@@ -17,35 +17,40 @@ const SearchPage = () => {
     const [modalExperiences, setModalExperiences] = useState([])
 
 
-    useEffect(() => {
-        if (!query) {
-            fetch("https://striveschool-api.herokuapp.com/api/profile?search=a", {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-                .then((res) => res.json())
-                .then((data) => setProfiles(data))
-                .catch((err) => console.error(err))
-            return
-        }
+  useEffect(() => {
+    if (!query) {
+      fetch("https://striveschool-api.herokuapp.com/api/profile?search=a", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((res) => res.json())
+        .then((data) => setProfiles(data))
+        .catch((err) => console.error(err))
+      return
+    }
 
-        setIsLoading(true)
-        fetch(`https://striveschool-api.herokuapp.com/api/profile?search=${query}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setProfiles(data)
-                setIsLoading(false)
-            })
-            .catch((err) => {
-                console.error(err)
-                setIsLoading(false)
-            })
-    }, [token, query])
+    setIsLoading(true)
+    fetch(
+      `https://striveschool-api.herokuapp.com/api/profile?search=${query}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setProfiles(data)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.error(err)
+        setIsLoading(false)
+      })
+  }, [token, query])
 
-    const pageTitle = query ? `Risultati per "${query}"` : " Persone che potresti conoscere " 
+  const pageTitle = query
+    ? `Risultati per "${query}"`
+    : " Persone che potresti conoscere "
 
     const handleViewProfile = (id) => {
         setShowModal(true)

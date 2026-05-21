@@ -1,7 +1,8 @@
-import { Col, Container, Row } from "react-bootstrap";
-import ColonnaSX from "./ColonnaSX";
-import CentralContent from "./CentralContent";
-import ColonnaDX from "./ColonnaDX";
+import { Col, Container, Row } from "react-bootstrap"
+import ColonnaSX from "./ColonnaSX"
+import CentralContent from "./CentralContent"
+import ColonnaDX from "./ColonnaDX"
+import SuggestedProfiles from "./SuggestedProfiles"
 
 const HomePage = function () {
   return (
@@ -13,6 +14,7 @@ const HomePage = function () {
             <ColonnaSX />
           </Col>
           <Col xs={12} lg={6}>
+            <SuggestedProfiles />
             <CentralContent />
           </Col>
           <Col xs={12} lg={3}>
@@ -22,7 +24,7 @@ const HomePage = function () {
         </Row>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
