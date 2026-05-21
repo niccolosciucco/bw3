@@ -1,10 +1,10 @@
-import { Col, Container, Row } from "react-bootstrap"
-import SingleTextFooter from "./SingleTextFooter"
-import SingleIconAndTextFooter from "./SingleIconAndTextFooter"
-import { AiFillQuestionCircle, AiFillSetting } from "react-icons/ai"
-import DropDownFooter from "./DropDownFooter"
-import PrivacyAndTermsDropDown from "./PrivacyAndTermsDropDown"
-import { FaShieldAlt } from "react-icons/fa"
+import { Col, Container, Row } from "react-bootstrap";
+import SingleTextFooter from "./SingleTextFooter";
+import SingleIconAndTextFooter from "./SingleIconAndTextFooter";
+import { AiFillQuestionCircle, AiFillSetting } from "react-icons/ai";
+import DropDownFooter from "./DropDownFooter";
+import PrivacyAndTermsDropDown from "./PrivacyAndTermsDropDown";
+import { FaShieldAlt } from "react-icons/fa";
 
 const Footer = function () {
   return (
@@ -12,44 +12,44 @@ const Footer = function () {
       <Container>
         <Row className="gy-4">
           <Col xs={12} lg={2} className="d-flex flex-column gap-2">
-            <SingleTextFooter text="About" />
-            <SingleTextFooter text="Community Guidelines" />
-            <PrivacyAndTermsDropDown />
-            <SingleTextFooter text="Sales Solutions" />
-            <SingleTextFooter text="Safety Center" />
+            <SingleTextFooter text="Informazioni" />
+            <SingleTextFooter text="Linee guida della community" />
+            <PrivacyAndTermsDropDown />{" "}
+            <SingleTextFooter text="Soluzioni di vendita" />
+            <SingleTextFooter text="Centro sicurezza" />
           </Col>
 
           <Col xs={12} lg={2} className="d-flex flex-column gap-2">
-            <SingleTextFooter text="Accesibility" />
-            <SingleTextFooter text="Carrers" />
-            <SingleTextFooter text="Add Choices" />
+            <SingleTextFooter text="Accessibilità" />
+            <SingleTextFooter text="Lavora con noi" />
+            <SingleTextFooter text="Opzioni per gli annunci" />
             <SingleTextFooter text="Mobile" />
           </Col>
 
           <Col xs={12} lg={2} className="d-flex flex-column gap-2">
-            <SingleTextFooter text="Talent Solutions" />
-            <SingleTextFooter text="Marketing Solutions" />
-            <SingleTextFooter text="Advertising" />
-            <SingleTextFooter text="Small Business" />
+            <SingleTextFooter text="Soluzioni Talent" />
+            <SingleTextFooter text="Soluzioni di Marketing" />
+            <SingleTextFooter text="Pubblicità" />
+            <SingleTextFooter text="Piccole imprese" />
           </Col>
 
           <Col xs={12} lg={3} className="d-flex flex-column">
             <SingleIconAndTextFooter
               icon={AiFillQuestionCircle}
-              title="Questions?"
-              subTitle="Visit our Help Center"
+              title="Domande?"
+              subTitle="Visita il nostro Centro assistenza"
             />
 
             <SingleIconAndTextFooter
               icon={AiFillSetting}
-              title="Manage your account and privacy"
-              subTitle="Go to your settings"
+              title="Gestisci account e privacy"
+              subTitle="Vai alle impostazioni"
             />
 
             <SingleIconAndTextFooter
               icon={FaShieldAlt}
-              title="Recommendation transparency"
-              subTitle="Learn more about Recommended Content"
+              title="Trasparenza dei consigli"
+              subTitle="Scopri di più sui contenuti consigliati"
             />
           </Col>
 
@@ -63,7 +63,7 @@ const Footer = function () {
         </Row>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

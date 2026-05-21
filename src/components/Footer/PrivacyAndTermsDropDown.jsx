@@ -13,14 +13,14 @@ const PrivacyAndTermsDropDown = function () {
           backgroundColor: "transparent",
         }}
       >
-        <SingleTextFooter text="Privacy and Terms" />
+        <SingleTextFooter text="Termini e Privacy" />
       </Dropdown.Toggle>
 
       <Dropdown.Menu style={{ fontSize: "0.85rem" }}>
-        <Dropdown.Item>Privacy Policy</Dropdown.Item>
-        <Dropdown.Item>User Agreement</Dropdown.Item>
-        <Dropdown.Item>Cookie Policy</Dropdown.Item>
-        <Dropdown.Item>Copyright Policy</Dropdown.Item>
+        <Dropdown.Item>Informativa sulla Privacy</Dropdown.Item>
+        <Dropdown.Item>Accordo con l'Utente</Dropdown.Item>
+        <Dropdown.Item>Politica sui Cookie</Dropdown.Item>
+        <Dropdown.Item>Diritti d'Autore</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
