@@ -134,17 +134,13 @@ export default function Messenger() {
   return (
     <>
       <NavbarL />
-      <Container
-        fluid
-        className="p-0"
-        style={{ height: "100vh", background: "#f3f2ef" }}
-      >
-        <Row className="g-0 h-100">
+      <Container fluid className="p-0" style={{ background: "#f3f2ef" }}>
+        <Row className="g-0">
           <Col
             xs={12}
             md={4}
             lg={3}
-            className=" bg-white border-end d-flex flex-column h-100"
+            className=" bg-white border-end d-flex flex-column"
           >
             <div className="p-3 border-bottom">
               <h5 className="mb-0 fw-bold">Messaggi</h5>
@@ -194,7 +190,8 @@ export default function Messenger() {
             xs={12}
             md={8}
             lg={9}
-            className="bg-white d-flex flex-column h-100"
+            className="bg-white d-flex flex-column"
+            style={{ height: "39em" }}
           >
             {!activeChat ? (
               <div className="d-flex flex-column align-items-center justify-content-center h-100 text-center">
