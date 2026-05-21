@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import store from "./store";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import LandingPage from "./components/Landing/LandingPage";
 import LoginPage from "./components/Login/LoginPage";
 import Profile from "./components/Profile/Profile";
@@ -18,6 +18,11 @@ import RegisterPage from "./components/Login/Registerpage"; // import della pagi
 import SudokuPage from "./components/games/SudokuPage";
 import ChessPage from "./components/games/ChessPage";
 import Cruciverba from "./components/games/Cruciverba";
+const ProtectedRoute = ({ children }) => {
+  const { token } = useSelector((state) => state.auth);
+  return token ? children : <Navigate to="/" replace />;
+};
+
 function AppContent() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
@@ -40,12 +45,12 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/:id" element={<ProfileView />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/profile/:id" element={<ProtectedRoute><ProfileView /></ProtectedRoute>} />
+        <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/jobs" element={<JobsPage />} />
-        <Route path="/messages" element={<MessagesPage />} />
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/messages" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
+        <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/games/sudoku" element={<SudokuPage />} />
         <Route path="/games/chess" element={<ChessPage />} />
