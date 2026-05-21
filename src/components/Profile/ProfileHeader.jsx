@@ -181,7 +181,7 @@ export default function ProfileHeader() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                className="ms-1"
+                className="ms-1" 
               >
                 <path d="M12 5v14M5 12h14" />
               </svg>
