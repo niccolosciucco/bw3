@@ -1,84 +1,143 @@
-import { useState, useRef, useEffect } from "react"
-import { Container, Row, Col, ListGroup, Form, Button } from "react-bootstrap"
-import NavbarL from "../Navbar/NavbarL"
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-icons/font/bootstrap-icons.css"
+import { useState, useRef, useEffect } from "react";
+import { Container, Row, Col, ListGroup, Form, Button } from "react-bootstrap";
+import NavbarL from "../Navbar/NavbarL";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const initialChats = [
   {
     id: 1,
-    name: "Bilal Lafdili",
+    name: "Ciuchino",
     unread: true,
-    avatar: "https://placecats.com/60/60",
+    avatar: "https://upload.wikimedia.org/wikipedia/it/e/ee/Ciuchino.png",
     messages: [
-      { from: "them", text: "Ciao! Ho visto il tuo profilo", time: "10:14" },
       {
         from: "them",
-        text: "Stiamo assumendo, saresti disponibile?",
+        text: "Shrek!!! Senti, ma siamo già arrivati? Rispondi!",
+        time: "10:14",
+      },
+      {
+        from: "them",
+        text: "Fiona mi ha detto che dovevo scriverti qui su Link-o-coso. Comunque stasera facciamo i waffle a casa mia, ti ho già taggato nel post! Rispondi rispondi rispondi!",
         time: "10:15",
       },
-      { from: "me", text: "Ciao! Sono interessato", time: "11:03" },
+      {
+        from: "me",
+        text: "Ciuchino, ti ho detto di non scrivermi più. E NO, non siamo arrivati. Smetti di taggarmi.",
+        time: "11:03",
+      },
     ],
   },
   {
     id: 2,
-    name: "Noemi Coppotelli",
+    name: "Gatto con gli Stivali",
     unread: true,
-    avatar: "https://placecats.com/61/61",
+    avatar: "https://i.ytimg.com/vi/hZM9AVqDaCc/sddefault.jpg",
     messages: [
       {
         from: "them",
-        text: "Possiamo aiutarti a crescere",
+        text: "Señor Shrek. La mia lama è al vostro servizio, ma il mio portfolio ha bisogno di una raccomandazione. Potreste confermare la mia competenza in 'Sguardi Magnetici' e 'Spadaccino B2C'? I signorotti di Molto Molto Lontano non pagano i posizionamenti.",
         time: "09:22",
       },
     ],
   },
   {
     id: 3,
-    name: "Mohamed Jaouad",
+    name: "Lord Farquaad",
     unread: false,
-    avatar: "https://placecats.com/50/50",
+    avatar:
+      "https://static.wikia.nocookie.net/dreamworks/images/4/4b/Lord_Farquaad_Profile.jpg/revision/latest?cb=20231226033734",
     messages: [
-      { from: "them", text: "Ho visto il tuo profilo", time: "14:05" },
-      { from: "me", text: "Grazie, non sono interessato", time: "14:30" },
+      {
+        from: "them",
+        text: "Ascolta, Orco. Il contratto per la rimozione degli abusivi (i fanatici delle fiabe) dalla tua proprietà non è ancora stato formalizzato. Inoltre, esigo un feedback a 5 stelle sulla mia leadership.",
+        time: "14:05",
+      },
+      {
+        from: "them",
+        text: "Se rifiuti, potrei dover rivalutare l'altezza del tuo canone d'affitto.",
+        time: "14:07",
+      },
+      {
+        from: "me",
+        text: "Ti ho portato la principessa, mantieni i patti e sparisci da questa palude.",
+        time: "14:30",
+      },
     ],
   },
   {
     id: 4,
-    name: "Giulia Ciampa",
+    name: "Principe Azzurro",
     unread: false,
-    avatar: "https://placecats.com/63/63",
+    avatar:
+      "https://preview.redd.it/can-anyone-recreate-prince-charming-from-shrek-in-oblivion-v0-2buxis9sr1ye1.jpeg?auto=webp&s=4b5dbc3a9bcc4eb2a86b422640d3042d1ba2173c",
     messages: [
-      { from: "them", text: "Ci vediamo alla conferenza?", time: "18:40" },
-      { from: "me", text: "Certo!", time: "19:22" },
+      {
+        from: "them",
+        text: "Ciao 'Shrek'. Ho visto che hai aggiornato la tua qualifica in 'Consulente della Corona'. È ridicolo. Quel posto spettava a ME.",
+        time: "18:40",
+      },
+      {
+        from: "them",
+        text: "Ti dispiace fare un post di debunking e spiegare a tutti che la vera star della fiera sono io? Il mio biondo platino merita più reach organica.",
+        time: "18:42",
+      },
+      {
+        from: "me",
+        text: "Cerca di non farti cadere una torre addosso anche su LinkedIn. Buona giornata.",
+        time: "19:22",
+      },
     ],
   },
   {
     id: 5,
-    name: "Niccolò Sciucco",
+    name: "Fiona",
     unread: false,
-    avatar: "https://placecats.com/64/64",
+    avatar:
+      "https://static.wikia.nocookie.net/protagonists/images/d/de/Princess-fiona1.jpg/revision/latest?cb=20130118011430",
     messages: [
-      { from: "them", text: "Ti mando i case study", time: "17:00" },
-      { from: "me", text: "Va bene, aspetto", time: "17:32" },
+      {
+        from: "them",
+        text: "Amore, quando hai finito di fare networking sulla palude, ricordati che stasera abbiamo i miei genitori a cena.",
+        time: "17:00",
+      },
+      {
+        from: "them",
+        text: "Papà vuole parlarti di una 'joint venture' per la gestione del regno. Vedi di lavarti e non ruttare durante l'antipasto. Grazie.",
+        time: "17:05",
+      },
+      {
+        from: "me",
+        text: "Va bene... ma posso ruttare almeno dopo il dolce? Arrivo.",
+        time: "17:32",
+      },
     ],
   },
   {
     id: 6,
-    name: "Stefano Casasola",
+    name: "Pinocchio",
     unread: true,
-    avatar: "https://placecats.com/120/100",
+    avatar:
+      "https://static.wikia.nocookie.net/universalstudios/images/1/19/Pinocchioooo.webp/revision/latest?cb=20260317204827",
     messages: [
-      { from: "them", text: "Ciao, ho visto il tuo profilo", time: "17:00" },
       {
         from: "them",
-        text: "Vorrei proporti di divenatare un nostro prof",
+        text: "Onestamente? Non mi interessa affatto lavorare con te, non mi serve nessun network e non ho assolutamente usato il tuo account premium per spiare la Fata Madrina. No no.",
+        time: "17:00",
+      },
+      {
+        from: "them",
+        text: "(Perché il mio profilo dice che il mio naso è cresciuto di un pollice dopo questo messaggio?)",
         time: "17:01",
       },
-      { from: "me", text: "Ciao! Sono interessato", time: "18:03" },
+      {
+        from: "me",
+        text: "Pinocchio, si vede lontano un miglio che stai mentendo (letteralmente).",
+        time: "18:03",
+      },
     ],
   },
-]
+];
 
 function Avatar({ src }) {
   return (
@@ -87,34 +146,34 @@ function Avatar({ src }) {
       alt="avatar"
       style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "cover" }}
     />
-  )
+  );
 }
 
 export default function Messenger() {
-  const [chats, setChats] = useState(initialChats)
-  const [activeId, setActiveId] = useState(null)
-  const [message, setMessage] = useState("")
-  const messagesEndRef = useRef(null)
+  const [chats, setChats] = useState(initialChats);
+  const [activeId, setActiveId] = useState(null);
+  const [message, setMessage] = useState("");
+  const messagesEndRef = useRef(null);
 
-  const activeChat = chats.find((c) => c.id === activeId)
+  const activeChat = chats.find((c) => c.id === activeId);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [activeChat?.messages])
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [activeChat?.messages]);
 
   const openChat = (id) => {
-    setActiveId(id)
+    setActiveId(id);
     setChats((prev) =>
       prev.map((c) => (c.id === id ? { ...c, unread: false } : c)),
-    )
-  }
+    );
+  };
 
   const sendMessage = () => {
-    if (!message.trim() || !activeId) return
+    if (!message.trim() || !activeId) return;
     const time = new Date().toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-    })
+    });
     setChats((prev) =>
       prev.map((c) =>
         c.id === activeId
@@ -127,9 +186,9 @@ export default function Messenger() {
             }
           : c,
       ),
-    )
-    setMessage("")
-  }
+    );
+    setMessage("");
+  };
 
   return (
     <>
@@ -140,7 +199,7 @@ export default function Messenger() {
             xs={12}
             md={4}
             lg={3}
-            className=" bg-white border-end d-flex flex-column"
+            className="bg-white border-end d-flex flex-column overflow-hidden"
           >
             <div className="p-3 border-bottom">
               <h5 className="mb-0 fw-bold">Messaggi</h5>
@@ -148,28 +207,34 @@ export default function Messenger() {
 
             <ListGroup variant="flush" className="overflow-auto">
               {chats.map((chat) => {
-                const lastMsg = chat.messages[chat.messages.length - 1]
+                const lastMsg = chat.messages[chat.messages.length - 1];
                 return (
                   <ListGroup.Item
                     key={chat.id}
                     action
                     onClick={() => openChat(chat.id)}
-                    className="d-flex gap-3 py-3"
+                    className="d-flex gap-3 py-3 align-items-center"
                     style={{
                       background: chat.id === activeId ? "#99b9f2" : "white",
                       cursor: "pointer",
                     }}
                   >
                     <Avatar src={chat.avatar} />
-                    <div className="flex-grow-1">
-                      <div className="d-flex justify-content-between">
-                        <strong className={chat.unread ? "fw-bold" : ""}>
+                    <div className="flex-grow-1 overflow-hidden">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <strong
+                          className={`text-truncate ${chat.unread ? "fw-bold" : ""}`}
+                          style={{ maxWidth: "70%" }}
+                        >
                           {chat.name}
                         </strong>
-                        <small className="text-muted">{lastMsg.time}</small>
+                        <small className="text-muted ms-2 flex-shrink-0">
+                          {lastMsg.time}
+                        </small>
                       </div>
                       <small
                         className={`d-block text-truncate ${chat.unread ? "fw-semibold" : "text-muted"}`}
+                        style={{ maxWidth: "100%" }}
                       >
                         {lastMsg.from === "me" && "✓ "}
                         {lastMsg.text}
@@ -177,12 +242,12 @@ export default function Messenger() {
                     </div>
                     {chat.unread && (
                       <div
-                        className="bg-primary rounded-circle mt-2"
+                        className="bg-primary rounded-circle flex-shrink-0"
                         style={{ width: 10, height: 10 }}
                       />
                     )}
                   </ListGroup.Item>
-                )
+                );
               })}
             </ListGroup>
           </Col>
@@ -214,7 +279,7 @@ export default function Messenger() {
                   className="flex-grow-1 overflow-auto p-3"
                   style={{
                     backgroundImage:
-                      "url('https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                      "url('https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
@@ -238,6 +303,7 @@ export default function Messenger() {
                       </div>
                     </div>
                   ))}
+                  <div ref={messagesEndRef} />
                 </div>
 
                 <div className="p-3 border-top">
@@ -268,5 +334,5 @@ export default function Messenger() {
         </Row>
       </Container>
     </>
-  )
+  );
 }

@@ -1,65 +1,65 @@
-import { Card, Button, ListGroup } from "react-bootstrap"
-import { FaChevronUp, FaChevronDown, FaEllipsisH } from "react-icons/fa"
-import { BsPencilSquare } from "react-icons/bs"
-import { useSelector, useDispatch } from "react-redux"
-import { toggleMessages } from "../../store/slices/messagesSlice"
+import { Card, Button, ListGroup } from "react-bootstrap";
+import { FaChevronUp, FaChevronDown, FaEllipsisH } from "react-icons/fa";
+import { BsPencilSquare } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleMessages } from "../../store/slices/messagesSlice";
 function Messages() {
-  const dispatch = useDispatch()
-  const isOpen = useSelector((state) => state.messages.isMessagesOpen)
-  const profileImage = useSelector((state) => state.image.profileImage)
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.messages.isMessagesOpen);
+  const profileImage = useSelector((state) => state.image.profileImage);
   const chats = [
     {
       id: 1,
-      name: "Bilal Lafdili",
-      lastMess: `Hi,
-                I came across your profile and was impressed by your experience in digital marketing.
-                We’re currently hiring for a similar role in a fast-growing company.
-                Would you be open to a quick 15-minute introductory call this week?`,
-      avatar: "https://placecats.com/40/40",
+      name: "Ciuchino",
+      lastMess: `Shrek!!! Senti, ma siamo già arrivati? Rispondi! 
+              Fiona mi ha detto che dovevo scriverti qui su Link-o-coso. 
+              Comunque stasera facciamo i waffle a casa mia, ti ho già taggato nel post! Rispondi rispondi rispondi!`,
+      avatar: "https://upload.wikimedia.org/wikipedia/it/e/ee/Ciuchino.png",
     },
     {
       id: 2,
-      name: "Noemi Coppotelli",
-      lastMess: `Hello!
-                We help professionals like you increase productivity by up to 40% with our innovative solution.
-                I’d love to share some information and see if it could be relevant for you — would that be okay?`,
-      avatar: "https://placecats.com/50/50",
+      name: "Gatto con gli Stivali",
+      lastMess: `Señor Shrek. La mia lama è al vostro servizio, ma il mio portfolio ha bisogno di una raccomandazione. 
+              Potreste confermare la mia competenza in "Sguardi Magnetici" e "Spadaccino B2C"? 
+              I signorotti di Molto Molto Lontano non pagano i posizionamenti.`,
+      avatar: "https://i.ytimg.com/vi/hZM9AVqDaCc/sddefault.jpg",
     },
     {
       id: 3,
-      name: "Mohamed Jaouad",
-      lastMess: `Dear Professional,
-                I carefully reviewed your profile and was truly impressed by your background.
-                I’d like to present you with an outstanding opportunity in the financial sector with unlimited growth potential.
-                When would you be available to discuss further?`,
-      avatar: "https://placecats.com/90/90",
+      name: "Lord Farquaad",
+      lastMess: `Ascolta, Orco. Il contratto per la rimozione degli abusivi (i fanatici delle fiabe) dalla tua proprietà non è ancora stato formalizzato. 
+              Inoltre, esigo un feedback a 5 stelle sulla mia leadership. 
+              Se rifiuti, potrei dover rivalutare l'altezza del tuo canone d'affitto.`,
+      avatar:
+        "https://static.wikia.nocookie.net/dreamworks/images/4/4b/Lord_Farquaad_Profile.jpg/revision/latest?cb=20231226033734",
     },
     {
       id: 4,
-      name: "Giulia Ciampa",
-      lastMess: `Hi!
-                We briefly met at the innovation conference in Milan yesterday.
-                I really enjoyed our conversation about AI and corporate training — would love to stay in touch and maybe continue the discussion soon.`,
-      avatar: "https://placecats.com/70/70",
-    },
-    {
-      id: 4,
-      name: "Niccolò Sciucco",
-      lastMess: `Hi,
-                I’ve been following your company’s projects for a while and really like your positioning.
-                I’m a B2B tech copywriter — happy to share a couple of case studies if that would be helpful.`,
-      avatar: "https://placecats.com/80/80",
+      name: "Principe Azzurro",
+      lastMess: `Ciao "Shrek". Ho visto che hai aggiornato la tua qualifica in "Consulente della Corona". 
+              È ridicolo. Quel posto spettava a ME. 
+              Ti dispiace fare un post di debunking e spiegare a tutti che la vera star della fiera sono io? Il mio biondo platino merita più reach organica.`,
+      avatar:
+        "https://preview.redd.it/can-anyone-recreate-prince-charming-from-shrek-in-oblivion-v0-2buxis9sr1ye1.jpeg?auto=webp&s=4b5dbc3a9bcc4eb2a86b422640d3042d1ba2173c",
     },
     {
       id: 5,
-      name: "Stefano Casasola",
-      lastMess: `Hey legend 
-                Not sure if you’re open to new wealth streams, but I’ve been quietly building passive income in Web3 since 2021.
-                We’re onboarding a few ambitious professionals who want to escape the 95.
-                Are you open-minded?`,
-      avatar: "https://placecats.com/60/60",
+      name: "Fiona",
+      lastMess: `Amore, quando hai finito di fare networking sulla palude, ricordati che stasera abbiamo i miei genitori a cena. 
+              Papà vuole parlarti di una "joint venture" per la gestione del regno. 
+              Vedi di lavarti e non ruttare durante l'antipasto. Grazie.`,
+      avatar:
+        "https://static.wikia.nocookie.net/protagonists/images/d/de/Princess-fiona1.jpg/revision/latest?cb=20130118011430",
     },
-  ]
+    {
+      id: 6,
+      name: "Pinocchio",
+      lastMess: `Onestamente? Non mi interessa affatto lavorare con te, non mi serve nessun network e non ho assolutamente usato il tuo account premium per spiare la Fata Madrina. No no. 
+              (Perché il mio profilo dice che il mio naso è cresciuto di un pollice dopo questo messaggio?)`,
+      avatar:
+        "https://static.wikia.nocookie.net/universalstudios/images/1/19/Pinocchioooo.webp/revision/latest?cb=20260317204827",
+    },
+  ];
 
   return (
     <div
@@ -97,7 +97,7 @@ function Messages() {
                 cursor: "pointer",
               }}
             />
-            <strong style={{ fontSize: "14px" }}>Messages</strong>
+            <strong style={{ fontSize: "14px" }}>Messaggi</strong>
           </div>
 
           <div
@@ -138,7 +138,7 @@ function Messages() {
             <div className="p-2 border-bottom">
               <input
                 type="text"
-                placeholder="Find Messages"
+                placeholder="Trova Messaggi"
                 className="form-control form-control-sm"
                 style={{ backgroundColor: "#edf3f8", border: "none" }}
               />
@@ -172,7 +172,7 @@ function Messages() {
         )}
       </Card>
     </div>
-  )
+  );
 }
 
-export default Messages
+export default Messages;
