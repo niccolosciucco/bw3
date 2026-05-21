@@ -1,4 +1,4 @@
-import { Card, Button, ListGroup, Stack } from "react-bootstrap"
+import { Card, Button, ListGroup, Stack } from "react-bootstrap";
 import {
   BsInfoSquareFill,
   BsChevronDown,
@@ -8,53 +8,53 @@ import {
   Bs123,
   BsGrid1X2Fill,
   BsChevronUp,
-} from "react-icons/bs"
-import SpanFooterDX from "./SpanFooterDX"
-import { useSelector } from "react-redux"
-import { useState, useEffect } from "react"
+} from "react-icons/bs";
+import SpanFooterDX from "./SpanFooterDX";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 const ColonnaDX = () => {
-  const profileImage = useSelector((state) => state.image.profileImage)
-  const profileName = useSelector((state) => state.image.profileName)
+  const profileImage = useSelector((state) => state.image.profileImage);
+  const profileName = useSelector((state) => state.image.profileName);
 
-  const [visibleCount, setVisibleCount] = useState(5)
-  const [newsItems, setNewsItems] = useState([])
-  const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu"
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [newsItems, setNewsItems] = useState([]);
+  const API_KEY = "dhbpj8rLZ6X9ZGEhwtbOL70bSxdvXSzJMN0oEza2SEcy_Seu";
 
   const seztioneNotizie = () => {
-    const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`
+    const url = `https://api.currentsapi.services/v1/latest-news?language=it&apiKey=${API_KEY}`;
     fetch(url)
       .then((res) => {
         if (res.ok) {
-          return res.json()
+          return res.json();
         } else {
-          throw new Error("errore nel recupero notizie")
+          throw new Error("errore nel recupero notizie");
         }
       })
       .then((data) => {
-        setNewsItems(data.news)
+        setNewsItems(data.news);
       })
       .catch((err) => {
-        console.log("errore", err)
-      })
-  }
+        console.log("errore", err);
+      });
+  };
 
   useEffect(() => {
-    seztioneNotizie()
-  }, [])
+    seztioneNotizie();
+  }, []);
 
-  const isOpen = visibleCount > 5
+  const isOpen = visibleCount > 5;
 
   const gestisciVisibilita = () => {
     if (isOpen) {
-      setVisibleCount(5) // Se è aperto, lo richiudiamo a 5
+      setVisibleCount(5); // Se è aperto, lo richiudiamo a 5
     } else {
-      setVisibleCount(10) // Se è chiuso, mostriamo 10 notizie
+      setVisibleCount(10); // Se è chiuso, mostriamo 10 notizie
     }
-  }
+  };
 
   // array "tagliato" per fare il .map() delle altre notizie
-  const notizieDaMostrare = newsItems.slice(0, visibleCount)
+  const notizieDaMostrare = newsItems.slice(0, visibleCount);
 
   const gamesItems = [
     {
@@ -74,7 +74,7 @@ const ColonnaDX = () => {
     {
       id: 3,
       name: "Mini Sudoku #280",
-      desc: "Il gioco classico, in versione mini",
+      desc: "Il gioco classico",
       IconComponent: Bs123,
       color: "#2ecc71",
     },
@@ -85,7 +85,7 @@ const ColonnaDX = () => {
       IconComponent: BsGrid1X2Fill,
       color: "#3498db",
     },
-  ]
+  ];
 
   return (
     <div
@@ -118,10 +118,10 @@ const ColonnaDX = () => {
                 className="p-0 border-0 mb-2"
                 style={{ cursor: "pointer" }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "rgb(232, 232, 232)"
+                  e.currentTarget.style.backgroundColor = "rgb(232, 232, 232)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent"
+                  e.currentTarget.style.backgroundColor = "transparent";
                 }}
                 onClick={() =>
                   window.open(notizia.url, "_blank", "noopener,noreferrer")
@@ -184,7 +184,7 @@ const ColonnaDX = () => {
 
           <ListGroup variant="flush" style={{ fontSize: "0.85rem" }}>
             {gamesItems.map((game) => {
-              const Icon = game.IconComponent
+              const Icon = game.IconComponent;
               return (
                 <ListGroup.Item
                   key={game.id}
@@ -225,7 +225,7 @@ const ColonnaDX = () => {
                     style={{ fontSize: "0.75rem" }}
                   />
                 </ListGroup.Item>
-              )
+              );
             })}
           </ListGroup>
 
@@ -327,7 +327,7 @@ const ColonnaDX = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ColonnaDX
+export default ColonnaDX;
