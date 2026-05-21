@@ -153,7 +153,7 @@ const NavbarL = () => {
                     onClick={() => {
                       setShowDropdown(false)
                       setSearchQuery("")
-                      navigate(`/profile/${s._id}`)
+                      navigate(`/search?profile=${s._id}`)
                     }}
                     style={{ padding: "10px 16px", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f3f2f1"}
