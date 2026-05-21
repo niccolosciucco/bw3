@@ -25,7 +25,7 @@ const JobsPage = () => {
     return (
         <>
             <NavbarL />
-            <div className="px-3 py-2 d-flex gap-2 justify-content-center">
+            <div className="px-3 py-2 d-flex flex-wrap gap-2 justify-content-center">
                 <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Lavoro</Button>
                 <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Data di pubblicazione</Button>
                 <Button className="rounded-pill" variant="outline-primary" style={{ minWidth: "120px" }}>Livello di esperienza</Button>
