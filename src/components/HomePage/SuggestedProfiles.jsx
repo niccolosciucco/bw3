@@ -30,7 +30,7 @@ const SuggestedProfiles = () => {
               to={`/profile/${prof._id}`}
               className="text-decoration-none text-dark"
             >
-              <div className="card text-center p-2 h-100 border">
+              <div className="card text-center p-2 h-100 border d-flex justify-content-between">
                 <img
                   src={
                     prof.image ||
