@@ -7,51 +7,52 @@ import {
   Dropdown,
   Image,
   Button,
-} from "react-bootstrap"
+} from "react-bootstrap";
 import {
   FaLinkedin,
   FaBriefcase,
   FaSquare,
   FaSortAmountDownAlt,
-} from "react-icons/fa"
-import { IoSearchSharp } from "react-icons/io5"
-import { AiFillHome } from "react-icons/ai"
-import { BsPeopleFill } from "react-icons/bs"
-import { AiFillMessage } from "react-icons/ai"
-import { IoNotifications } from "react-icons/io5"
-import { BsGrid3X3GapFill } from "react-icons/bs"
-import "./NavbarL.css"
-import { useState, useRef, useEffect } from "react"
-import { Link } from "react-router"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useLocation } from "react-router"
-import { logout } from "../../store/slices/authSlice"
+} from "react-icons/fa";
+import { IoSearchSharp } from "react-icons/io5";
+import { AiFillHome } from "react-icons/ai";
+import { BsPeopleFill } from "react-icons/bs";
+import { AiFillMessage } from "react-icons/ai";
+import { IoNotifications } from "react-icons/io5";
+import { BsGrid3X3GapFill } from "react-icons/bs";
+import "./NavbarL.css";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router";
+import { logout } from "../../store/slices/authSlice";
 
 const NavbarL = () => {
-  const profileName = useSelector((state) => state.image.profileName)
-  const profileSurname = useSelector((state) => state.image.profileSurname)
+  const profileName = useSelector((state) => state.image.profileName);
+  const profileSurname = useSelector((state) => state.image.profileSurname);
   const profileProfession = useSelector(
     (state) => state.image.profileProfession,
-  )
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const isHomepage = location.pathname.startsWith("/home")
-  const isJobsPage = location.pathname.startsWith("/jobs")
-  const isMessagesPage = location.pathname.startsWith("/messages")
-  const [isNetworkActive, setIsNetworkActive] = useState(false)
-  const profileImage = useSelector((state) => state.image.profileImage)
-  console.log("stato redux image:", profileImage)
-  const token = useSelector((state) => state.auth.token)
-  const [searchQuery, setSearchQuery] = useState("")
-  const [suggestions, setSuggestions] = useState([])
-  const [showDropdown, setShowDropdown] = useState(false)
-  const searchRef = useRef(null)
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomepage = location.pathname.startsWith("/home");
+  const isJobsPage = location.pathname.startsWith("/jobs");
+  const isMessagesPage = location.pathname.startsWith("/messages");
+  const [isNetworkActive, setIsNetworkActive] = useState(false);
+  const profileImage = useSelector((state) => state.image.profileImage);
+  console.log("stato redux image:", profileImage);
+  const token = useSelector((state) => state.auth.token);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchRef = useRef(null);
   useEffect(() => {
     if (searchQuery.trim().length < 2) {
-      setSuggestions([])
-      setShowDropdown(false)
-      return
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSuggestions([]);
+      setShowDropdown(false);
+      return;
     }
 
     const timer = setTimeout(() => {
@@ -63,24 +64,24 @@ const NavbarL = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          setSuggestions(data.slice(0, 5))
-          setShowDropdown(true)
+          setSuggestions(data.slice(0, 5));
+          setShowDropdown(true);
         })
-        .catch(() => setSuggestions([]))
-    }, 400)
+        .catch(() => setSuggestions([]));
+    }, 400);
 
-    return () => clearTimeout(timer)
-  }, [searchQuery])
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
-        setShowDropdown(false)
+        setShowDropdown(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <Navbar className="bg-white border-bottom py-1">
@@ -113,9 +114,9 @@ const NavbarL = () => {
           <div ref={searchRef} style={{ position: "relative" }}>
             <Form
               onSubmit={(e) => {
-                e.preventDefault()
-                setShowDropdown(false)
-                navigate(`/search?q=${searchQuery}`)
+                e.preventDefault();
+                setShowDropdown(false);
+                navigate(`/search?q=${searchQuery}`);
               }}
             >
               <InputGroup className="d-flex align-items-center border rounded-pill py-1 px-3">
@@ -128,9 +129,9 @@ const NavbarL = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && searchQuery.trim().length > 0) {
-                      e.preventDefault()
-                      setShowDropdown(false)
-                      navigate(`/search?q=${searchQuery}`)
+                      e.preventDefault();
+                      setShowDropdown(false);
+                      navigate(`/search?q=${searchQuery}`);
                     }
                   }}
                 />
@@ -156,9 +157,9 @@ const NavbarL = () => {
                   <div
                     key={s._id}
                     onClick={() => {
-                      setShowDropdown(false)
-                      setSearchQuery("")
-                      navigate(`/search?profile=${s._id}`)
+                      setShowDropdown(false);
+                      setSearchQuery("");
+                      navigate(`/search?profile=${s._id}`);
                     }}
                     style={{
                       padding: "10px 16px",
@@ -188,7 +189,7 @@ const NavbarL = () => {
                       }}
                       onError={(e) => {
                         e.target.src =
-                          "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
+                          "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg";
                       }}
                     />
                     {/* Nome e professione */}
@@ -436,10 +437,10 @@ const NavbarL = () => {
                 <div>
                   <Nav.Link
                     style={{ fontSize: "0.9rem" }}
-                    className="text-secondary"
+                    className="text-danger"
                     onClick={() => {
-                      dispatch(logout())
-                      navigate("/")
+                      dispatch(logout());
+                      navigate("/");
                     }}
                   >
                     Esci
@@ -478,7 +479,7 @@ const NavbarL = () => {
         </div>
       </Container>
     </Navbar>
-  )
-}
+  );
+};
 
-export default NavbarL
+export default NavbarL;
