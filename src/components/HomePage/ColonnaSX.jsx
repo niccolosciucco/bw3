@@ -1,22 +1,22 @@
-import { Card, Image, Nav, ListGroup } from "react-bootstrap"
-import { FaSquare } from "react-icons/fa"
-import { IoBookmark } from "react-icons/io5"
-import { MdGroups } from "react-icons/md"
-import { BiNews } from "react-icons/bi"
-import { MdEventNote } from "react-icons/md"
-import { useNavigate } from "react-router"
-import { useSelector } from "react-redux"
+import { Card, Image, Nav, ListGroup } from "react-bootstrap";
+import { FaSquare } from "react-icons/fa";
+import { IoBookmark } from "react-icons/io5";
+import { MdGroups } from "react-icons/md";
+import { BiNews } from "react-icons/bi";
+import { MdEventNote } from "react-icons/md";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 const ColonnaSX = () => {
-  const navigate = useNavigate()
-  const profileImage = useSelector((state) => state.image.profileImage)
-  const profileName = useSelector((state) => state.image.profileName)
-  const profileSurname = useSelector((state) => state.image.profileSurname)
+  const navigate = useNavigate();
+  const profileImage = useSelector((state) => state.image.profileImage);
+  const profileName = useSelector((state) => state.image.profileName);
+  const profileSurname = useSelector((state) => state.image.profileSurname);
   const profileProfession = useSelector(
     (state) => state.image.profileProfession,
-  )
-  const profileLocation = useSelector((state) => state.image.profileLocation)
+  );
+  const profileLocation = useSelector((state) => state.image.profileLocation);
 
-  const coverImage = useSelector((state) => state.image.coverImage)
+  const coverImage = useSelector((state) => state.image.coverImage);
   return (
     <>
       {/*PRIMO BLOCCO*/}
@@ -70,11 +70,11 @@ const ColonnaSX = () => {
             >
               <Image
                 src={
-                  "https://e7.pngegg.com/pngimages/391/20/png-clipart-h-m-logo-h-m-logo-icons-logos-emojis-iconic-brands.png"
+                  "https://static.wikia.nocookie.net/shrek/images/5/52/Far_Far_Away_Logo.png"
                 }
-                style={{ width: "16px" }}
+                style={{ width: "18px", objectFit: "contain" }}
               />
-              <span className="fw-semibold">H&M</span>
+              <span className="fw-semibold">Molto Molto Lontano</span>
             </div>
           </div>
         </Card.Body>
@@ -127,7 +127,7 @@ const ColonnaSX = () => {
         </ListGroup>
       </Card>
     </>
-  )
-}
+  );
+};
 
-export default ColonnaSX
+export default ColonnaSX;
