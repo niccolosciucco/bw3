@@ -51,7 +51,7 @@ const SearchPage = () => {
                     {profiles.map((prof) => (
                         <Col key={prof._id}>
                             <Card className="mb-3 h-100 d-flex flex-column">
-                                <Card.Body>
+                                <Card.Body className="d-flex flex-column">
                                     <img
                                         src={prof.image || "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"}
                                         alt={prof.name}
@@ -64,9 +64,17 @@ const SearchPage = () => {
                                     <Card.Subtitle className="mb-2 text-muted">{prof.surname}</Card.Subtitle>
                                     <Card.Text>{prof.title}</Card.Text>
                                     <Card.Text>{prof.area}</Card.Text>
-                                    <Card.Text>
-                                        <Link to={`/profile/${prof._id}`}>Vedi profilo</Link>
-                                    </Card.Text>
+                                    <div className="d-flex gap-2 mt-auto pt-2">
+                                        <button className="btn btn-outline-primary btn-sm rounded-pill flex-grow-1">
+                                            Collegati
+                                        </button>
+                                        <Link
+                                            to={`/profile/${prof._id}`}
+                                            className="btn btn-outline-secondary btn-sm rounded-pill flex-grow-1 text-center"
+                                        >
+                                            Profilo
+                                        </Link>
+                                    </div>
                                 </Card.Body>
                             </Card>
                         </Col>
