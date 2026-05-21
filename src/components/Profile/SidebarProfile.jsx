@@ -18,7 +18,11 @@ export default function LinkedInProfileSidebar() {
         fetch(API_URL, { headers: HEADERS })
           .then((res) => res.json())
           .then((all) =>
-            setViewed(all.filter((p) => p._id !== me._id).slice(0, 7)),
+            setViewed(
+              [...all.filter((p) => p._id !== me._id)]
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 7),
+            ),
           )
       })
   }, [])
