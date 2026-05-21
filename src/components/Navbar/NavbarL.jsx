@@ -211,13 +211,17 @@ const NavbarL = () => {
           </Link>
 
           {/*LA MIA RETE*/}
-          <Nav.Link className="text-center btn-navbar">
+          {/*LA MIA RETE*/}
+          <Link
+            to="/search?q="
+            className="text-decoration-none text-center"
+            style={{ color: "#666666" }}
+          >
             <BsPeopleFill size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               La mia rete
             </p>
-          </Nav.Link>
-
+          </Link>
           {/*LAVORO*/}
           <Link
             to={"/jobs"}
