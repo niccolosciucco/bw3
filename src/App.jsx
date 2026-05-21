@@ -1,23 +1,26 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import { Provider } from "react-redux"
-import store from "./store"
-import { BrowserRouter, Routes, Route } from "react-router"
-import LandingPage from "./components/Landing/LandingPage"
-import LoginPage from "./components/Login/LoginPage"
-import Profile from "./components/Profile/Profile"
-import HomePage from "./components/HomePage/HomePage"
-import JobsPage from "./components/Jobs/JobsPage"
-import SearchPage from "./components/Search/SearchPage"
-import ProfileView from "./components/Profile/ProfileView"
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setUser } from "./store/slices/profileSlice"
-import MessagesPage from "./components/MessagesPage/Messages"
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
+import store from "./store";
+import { BrowserRouter, Routes, Route } from "react-router";
+import LandingPage from "./components/Landing/LandingPage";
+import LoginPage from "./components/Login/LoginPage";
+import Profile from "./components/Profile/Profile";
+import HomePage from "./components/HomePage/HomePage";
+import JobsPage from "./components/Jobs/JobsPage";
+import SearchPage from "./components/Search/SearchPage";
+import ProfileView from "./components/Profile/ProfileView";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "./store/slices/profileSlice";
+import MessagesPage from "./components/MessagesPage/Messages";
 
-import RegisterPage from "./components/Login/Registerpage" // import della pagina di registrazione;
+import RegisterPage from "./components/Login/Registerpage"; // import della pagina di registrazione;
+import SudokuPage from "./components/games/SudokuPage";
+import ChessPage from "./components/games/ChessPage";
+import Cruciverba from "./components/games/Cruciverba";
 function AppContent() {
-  const dispatch = useDispatch()
-  const { token } = useSelector((state) => state.auth)
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (token) {
@@ -26,11 +29,11 @@ function AppContent() {
       })
         .then((res) => res.json())
         .then((data) => dispatch(setUser(data)))
-        .catch(() => dispatch(setUser(null)))
+        .catch(() => dispatch(setUser(null)));
     } else {
-      dispatch(setUser(null))
+      dispatch(setUser(null));
     }
-  }, [token, dispatch])
+  }, [token, dispatch]);
 
   return (
     <BrowserRouter>
@@ -44,9 +47,12 @@ function AppContent() {
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/games/sudoku" element={<SudokuPage />} />
+        <Route path="/games/chess" element={<ChessPage />} />
+        <Route path="/games/cruciverba" element={<Cruciverba />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 function App() {
@@ -54,6 +60,6 @@ function App() {
     <Provider store={store}>
       <AppContent />
     </Provider>
-  )
+  );
 }
-export default App
+export default App;

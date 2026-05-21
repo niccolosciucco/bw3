@@ -3,17 +3,18 @@ import {
   BsInfoSquareFill,
   BsChevronDown,
   BsChevronRight,
-  BsGrid3X3GapFill,
-  BsLink45Deg,
   Bs123,
-  BsGrid1X2Fill,
   BsChevronUp,
+  BsGrid3X3,
+  BsSquareHalf,
 } from "react-icons/bs";
 import SpanFooterDX from "./SpanFooterDX";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 const ColonnaDX = () => {
+  const navigate = useNavigate();
   const profileImage = useSelector((state) => state.image.profileImage);
   const profileName = useSelector((state) => state.image.profileName);
 
@@ -53,23 +54,24 @@ const ColonnaDX = () => {
     }
   };
 
-  // array "tagliato" per fare il .map() delle altre notizie
   const notizieDaMostrare = newsItems.slice(0, visibleCount);
 
   const gamesItems = [
     {
       id: 1,
-      name: "Patches #62",
+      name: "Scacchi #62",
       desc: "Riuscirai a vincere?",
-      IconComponent: BsGrid3X3GapFill,
+      IconComponent: BsSquareHalf,
       color: "#f39c12",
+      path: "/games/chess",
     },
     {
       id: 2,
-      name: "Zip #42",
-      desc: "Completa il percorso",
-      IconComponent: BsLink45Deg,
+      name: "Cruciverba #42",
+      desc: "Le sai tutte?",
+      IconComponent: BsGrid3X3,
       color: "#e67e22",
+      path: "/games/cruciverba",
     },
     {
       id: 3,
@@ -77,13 +79,7 @@ const ColonnaDX = () => {
       desc: "Il gioco classico",
       IconComponent: Bs123,
       color: "#2ecc71",
-    },
-    {
-      id: 4,
-      name: "Tango #588",
-      desc: "Armonizza la griglia",
-      IconComponent: BsGrid1X2Fill,
-      color: "#3498db",
+      path: "/games/sudoku",
     },
   ];
 
@@ -152,13 +148,12 @@ const ColonnaDX = () => {
               variant="link"
               className="text-decoration-none p-0 fw-semibold text-secondary-emphasis d-flex align-items-center gap-1 mt-2 justify-content-start"
               style={{ fontSize: "0.8rem" }}
-              onClick={gestisciVisibilita} // <-- Cambiata la funzione
+              onClick={gestisciVisibilita}
             >
               <span className="ps-3 mb-2">
                 {isOpen ? "Mostra meno" : "Mostra altre notizie"}{" "}
               </span>
 
-              {/*cambio l'icona e inverto il margine in base allo stato */}
               {isOpen ? (
                 <BsChevronUp
                   className="mb-2"
@@ -190,6 +185,21 @@ const ColonnaDX = () => {
                   key={game.id}
                   className="p-0 border-0 bg-transparent mb-3 d-flex align-items-center justify-content-between"
                   style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    if (game.path) {
+                      navigate(game.path);
+                    } else {
+                      alert(
+                        `${game.name} sarà disponibile a breve! Prova il Sudoku.`,
+                      );
+                    }
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = "0.8";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = "1";
+                  }}
                 >
                   <div className="d-flex align-items-center gap-2">
                     <div
