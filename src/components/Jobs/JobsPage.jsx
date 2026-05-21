@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Container, Row, Col, Card, Button } from "react-bootstrap"
+import { useNavigate } from "react-router"
+import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap"
 import NavbarL from "../Navbar/NavbarL" 
 
 const JobsPage = () => {
     const [jobs, setJobs] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const { token } = useSelector((state) => state.auth)
+    console.log("Token in JobsPage:", token) // Debug: verifica se il token è presente
+    const navigate = useNavigate()
+    const [showLoginModal, setShowLoginModal] = useState(false)
 
     useEffect(() => {
         setIsLoading(true)
@@ -21,6 +25,13 @@ const JobsPage = () => {
                 setIsLoading(false)
             })
     }, [])
+    const handleViewOffer = (url) => {
+        if (token) {
+            window.open(url, "_blank")
+        } else {
+            setShowLoginModal(true)
+        }
+    }
 
     return (
         <>
@@ -46,13 +57,32 @@ const JobsPage = () => {
                                     <Card.Subtitle className="mb-2 text-muted">{job.company_name}</Card.Subtitle>
                                     <Card.Text>{job.location}</Card.Text>
                                     <Card.Text>{job.category}</Card.Text>
-                                    <Card.Text><a href={job.url} target="_blank" rel="noopener noreferrer">Vedi offerta</a></Card.Text>
+                                    <Card.Text>
+                                        <span
+                                            className="text-primary"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => handleViewOffer(job.url)}
+                                        >
+                                            Vedi offerta
+                                        </span>
+                                    </Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
                     ))}
                 </Row>
             </Container>
+            <Modal show={showLoginModal} onHide={() => setShowLoginModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Accedi a LinkedIn</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-center py-4">
+                    <p className="mb-4">Per candidarti devi prima accedere a LinkedIn</p>
+                    <Button variant="primary" className="rounded-pill px-4" onClick={() => navigate("/login")}>
+                        Accedi
+                    </Button>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

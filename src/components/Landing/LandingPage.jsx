@@ -4,7 +4,6 @@ import { FaLinkedin, FaGoogle, FaApple } from "react-icons/fa"
 import styles from "./LandingPage.module.css"
 
 
-
 const LandingPage = () => {
     const navigate = useNavigate()
 
@@ -65,16 +64,36 @@ const LandingPage = () => {
                                     <h2>Trova il lavoro o lo stage giusto per te</h2>
                                 </Col>
                                 <Col md={6} className="d-flex flex-wrap gap-2">
-                                    <Button variant="outline-dark" className="rounded-pill">Ingegneria</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Business Development</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Finanza</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Assistente amministrativo</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Addetto alle vendite</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Informatica</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Marketing</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Servizio clienti</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Operazioni</Button>
-                                    <Button variant="outline-dark" className="rounded-pill">Risorse umane</Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Ingegneria
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        AI Development
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Finanza
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Machine Learning Engineer
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Addetto alle vendite
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        DevOps Engineer
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Marketing
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Data Scientist
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Full Stack Developer
+                                    </Button>
+                                    <Button variant="outline-dark" className="rounded-pill" onClick={() => navigate("/jobs")}>
+                                        Risorse umane
+                                    </Button>
                                 </Col>
                             </Row>
                         </Container>

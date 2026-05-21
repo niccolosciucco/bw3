@@ -304,7 +304,7 @@ const NavbarL = () => {
                   <Image
                     className="d-none d-lg-block"
                     src={
-                      profileImage ||
+                      (token && profileImage) ||
                       "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
                     }
                     roundedCircle
@@ -340,7 +340,7 @@ const NavbarL = () => {
                   <Image
                     className="d-none d-lg-block"
                     src={
-                      profileImage ||
+                      (token && profileImage) ||
                       "https://i.pinimg.com/736x/24/a5/4c/24a54c075ae7a7e7ae16d69e2766cefe.jpg"
                     }
                     roundedCircle
@@ -353,10 +353,10 @@ const NavbarL = () => {
                   />
                   <div className="ms-2">
                     <h5 className="fs-6 m-0">
-                      {profileName} {profileSurname}
+                      {token ? `${profileName} ${profileSurname}` : ""}
                     </h5>
                     <p className="m-0" style={{ fontSize: "0.9rem" }}>
-                      {profileProfession}
+                      {token ? profileProfession : ""}
                     </p>
                   </div>
                 </div>
