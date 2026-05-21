@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/authSlice";
-import messagesReducer from "./slices/messagesSlice";
-import imageReducer from "../store/slices/imageSlice";
-import profileReducer from "./slices/profileSlice";
+import { configureStore } from "@reduxjs/toolkit"
+import authReducer from "./slices/authSlice"
+import messagesReducer from "./slices/messagesSlice"
+import imageReducer from "./slices/imageSlice"
+import profileReducer from "./slices/profileSlice"
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +11,6 @@ export const store = configureStore({
     image: imageReducer,
     profile: profileReducer,
   },
-});
+})
 
-export default store;
+export default store
