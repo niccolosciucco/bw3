@@ -39,7 +39,7 @@ const NavbarL = () => {
   const isHomepage = location.pathname.startsWith("/home")
   const isJobsPage = location.pathname.startsWith("/jobs")
   const isMessagesPage = location.pathname.startsWith("/messages")
-  const [isNetworkActive, setIsNetworkActive] = useState(false)
+  const isNetworkActive = location.pathname.startsWith("/search")
   const profileImage = useSelector((state) => state.image.profileImage)
   console.log("stato redux image:", profileImage)
   const token = useSelector((state) => state.auth.token)
@@ -254,7 +254,6 @@ const NavbarL = () => {
             to="/search?q="
             className="text-decoration-none text-center"
             style={{ color: isNetworkActive ? "#191919" : "#666666" }}
-            onClick={() => setIsNetworkActive(true)}
           >
             <BsPeopleFill size={22} />
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
