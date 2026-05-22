@@ -96,8 +96,6 @@ const SuggestedProfiles = () => {
           ))}
         </Row>
       </div>
-
-      {/* MODALE */}
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
