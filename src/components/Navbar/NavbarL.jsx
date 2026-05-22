@@ -278,7 +278,20 @@ const NavbarL = () => {
             className="text-decoration-none text-center"
             style={{ color: isMessagesPage ? "#191919" : " #666666" }}
           >
-            <AiFillMessage size={22} />
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <AiFillMessage size={22} />
+              <span
+                className="position-absolute translate-middle badge rounded-pill bg-primary"
+                style={{
+                  fontSize: "0.5rem",
+                  top: "7px",
+                  left: "19px",
+                  height: "10px",
+                }}
+              >
+                {" "}
+              </span>
+            </div>
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Messaggistica
             </p>
