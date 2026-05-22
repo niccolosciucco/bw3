@@ -298,7 +298,10 @@ const NavbarL = () => {
           </Link>
 
           {/*NOTIFICHE*/}
-          <Nav.Link className="text-center btn-navbar position-relative">
+          <Link
+            className="text-decoration-none text-center btn-navbar position-relative"
+            to={"/messages"}
+          >
             <div style={{ position: "relative", display: "inline-block" }}>
               <IoNotifications size={22} />
               <span
@@ -311,7 +314,7 @@ const NavbarL = () => {
             <p className="mb-0" style={{ fontSize: "0.75rem" }}>
               Notifiche
             </p>
-          </Nav.Link>
+          </Link>
 
           {/*DROPDOWN - TU */}
           <div className="d-flex flex-column align-items-center">
